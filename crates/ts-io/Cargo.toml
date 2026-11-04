@@ -1,0 +1,14 @@
+[package]
+name = "ts-io"
+description = "ThreadSmith file import: glTF / GLB and FBX."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ts-core.workspace = true
+glam.workspace = true
+anyhow.workspace = true
+log.workspace = true
+gltf = { version = "1.4", default-features = false, features = ["import", "utils", "names"] }
+ufbx = "0.11"

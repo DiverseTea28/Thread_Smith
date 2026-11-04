@@ -1,0 +1,9 @@
+[package]
+name = "ts-core"
+description = "Shared types for ThreadSmith: meshes, skeletons, skinning."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+glam.workspace = true

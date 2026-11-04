@@ -1,0 +1,28 @@
+[package]
+name = "ts-app"
+description = "ThreadSmith desktop app."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "threadsmith"
+path = "src/main.rs"
+
+[dependencies]
+ts-core.workspace = true
+ts-io.workspace = true
+glam.workspace = true
+anyhow.workspace = true
+log.workspace = true
+env_logger = "0.11"
+bytemuck = { version = "1", features = ["derive"] }
+rfd = "0.17"
+eframe = { version = "0.37", default-features = false, features = ["wgpu", "default_fonts", "persistence"] }
+egui-wgpu = "0.37"
+egui = "0.37"
+
+# ThreadSmith targets Windows. These lines only let the code build on Linux
+# (used for automated checks); they do nothing on Windows.
+[target.'cfg(target_os = "linux")'.dependencies]
+eframe = { version = "0.37", default-features = false, features = ["x11"] }

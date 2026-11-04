@@ -1,0 +1,22 @@
+[workspace]
+resolver = "2"
+members = ["crates/ts-core", "crates/ts-io", "crates/ts-app"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[workspace.dependencies]
+ts-core = { path = "crates/ts-core" }
+ts-io = { path = "crates/ts-io" }
+glam = { version = "0.34", features = ["bytemuck"] }
+anyhow = "1"
+log = "0.4"
+
+[profile.dev]
+opt-level = 1
+
+# Heavy math crates stay fast even in debug builds.
+[profile.dev.package."*"]
+opt-level = 3
