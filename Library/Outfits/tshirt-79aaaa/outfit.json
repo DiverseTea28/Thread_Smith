@@ -1,0 +1,23 @@
+{
+  "format": 1,
+  "id": "79aaaa07e55da2c7",
+  "name": "TShirt",
+  "category": "Top",
+  "created": 1793913817,
+  "modified": 1793913817,
+  "garments": [
+    {
+      "name": "TShirt",
+      "triangles": 7854
+    }
+  ],
+  "body": {
+    "character": "Climber_Test",
+    "bones": 342,
+    "unreal_skeleton": "/Game/MetaHumans/Common/Female/Medium/NormalWeight/Body/metahuman_base_skel.metahuman_base_skel",
+    "unreal_body": "/Game/MetaHumans/MainCharacter/Body/SKM_MainCharacter_BodyMesh.SKM_MainCharacter_BodyMesh"
+  },
+  "mesh_file": "outfit.glb",
+  "thumbnail_file": "thumbnail.png",
+  "tags": []
+}

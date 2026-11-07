@@ -1,0 +1,65 @@
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded chunked_transfer v1.5.0
+  Downloaded httpdate v1.0.3
+  Downloaded untrusted v0.9.0
+  Downloaded dirs v6.0.0
+  Downloaded base64 v0.23.1
+  Downloaded utf8-zero v0.8.1
+  Downloaded percent-encoding v2.3.2
+  Downloaded subtle v2.6.1
+  Downloaded dirs-sys v0.5.0
+  Downloaded option-ext v0.2.0
+  Downloaded zeroize v1.9.1
+  Downloaded ascii v1.1.0
+  Downloaded getrandom v0.2.17
+  Downloaded rustls-pki-types v1.15.1
+  Downloaded tiny_http v0.12.0
+  Downloaded httparse v1.10.1
+  Downloaded ureq-proto v0.7.1
+  Downloaded rustls-webpki v0.103.16
+  Downloaded bytes v1.12.1
+  Downloaded http v1.5.0
+  Downloaded webpki-roots v1.0.11
+  Downloaded ureq v3.5.1
+  Downloaded rustls v0.23.46
+  Downloaded ring v0.17.14
+   Compiling windows-sys v0.61.2
+   Compiling ring v0.17.14
+   Compiling zeroize v1.9.1
+   Compiling getrandom v0.2.17
+   Compiling untrusted v0.9.0
+   Compiling httparse v1.10.1
+   Compiling option-ext v0.2.0
+   Compiling bytes v1.12.1
+   Compiling rustls v0.23.46
+   Compiling ts-core v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-core)
+   Compiling base64 v0.23.1
+   Compiling subtle v2.6.1
+   Compiling chunked_transfer v1.5.0
+   Compiling percent-encoding v2.3.2
+   Compiling httpdate v1.0.3
+   Compiling utf8-zero v0.8.1
+   Compiling ascii v1.1.0
+   Compiling rustls-pki-types v1.15.1
+   Compiling ts-io v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-io)
+   Compiling ts-fit v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-fit)
+   Compiling tiny_http v0.12.0
+   Compiling webpki-roots v1.0.11
+   Compiling http v1.5.0
+   Compiling dirs-sys v0.5.0
+   Compiling anstyle-wincon v3.0.11
+   Compiling anstyle-query v1.1.5
+   Compiling egui-winit v0.37.0
+   Compiling rfd v0.17.2
+   Compiling dirs v6.0.0
+   Compiling ts-library v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-library)
+   Compiling anstream v1.0.0
+   Compiling env_logger v0.11.11
+   Compiling eframe v0.37.0
+   Compiling ureq-proto v0.7.1
+   Compiling rustls-webpki v0.103.16
+   Compiling ureq v3.5.1
+   Compiling ts-app v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-app)
+    Finished `release` profile [optimized] target(s) in 19.06s
+DONE 0 

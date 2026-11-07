@@ -94,4 +94,44 @@ impl OrbitCamera {
             (0.5 - ndc.y * 0.5) * rect_size.y,
         ))
     }
+
+    /// Ray from the camera through a screen position (points inside
+    /// `rect_size`). Returns (origin, direction).
+    pub fn ray(&self, screen: Vec2, rect_size: Vec2) -> (Vec3, Vec3) {
+        let inv = self.view_proj(rect_size.x / rect_size.y).inverse();
+        let x = screen.x / rect_size.x * 2.0 - 1.0;
+        let y = 1.0 - screen.y / rect_size.y * 2.0;
+        // DirectX-style depth: 0 is the near plane, 1 the far plane.
+        let near = inv.project_point3(Vec3::new(x, y, 0.0));
+        let far = inv.project_point3(Vec3::new(x, y, 1.0));
+        (near, (far - near).normalize_or(Vec3::NEG_Z))
+    }
+
+    /// Where a screen ray meets the plane through `point` facing the camera.
+    pub fn screen_to_plane(&self, screen: Vec2, rect_size: Vec2, point: Vec3) -> Option<Vec3> {
+        let (o, d) = self.ray(screen, rect_size);
+        let n = (self.eye() - self.target).normalize_or(Vec3::Z);
+        let denom = d.dot(n);
+        if denom.abs() < 1e-6 {
+            return None;
+        }
+        let t = (point - o).dot(n) / denom;
+        (t > 0.0).then(|| o + d * t)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ray_goes_through_projected_point() {
+        let cam = OrbitCamera::default();
+        let size = Vec2::new(800.0, 600.0);
+        let p = Vec3::new(0.2, 1.1, -0.1);
+        let s = cam.project(p, size).unwrap();
+        let (o, d) = cam.ray(s, size);
+        let closest = o + d * (p - o).dot(d);
+        assert!(closest.distance(p) < 1e-3, "{closest} vs {p}");
+    }
 }

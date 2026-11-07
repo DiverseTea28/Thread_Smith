@@ -1,0 +1,19 @@
+[package]
+name = "ts-library"
+description = "ThreadSmith outfit library: one folder per outfit, shared with the Unreal wardrobe."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ts-core.workspace = true
+ts-io.workspace = true
+anyhow.workspace = true
+log.workspace = true
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+dirs = "6"
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+[dev-dependencies]
+glam.workspace = true

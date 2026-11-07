@@ -1,0 +1,15 @@
+[package]
+name = "ts-fit"
+description = "ThreadSmith garment fitting and auto skinning."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ts-core.workspace = true
+glam.workspace = true
+log.workspace = true
+
+[dev-dependencies]
+ts-io.workspace = true
+anyhow.workspace = true

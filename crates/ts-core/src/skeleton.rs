@@ -111,26 +111,38 @@ impl Skeleton {
 
 /// A pose: an extra rotation on top of each bone's bind rotation.
 /// Keeping it as an offset means "reset" is just clearing the offsets.
+///
+/// While an animation plays, `animated` holds the full local transform of
+/// every bone and is used instead (the offsets are kept for later).
 #[derive(Clone, Debug, Default)]
 pub struct Pose {
     pub offsets: Vec<Quat>,
+    pub animated: Option<Vec<Trs>>,
 }
 
 impl Pose {
     pub fn bind(skeleton: &Skeleton) -> Self {
         Self {
             offsets: vec![Quat::IDENTITY; skeleton.len()],
+            animated: None,
         }
     }
 
     pub fn is_bind(&self) -> bool {
-        self.offsets
-            .iter()
-            .all(|q| q.abs_diff_eq(Quat::IDENTITY, 1e-6))
+        self.animated.is_none()
+            && self
+                .offsets
+                .iter()
+                .all(|q| q.abs_diff_eq(Quat::IDENTITY, 1e-6))
     }
 
     /// Local transforms for this pose.
     pub fn locals(&self, skeleton: &Skeleton) -> Vec<Trs> {
+        if let Some(a) = &self.animated {
+            if a.len() == skeleton.len() {
+                return a.clone();
+            }
+        }
         skeleton
             .joints
             .iter()

@@ -1,0 +1,4 @@
+   Compiling ts-fit v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-fit)
+   Compiling ts-app v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-app)
+    Finished `release` profile [optimized] target(s) in 4.53s
+DONE 

@@ -27,15 +27,15 @@ const BACKGROUND: wgpu::Color = wgpu::Color {
     a: 1.0,
 };
 
-/// Colours given to mesh parts, in order.
-const PART_COLORS: [[f32; 3]; 6] = [
-    [0.72, 0.70, 0.68],
-    [0.45, 0.58, 0.75],
-    [0.75, 0.55, 0.42],
-    [0.52, 0.70, 0.52],
-    [0.70, 0.52, 0.70],
-    [0.75, 0.70, 0.45],
+/// Body colour, garment colours (in order), reference body colour.
+const BODY_COLOR: [f32; 3] = [0.58, 0.63, 0.72];
+const GARMENT_COLORS: [[f32; 3]; 4] = [
+    [0.82, 0.45, 0.32],
+    [0.38, 0.66, 0.58],
+    [0.86, 0.72, 0.38],
+    [0.66, 0.50, 0.78],
 ];
+const REFERENCE_COLOR: [f32; 3] = [0.45, 0.75, 0.45];
 
 #[repr(C)]
 #[derive(Clone, Copy, Pod, Zeroable)]
@@ -94,6 +94,7 @@ struct Targets {
     msaa_color: wgpu::TextureView,
     depth: wgpu::TextureView,
     resolved: wgpu::TextureView,
+    resolved_texture: wgpu::Texture,
 }
 
 pub struct Viewport {
@@ -268,8 +269,16 @@ impl Viewport {
     /// Upload a newly loaded scene (in its bind pose).
     pub fn set_scene(&mut self, device: &wgpu::Device, scene: &Scene, joint_world: &[Mat4]) {
         self.parts.clear();
-        for (i, part) in scene.parts.iter().enumerate() {
-            let color = PART_COLORS[i % PART_COLORS.len()];
+        let mut garment_count = 0;
+        for part in scene.parts.iter() {
+            let color = match part.role {
+                ts_core::PartRole::Body | ts_core::PartRole::Head => BODY_COLOR,
+                ts_core::PartRole::Reference => REFERENCE_COLOR,
+                ts_core::PartRole::Garment => {
+                    garment_count += 1;
+                    GARMENT_COLORS[(garment_count - 1) % GARMENT_COLORS.len()]
+                }
+            };
             let vertices = build_vertices(&part.mesh, joint_world, color);
             let edges = part.mesh.edges();
             self.parts.push(GpuPart {
@@ -307,6 +316,22 @@ impl Viewport {
         }
     }
 
+    /// Re-upload one part whose vertices moved (same vertex count), e.g.
+    /// while sculpting or moving a garment.
+    pub fn update_part(
+        &mut self,
+        queue: &wgpu::Queue,
+        scene: &Scene,
+        index: usize,
+        joint_world: &[Mat4],
+    ) {
+        if let (Some(gpu), Some(part)) = (self.parts.get_mut(index), scene.parts.get(index)) {
+            let vertices = build_vertices(&part.mesh, joint_world, gpu.color);
+            queue.write_buffer(&gpu.vertex_buffer, 0, bytemuck::cast_slice(&vertices));
+            gpu.visible = part.visible;
+        }
+    }
+
     pub fn set_visibility(&mut self, scene: &Scene) {
         for (gpu, part) in self.parts.iter_mut().zip(&scene.parts) {
             gpu.visible = part.visible;
@@ -315,6 +340,66 @@ impl Viewport {
 
     pub fn clear_scene(&mut self) {
         self.parts.clear();
+    }
+
+    /// Copy the last rendered frame back from the GPU as RGBA8 pixels
+    /// (used for outfit thumbnails).
+    pub fn read_pixels(
+        &self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+    ) -> Option<(u32, u32, Vec<u8>)> {
+        let t = self.targets.as_ref()?;
+        let [w, h] = t.size;
+        let row = w * 4;
+        let padded =
+            row.div_ceil(wgpu::COPY_BYTES_PER_ROW_ALIGNMENT) * wgpu::COPY_BYTES_PER_ROW_ALIGNMENT;
+        let buffer = device.create_buffer(&wgpu::BufferDescriptor {
+            label: Some("readback"),
+            size: (padded * h) as u64,
+            usage: wgpu::BufferUsages::COPY_DST | wgpu::BufferUsages::MAP_READ,
+            mapped_at_creation: false,
+        });
+        let mut encoder = device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
+            label: Some("readback"),
+        });
+        encoder.copy_texture_to_buffer(
+            wgpu::TexelCopyTextureInfo {
+                texture: &t.resolved_texture,
+                mip_level: 0,
+                origin: wgpu::Origin3d::ZERO,
+                aspect: wgpu::TextureAspect::All,
+            },
+            wgpu::TexelCopyBufferInfo {
+                buffer: &buffer,
+                layout: wgpu::TexelCopyBufferLayout {
+                    offset: 0,
+                    bytes_per_row: Some(padded),
+                    rows_per_image: Some(h),
+                },
+            },
+            wgpu::Extent3d {
+                width: w,
+                height: h,
+                depth_or_array_layers: 1,
+            },
+        );
+        queue.submit([encoder.finish()]);
+        let (tx, rx) = std::sync::mpsc::channel();
+        buffer.slice(..).map_async(wgpu::MapMode::Read, move |r| {
+            let _ = tx.send(r);
+        });
+        device.poll(wgpu::PollType::wait_indefinitely()).ok()?;
+        rx.recv().ok()?.ok()?;
+        let data = buffer.slice(..).get_mapped_range().ok()?;
+        let mut out = Vec::with_capacity((row * h) as usize);
+        for y in 0..h as usize {
+            let start = y * padded as usize;
+            out.extend_from_slice(&data[start..start + row as usize]);
+        }
+        drop(data);
+        buffer.unmap();
+        Some((w, h, out))
     }
 
     /// Draw a frame and return the egui texture showing it.
@@ -466,40 +551,44 @@ impl Targets {
             height: size[1],
             depth_or_array_layers: 1,
         };
-        let tex = |label: &str, format, samples, usage| {
-            device
-                .create_texture(&wgpu::TextureDescriptor {
-                    label: Some(label),
-                    size: extent,
-                    mip_level_count: 1,
-                    sample_count: samples,
-                    dimension: wgpu::TextureDimension::D2,
-                    format,
-                    usage,
-                    view_formats: &[],
-                })
-                .create_view(&Default::default())
+        let make = |label: &str, format, samples, usage| {
+            device.create_texture(&wgpu::TextureDescriptor {
+                label: Some(label),
+                size: extent,
+                mip_level_count: 1,
+                sample_count: samples,
+                dimension: wgpu::TextureDimension::D2,
+                format,
+                usage,
+                view_formats: &[],
+            })
         };
+        let resolved_texture = make(
+            "viewport image",
+            COLOR_FORMAT,
+            1,
+            wgpu::TextureUsages::RENDER_ATTACHMENT
+                | wgpu::TextureUsages::TEXTURE_BINDING
+                | wgpu::TextureUsages::COPY_SRC,
+        );
         Self {
             size,
-            msaa_color: tex(
+            msaa_color: make(
                 "msaa color",
                 COLOR_FORMAT,
                 msaa(),
                 wgpu::TextureUsages::RENDER_ATTACHMENT,
-            ),
-            depth: tex(
+            )
+            .create_view(&Default::default()),
+            depth: make(
                 "depth",
                 DEPTH_FORMAT,
                 msaa(),
                 wgpu::TextureUsages::RENDER_ATTACHMENT,
-            ),
-            resolved: tex(
-                "viewport image",
-                COLOR_FORMAT,
-                1,
-                wgpu::TextureUsages::RENDER_ATTACHMENT | wgpu::TextureUsages::TEXTURE_BINDING,
-            ),
+            )
+            .create_view(&Default::default()),
+            resolved: resolved_texture.create_view(&Default::default()),
+            resolved_texture,
         }
     }
 }

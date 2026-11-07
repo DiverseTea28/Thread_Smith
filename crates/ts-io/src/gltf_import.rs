@@ -192,11 +192,7 @@ pub fn load(path: &Path) -> Result<Scene> {
             } else {
                 base
             };
-            parts.push(MeshPart {
-                name,
-                mesh,
-                visible: true,
-            });
+            parts.push(MeshPart::new(name, mesh));
         }
     }
 

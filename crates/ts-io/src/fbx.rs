@@ -231,11 +231,7 @@ pub fn load(path: &Path) -> Result<Scene> {
         } else {
             node.element.name.to_string()
         };
-        parts.push(MeshPart {
-            name,
-            mesh,
-            visible: true,
-        });
+        parts.push(MeshPart::new(name, mesh));
     }
 
     Ok(Scene {

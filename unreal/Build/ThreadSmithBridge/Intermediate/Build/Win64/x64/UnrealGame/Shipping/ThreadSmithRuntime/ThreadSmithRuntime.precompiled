@@ -1,0 +1,8 @@
+{
+	"OutputFiles": [
+		"Module.ThreadSmithRuntime.cpp.obj",
+		"ThreadSmithOutfitComponent.cpp.obj",
+		"ThreadSmithRuntimeModule.cpp.obj"
+	],
+	"ToolChainVersion": "14.44.35229"
+}

@@ -1,0 +1,3 @@
+swapped Binaries\Win64\UnrealEditor-ThreadSmithBridgeEditor.dll
+swapped Binaries\Win64\UnrealEditor-ThreadSmithRuntime.dll
+installed to C:/Users/tyco0/Documents/Unreal Projects/Cave_Game/Plugins/ThreadSmithBridge
