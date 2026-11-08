@@ -16,11 +16,14 @@ struct FThreadSmithOutfit
 	FString ThumbnailFile;
 	FString UnrealSkeleton;
 	FString UnrealBody;
+	/** Optional: the body with the skin under the clothes removed (body_trimmed.glb). */
+	FString TrimmedBodyFile;
 	int64 Modified = 0;
 	int32 Triangles = 0;
 
 	FString MeshPath() const { return FPaths::Combine(Dir, MeshFile); }
 	FString ThumbnailPath() const { return FPaths::Combine(Dir, ThumbnailFile); }
+	FString TrimmedBodyPath() const { return TrimmedBodyFile.IsEmpty() ? FString() : FPaths::Combine(Dir, TrimmedBodyFile); }
 };
 
 namespace ThreadSmithLibrary

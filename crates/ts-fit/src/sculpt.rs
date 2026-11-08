@@ -162,6 +162,38 @@ pub fn inflate(
     }
 }
 
+/// One dab of the shrink brush: pulls loose cloth in towards the surface
+/// under it (body and lower layers), stopping `gap` meters away from it.
+/// Cloth that's already close or inside is left alone.
+pub fn shrink(
+    positions: &mut [Vec3],
+    graph: &WeldGraph,
+    surface: &crate::TriBvh,
+    center: Vec3,
+    radius: f32,
+    strength: f32,
+    gap: f32,
+) {
+    let welded = graph.gather(positions);
+    let mut next = welded.clone();
+    for (i, p) in welded.iter().enumerate() {
+        let w = falloff(p.distance(center), radius) * strength.clamp(0.0, 1.0);
+        if w <= 0.0 {
+            continue;
+        }
+        let Some(hit) = surface.closest(*p) else { continue };
+        let out = (*p - hit.point).dot(hit.normal);
+        if out <= gap {
+            continue;
+        }
+        let target = hit.point + hit.normal * gap;
+        next[i] = p.lerp(target, w);
+    }
+    for (v, w) in positions.iter_mut().zip(&graph.weld_of) {
+        *v = next[*w as usize];
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -223,6 +255,25 @@ mod tests {
         let g = WeldGraph::new(&p, &i, 1e-4);
         relax(&mut p, &g, Vec3::ZERO, 0.6, 1.0);
         assert!(p[5 * 11 + 5].y < 0.1);
+    }
+
+    #[test]
+    fn shrink_pulls_loose_cloth_to_the_surface() {
+        // Floor at y = 0 (facing up), cloth 10 cm above it.
+        let (floor, fi) = grid(5);
+        let floor_n = vec![Vec3::Y; floor.len()];
+        let surface = crate::TriBvh::new(&floor, &floor_n, &fi);
+        let (mut p, i) = grid(11);
+        for v in &mut p {
+            v.y = 0.1;
+        }
+        let g = WeldGraph::new(&p, &i, 1e-4);
+        for _ in 0..20 {
+            shrink(&mut p, &g, &surface, Vec3::new(0.0, 0.1, 0.0), 0.3, 0.5, 0.01);
+        }
+        let centre = p[5 * 11 + 5].y;
+        assert!((centre - 0.01).abs() < 0.002, "centre at {centre}");
+        assert_eq!(p[0].y, 0.1, "outside the brush stays put");
     }
 
     #[test]

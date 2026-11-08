@@ -1,4 +1,4 @@
-Log started at 11/05/2026 16:52:09 (2026-11-05T21:52:09Z)
+Log started at 11/07/2026 21:43:13 (2026-11-08T02:43:13Z)
 Resolved project argument C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\HostProject.uproject to C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\HostProject.uproject
 No config file at C:\ProgramData\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
 No config file at C:\Users\tyco0\AppData\Local\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
@@ -2832,18 +2832,18 @@ Step - Exports
        Exporter Stats skipped
        Exporter Json skipped
        Running exporter CodeGen
-UHT processed UnrealEditor in 2.3178421 seconds (8 generated files written)
+UHT processed UnrealEditor in 1.9824986 seconds (8 generated files written)
 Building UnrealEditor...
 ===== Toolchain Information =====
 Using ISPC compiler (C:\Program Files\Epic Games\UE_5.8\Engine\Source\ThirdParty\Intel\ISPC\bin\Windows\ispc.exe)
   Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2) 
 Using Visual Studio 14.44.35229 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-[Adaptive Build] Excluded from ThreadSmithBridgeEditor unity file: SThreadSmithWardrobe.cpp, ThreadSmithBridge.cpp, ThreadSmithBridgeEditorModule.cpp, ThreadSmithBridgeSettings.cpp, ThreadSmithLibrary.cpp
 [Adaptive Build] Excluded from ThreadSmithRuntime unity file: ThreadSmithOutfitComponent.cpp, ThreadSmithRuntimeModule.cpp
+[Adaptive Build] Excluded from ThreadSmithBridgeEditor unity file: SThreadSmithWardrobe.cpp, ThreadSmithBridge.cpp, ThreadSmithBridgeEditorModule.cpp, ThreadSmithBridgeSettings.cpp, ThreadSmithLibrary.cpp
 =================================
 Using Unreal Build Accelerator local executor to run 17 action(s)
   CPU 16 physical cores, 32 logical cores
-  Memory 63.07 GB physical, 38.35 GB/69.07 GB committed
+  Memory 63.07 GB physical, 25.06 GB/69.07 GB committed
   UBA Storage capacity 40 GB
   UBA RootDir C:\ProgramData\Epic\UnrealBuildAccelerator
 Cache bucket 3555462311 used. Action: Compile [x64] SharedPCH.UnrealEd.Cpp20.cpp ()
@@ -2855,13 +2855,13 @@ All processes queued
 [2/17] Compile Resource [x64] Default.rc2
 [3/17] Compile [x64] SharedPCH.UnrealEd.Cpp20.cpp
 [4/17] Compile [x64] ThreadSmithRuntimeModule.cpp
-[5/17] Compile [x64] Module.ThreadSmithRuntime.cpp
-[6/17] Compile [x64] Module.ThreadSmithBridgeEditor.cpp
-[7/17] Compile [x64] ThreadSmithOutfitComponent.cpp
-[8/17] Link [x64] UnrealEditor-ThreadSmithRuntime.lib
-[9/17] Link [x64] UnrealEditor-ThreadSmithRuntime.dll
-[10/17] Compile [x64] ThreadSmithBridgeSettings.cpp
-[11/17] Compile [x64] ThreadSmithLibrary.cpp
+[5/17] Compile [x64] Module.ThreadSmithBridgeEditor.cpp
+[6/17] Compile [x64] ThreadSmithBridgeSettings.cpp
+[7/17] Compile [x64] Module.ThreadSmithRuntime.cpp
+[8/17] Compile [x64] ThreadSmithOutfitComponent.cpp
+[9/17] Link [x64] UnrealEditor-ThreadSmithRuntime.lib
+[10/17] Compile [x64] ThreadSmithLibrary.cpp
+[11/17] Link [x64] UnrealEditor-ThreadSmithRuntime.dll
 [12/17] Compile [x64] ThreadSmithBridgeEditorModule.cpp
 [13/17] Compile [x64] SThreadSmithWardrobe.cpp
 [14/17] Compile [x64] ThreadSmithBridge.cpp
@@ -2869,54 +2869,53 @@ All processes queued
 [16/17] Link [x64] UnrealEditor-ThreadSmithBridgeEditor.dll
 [17/17] WriteMetadata UnrealEditor.target [NoUba]
 
-Total time in Unreal Build Accelerator local executor: 35.86 seconds
+Total time in Unreal Build Accelerator local executor: 28.40 seconds
 Output binary: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe
 UbaStorageServer - Database saved in <1ms (0 file entries, 0 cas entries. deleted 0 dropped cas files)
 WriteFileIfChanged() wrote 0 changed files of 1 requested writes.
 
 Timeline:
-[  0.000]  +0.244 Main
-   0.010          [  0.010]  +0.098 Apply XmlConfig
-   0.115          [  0.115]  +0.028 AddTelemetry
-   0.159          [  0.159]  +0.085 RegisterPlatforms
-[  0.258]  +0.243 ParseCommandLine
-[  0.538]  +0.000 EngineRulesPlugins
-[  0.541]  +0.032 EngineRulesFetchDirs
-[  0.579]  +0.008 EngineRulesAssembly
-[  0.588]  +0.000 ProgramRulesAssembly
-[  0.595]  +1.891 ProjectRulesAssembly
-[  2.516]  +0.100 CreateTargetRules
-[  2.662]  +0.002 CppDependencyCache
-[  2.675]  +3.439 UnrealEditor Win64 Development
-   2.675          [  0.000]  +0.682 <unknown>
-   3.357          [  0.682]  +1.059 UHTModules
-   4.417          [  1.742]  +0.294 <unknown>
-   4.712          [  2.036]  +0.129 UHTManifest
-   4.841          [  2.166]  +2.321 UHT
-   4.841             2.166          [  0.000]  +1.154 <unknown>
-   5.995             3.320          [  1.154]  +0.000 WaitOnWrites
-   6.115             3.440          [  1.274]  +0.095 SavingMakefile
-   6.211             3.535          [  1.369]  +0.951 <unknown>
-[  6.115]  +1.048 <unknown>
-[  7.164]  +0.020 UHTTimestamps
-   7.183          [  0.018]  +0.000 CppDependencyCache
-   7.183          [  0.019]  +0.038 Preparing ActionGraph
-   7.191             0.027          [  0.008]  +0.003 LinkActions
-   7.195             0.031          [  0.012]  +0.000 GatherPrerequisiteActions
-   7.197             0.032          [  0.013]  +0.000 CppDependencyCacheWait
-   7.197             0.033          [  0.014]  +0.015 GatherOutdatedActions
-   7.214             0.050          [  0.031]  +0.002 LinkActions
-   7.217             0.053          [  0.034]  +0.000 DeleteOutdatedProducedItems
-   7.217             0.053          [  0.034]  +0.002 SaveActionHistory
-   7.221             0.056          [  0.037]  +0.000 CreateDirectoriesForProducedItems
-[  7.231]  +0.265 GarbageCollect
-[  7.497] +35.601 <unknown>
-[ 43.099]  +0.000 Deploying targets
-[ 43.099]  +0.000 DisconnectCache
-[ 43.103]  +0.020 SaveCasTable
-[ 43.125]  +0.085 Saving caches
-[ 43.211]  +0.001 TelemetryService.FlushEvents
-[ 43.214]
+[  0.000]  +0.214 Main
+   0.009          [  0.009]  +0.082 Apply XmlConfig
+   0.097          [  0.097]  +0.027 AddTelemetry
+   0.136          [  0.136]  +0.078 RegisterPlatforms
+[  0.226]  +0.192 ParseCommandLine
+[  0.450]  +0.000 EngineRulesPlugins
+[  0.452]  +0.029 EngineRulesFetchDirs
+[  0.487]  +0.006 EngineRulesAssembly
+[  0.494]  +0.000 ProgramRulesAssembly
+[  0.501]  +1.674 ProjectRulesAssembly
+[  2.215]  +0.085 CreateTargetRules
+[  2.342]  +0.001 CppDependencyCache
+[  2.353]  +2.868 UnrealEditor Win64 Development
+   2.353          [  0.000]  +0.557 <unknown>
+   2.910          [  0.557]  +0.916 UHTModules
+   4.024          [  1.671]  +0.111 UHTManifest
+   4.136          [  1.783]  +1.985 UHT
+   4.136             1.783          [  0.000]  +0.994 <unknown>
+   5.130             2.777          [  0.994]  +0.000 WaitOnWrites
+   5.222             2.869          [  1.086]  +0.087 SavingMakefile
+   5.309             2.956          [  1.173]  +0.812 <unknown>
+[  5.222]  +0.900 <unknown>
+[  6.123]  +0.020 UHTTimestamps
+   6.140          [  0.017]  +0.000 CppDependencyCache
+   6.140          [  0.017]  +0.037 Preparing ActionGraph
+   6.150             0.027          [  0.010]  +0.004 LinkActions
+   6.156             0.033          [  0.015]  +0.000 GatherPrerequisiteActions
+   6.157             0.034          [  0.016]  +0.000 CppDependencyCacheWait
+   6.157             0.034          [  0.016]  +0.011 GatherOutdatedActions
+   6.171             0.048          [  0.030]  +0.002 LinkActions
+   6.174             0.051          [  0.033]  +0.000 DeleteOutdatedProducedItems
+   6.174             0.051          [  0.033]  +0.002 SaveActionHistory
+   6.177             0.054          [  0.036]  +0.000 CreateDirectoriesForProducedItems
+[  6.187]  +0.242 GarbageCollect
+[  6.429] +28.157 <unknown>
+[ 34.587]  +0.000 Deploying targets
+[ 34.588]  +0.000 DisconnectCache
+[ 34.591]  +0.021 SaveCasTable
+[ 34.614]  +0.073 Saving caches
+[ 34.687]  +0.001 TelemetryService.FlushEvents
+[ 34.690]
 
 Result: Succeeded
-Total execution time: 43.21 seconds
+Total execution time: 34.69 seconds

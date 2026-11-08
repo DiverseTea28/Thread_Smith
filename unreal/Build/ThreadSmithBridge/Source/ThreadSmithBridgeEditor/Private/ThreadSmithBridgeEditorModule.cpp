@@ -39,7 +39,7 @@ public:
 		}))
 		.SetDisplayName(LOCTEXT("WardrobeTab", "ThreadSmith Wardrobe"))
 		.SetTooltipText(LOCTEXT("WardrobeTabTip", "Outfits from your ThreadSmith library."))
-		.SetIcon(FSlateIcon(StyleName, "ThreadSmith.Icon", "ThreadSmith.Icon.Small"))
+		.SetIcon(FSlateIcon(StyleName, "ThreadSmith.Wardrobe", "ThreadSmith.Wardrobe.Small"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
 
 		UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FThreadSmithBridgeEditorModule::RegisterMenus));
@@ -64,7 +64,9 @@ public:
 private:
 	TSharedPtr<FSlateStyleSet> Style;
 
-	/** The ThreadSmith logo for toolbar buttons and the Wardrobe tab. */
+	/** ThreadSmith icons: the logo, Export (send to ThreadSmith), Import (bring
+	 *  an outfit in) and Wardrobe. Each has a 40 px, a 20 px ("Small") and a
+	 *  16 px ("Button") size. */
 	void RegisterStyle()
 	{
 		TSharedPtr<IPlugin> Plugin = IPluginManager::Get().FindPlugin(TEXT("ThreadSmithBridge"));
@@ -75,8 +77,17 @@ private:
 		const FString Res = Plugin->GetBaseDir() / TEXT("Resources");
 		Style = MakeShared<FSlateStyleSet>(StyleName);
 		Style->SetContentRoot(Res);
-		Style->Set("ThreadSmith.Icon", new FSlateImageBrush(Res / TEXT("ToolbarIcon40.png"), FVector2D(40.0, 40.0)));
-		Style->Set("ThreadSmith.Icon.Small", new FSlateImageBrush(Res / TEXT("ToolbarIcon20.png"), FVector2D(20.0, 20.0)));
+		auto AddIcon = [this, &Res](const TCHAR* Key, const TCHAR* File)
+		{
+			const FString Name(Key);
+			Style->Set(*Name, new FSlateImageBrush(Res / FString::Printf(TEXT("%s40.png"), File), FVector2D(40.0, 40.0)));
+			Style->Set(*(Name + TEXT(".Small")), new FSlateImageBrush(Res / FString::Printf(TEXT("%s20.png"), File), FVector2D(20.0, 20.0)));
+			Style->Set(*(Name + TEXT(".Button")), new FSlateImageBrush(Res / FString::Printf(TEXT("%s20.png"), File), FVector2D(16.0, 16.0)));
+		};
+		AddIcon(TEXT("ThreadSmith.Icon"), TEXT("ToolbarIcon"));
+		AddIcon(TEXT("ThreadSmith.Export"), TEXT("Export"));
+		AddIcon(TEXT("ThreadSmith.Import"), TEXT("Import"));
+		AddIcon(TEXT("ThreadSmith.Wardrobe"), TEXT("Wardrobe"));
 		FSlateStyleRegistry::RegisterSlateStyle(*Style);
 	}
 
@@ -104,7 +115,8 @@ private:
 	void RegisterMenus()
 	{
 		FToolMenuOwnerScoped OwnerScoped(this);
-		const FSlateIcon Icon(StyleName, "ThreadSmith.Icon", "ThreadSmith.Icon.Small");
+		const FSlateIcon WardrobeIcon(StyleName, "ThreadSmith.Wardrobe", "ThreadSmith.Wardrobe.Small");
+		const FSlateIcon ExportIcon(StyleName, "ThreadSmith.Export", "ThreadSmith.Export.Small");
 		const FUIAction OpenAction(FExecuteAction::CreateStatic(&FThreadSmithBridgeEditorModule::OpenWardrobe));
 		const FUIAction SendAction(FExecuteAction::CreateLambda([] { FThreadSmithBridge::Get().SendSelectionToThreadSmith(); }));
 
@@ -113,7 +125,7 @@ private:
 		{
 			FToolMenuSection& Section = Window->FindOrAddSection("ThreadSmith", LOCTEXT("ThreadSmith", "ThreadSmith"));
 			Section.AddMenuEntry("ThreadSmithWardrobe", LOCTEXT("Wardrobe", "ThreadSmith Wardrobe"),
-				LOCTEXT("WardrobeTip", "Open the ThreadSmith Wardrobe."), Icon, OpenAction);
+				LOCTEXT("WardrobeTip", "Open the ThreadSmith Wardrobe."), WardrobeIcon, OpenAction);
 		}
 
 		// Level editor toolbar
@@ -121,9 +133,9 @@ private:
 		{
 			FToolMenuSection& Section = Toolbar->FindOrAddSection("ThreadSmith");
 			Section.AddEntry(FToolMenuEntry::InitToolBarButton("ThreadSmithOpenWardrobe", OpenAction,
-				LOCTEXT("WardrobeButton", "Wardrobe"), LOCTEXT("WardrobeTip", "Open the ThreadSmith Wardrobe."), Icon));
+				LOCTEXT("WardrobeButton", "Wardrobe"), LOCTEXT("WardrobeTip", "Open the ThreadSmith Wardrobe."), WardrobeIcon));
 			Section.AddEntry(FToolMenuEntry::InitToolBarButton("ThreadSmithSendBody", SendAction,
-				LOCTEXT("SendButton", "To ThreadSmith"), LOCTEXT("SendTip", "Send the selected character's body to ThreadSmith."), Icon));
+				LOCTEXT("SendButton", "To ThreadSmith"), LOCTEXT("SendTip", "Send the selected character's body to ThreadSmith."), ExportIcon));
 		}
 
 		// Blueprint editor toolbar (like MetaTailor's Send to MT / Receive from MT)
@@ -140,11 +152,11 @@ private:
 				})),
 				LOCTEXT("SendBP", "Send to ThreadSmith"),
 				LOCTEXT("SendBPTip", "Send this character's body and head to ThreadSmith. Outfits you send back are added to this Blueprint."),
-				Icon));
+				ExportIcon));
 			Section.AddEntry(FToolMenuEntry::InitToolBarButton("ThreadSmithBPWardrobe", OpenAction,
 				LOCTEXT("BPWardrobe", "ThreadSmith Wardrobe"),
 				LOCTEXT("BPWardrobeTip", "Open the Wardrobe to add outfits to this Blueprint. Dock it next to the Blueprint editor."),
-				Icon));
+				WardrobeIcon));
 		}
 
 		// Right-click on an actor in the level
@@ -152,7 +164,7 @@ private:
 		{
 			FToolMenuSection& Section = ActorMenu->FindOrAddSection("ThreadSmith", LOCTEXT("ThreadSmith", "ThreadSmith"));
 			Section.AddMenuEntry("ThreadSmithSendActor", LOCTEXT("SendActor", "Send to ThreadSmith"),
-				LOCTEXT("SendActorTip", "Export this character's body and open it in ThreadSmith."), Icon, SendAction);
+				LOCTEXT("SendActorTip", "Export this character's body and open it in ThreadSmith."), ExportIcon, SendAction);
 		}
 
 		// Right-click on a skeletal mesh in the Content Browser
@@ -160,7 +172,7 @@ private:
 		{
 			FToolMenuSection& Section = AssetMenu->FindOrAddSection("ThreadSmith", LOCTEXT("ThreadSmith", "ThreadSmith"));
 			Section.AddMenuEntry("ThreadSmithSendAsset", LOCTEXT("SendAsset", "Send to ThreadSmith"),
-				LOCTEXT("SendAssetTip", "Export this skeletal mesh and open it in ThreadSmith as the body."), Icon,
+				LOCTEXT("SendAssetTip", "Export this skeletal mesh and open it in ThreadSmith as the body."), ExportIcon,
 				FToolUIActionChoice(FToolMenuExecuteAction::CreateLambda([](const FToolMenuContext& Context)
 				{
 					const UContentBrowserAssetContextMenuContext* Ctx = Context.FindContext<UContentBrowserAssetContextMenuContext>();

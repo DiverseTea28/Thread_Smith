@@ -6,7 +6,10 @@ mod app;
 mod bridge;
 mod camera;
 mod garment;
+mod generate;
+mod project;
 mod tools;
+mod ui_icons;
 mod viewport;
 
 fn main() -> eframe::Result {

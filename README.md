@@ -89,6 +89,18 @@ Only skinned garments follow the body, so Auto skin before testing.
      greyed out until the status bar says **Unreal connected**.
 7. The `.glb` also opens in Blender, rigged to the same bones.
 
+### Generate clothing with AI (new)
+
+**Generate…** (menu bar, or **Generate with AI…** in the Garment panel):
+
+1. Pick what to make (Shirts, Jackets, Pants, Shoes…).
+2. Describe it, drop in a reference picture, or both.
+3. **Make pictures**: pick the one you like. **Make 3D**: it's added to the
+   scene and placed on the body. Then Fit to body and Auto skin as usual.
+
+It uses a local ComfyUI with FLUX.2 [klein] (pictures) and TRELLIS.2 (3D).
+Setup and details: `docs/ai-generation.md`.
+
 ### Unreal bridge
 
 **In Unreal:** open your character's Blueprint and click **Send to
@@ -157,6 +169,8 @@ Open that FBX in ThreadSmith.
 | `crates/ts-io` | File import (glTF through `gltf`, FBX and OBJ through `ufbx`) |
 | `crates/ts-fit` | Garment fitting and auto skinning (closest-point search, fit, push-out, weight transfer) |
 | `crates/ts-library` | Outfit library folder (outfit.json + outfit.glb + thumbnail.png) |
+| `crates/ts-gen` | AI generation: garment presets, local ComfyUI client, model downloads |
+| `ai/` | Garment presets, icons, ComfyUI workflows and the model list |
 | `docs/bridge-protocol.md` | Messages between ThreadSmith and the Unreal plugin |
 | `crates/ts-app` | The app window, panels and the wgpu 3D viewport |
 

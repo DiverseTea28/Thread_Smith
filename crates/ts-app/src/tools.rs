@@ -3,7 +3,8 @@
 //! - Move / Rotate / Scale: a gizmo on the selected garment (like Unreal and
 //!   Blender). Drag an axis handle, or the centre square for free moves and
 //!   overall size.
-//! - Grab / Relax / Inflate: sculpt brushes for touching up after the fit.
+//! - Grab / Relax / Push/Pull / Shrink: sculpt brushes for touching up after the fit.
+//! - Lattice: a cage of 2x2x2 to 5x5x5 points that bends the whole garment.
 //!
 //! Dragging anywhere that isn't a handle (or isn't the garment, for brushes)
 //! still orbits the camera, so the camera never gets "stuck".
@@ -23,11 +24,14 @@ pub enum Tool {
     Grab,
     Relax,
     Inflate,
+    Shrink,
+    Lattice,
 }
 
 impl Tool {
     pub const PLACE: [Tool; 3] = [Tool::Move, Tool::Rotate, Tool::Scale];
-    pub const SCULPT: [Tool; 3] = [Tool::Grab, Tool::Relax, Tool::Inflate];
+    pub const SCULPT: [Tool; 4] = [Tool::Grab, Tool::Relax, Tool::Inflate, Tool::Shrink];
+    pub const SHAPE: [Tool; 1] = [Tool::Lattice];
 
     pub fn label(self) -> &'static str {
         match self {
@@ -37,7 +41,9 @@ impl Tool {
             Tool::Scale => "Scale",
             Tool::Grab => "Grab",
             Tool::Relax => "Relax",
-            Tool::Inflate => "Inflate",
+            Tool::Inflate => "Push/Pull",
+            Tool::Shrink => "Shrink",
+            Tool::Lattice => "Lattice",
         }
     }
 
@@ -50,6 +56,8 @@ impl Tool {
             Tool::Grab => egui::Key::G,
             Tool::Relax => egui::Key::T,
             Tool::Inflate => egui::Key::I,
+            Tool::Shrink => egui::Key::S,
+            Tool::Lattice => egui::Key::L,
         }
     }
 
@@ -61,7 +69,9 @@ impl Tool {
             Tool::Scale => "Drag a handle to stretch along it, or the centre square to change the overall size.",
             Tool::Grab => "Drag on the garment to pull a soft patch of cloth around.",
             Tool::Relax => "Paint over wrinkles and bumps to smooth them out.",
-            Tool::Inflate => "Paint to push cloth outwards. Hold Ctrl to push it in.",
+            Tool::Inflate => "Paint to push cloth outwards. Hold Ctrl to pull it in.",
+            Tool::Shrink => "Paint over loose cloth to pull it in snug against the body (or the layer below).",
+            Tool::Lattice => "Drag the cage points to bend the whole garment smoothly.",
         }
     }
 
@@ -71,6 +81,11 @@ impl Tool {
 
     pub fn is_brush(self) -> bool {
         Self::SCULPT.contains(&self)
+    }
+
+    /// Tools that change the garment's shape (only at the bind pose).
+    pub fn edits_shape(self) -> bool {
+        self.is_brush() || self == Tool::Lattice
     }
 }
 
@@ -462,4 +477,49 @@ mod tests {
         let p = drag.update(&cam, c + Vec2::new(60.0, 0.0), rect);
         assert!(p.size > 1.15 && p.size < 1.25, "{}", p.size);
     }
+}
+
+/// The lattice cage: lines between neighbouring points and a small square
+/// on each point (yellow when under the mouse).
+pub fn lattice_lines(lattice: &ts_fit::Lattice, hot: Option<usize>, camera: &OrbitCamera) -> Vec<LineVertex> {
+    let cage = Vec4::new(1.0, 0.62, 0.15, 0.85);
+    let point = Vec4::new(1.0, 0.75, 0.3, 1.0);
+    let mut v = Vec::new();
+    for (a, b) in lattice.edges() {
+        v.push(LineVertex::new(lattice.points[a], cage));
+        v.push(LineVertex::new(lattice.points[b], cage));
+    }
+    let inv = camera.view().inverse();
+    let right = inv.transform_vector3(Vec3::X).normalize_or_zero();
+    let up = inv.transform_vector3(Vec3::Y).normalize_or_zero();
+    for (i, p) in lattice.points.iter().enumerate() {
+        let is_hot = hot == Some(i);
+        let s = camera.distance * if is_hot { 0.009 } else { 0.006 };
+        let c = if is_hot { HOT } else { point };
+        let corners = [(-1.0, -1.0), (1.0, -1.0), (1.0, 1.0), (-1.0, 1.0)].map(|(x, y)| *p + (right * x + up * y) * s);
+        for k in 0..4 {
+            v.push(LineVertex::new(corners[k], c));
+            v.push(LineVertex::new(corners[(k + 1) % 4], c));
+        }
+        if is_hot {
+            v.push(LineVertex::new(corners[0], c));
+            v.push(LineVertex::new(corners[2], c));
+            v.push(LineVertex::new(corners[1], c));
+            v.push(LineVertex::new(corners[3], c));
+        }
+    }
+    v
+}
+
+/// The lattice point nearest the mouse (within a few pixels).
+pub fn pick_lattice_point(lattice: &ts_fit::Lattice, camera: &OrbitCamera, mouse: Vec2, rect_size: Vec2) -> Option<usize> {
+    lattice
+        .points
+        .iter()
+        .enumerate()
+        .filter_map(|(i, p)| camera.project(*p, rect_size).map(|s| (i, s.distance(mouse), camera.eye().distance(*p))))
+        .filter(|(_, d, _)| *d < PICK_PX * 1.4)
+        // Nearest on screen; nearer the camera wins a tie.
+        .min_by(|a, b| (a.1 + a.2 * 0.5).total_cmp(&(b.1 + b.2 * 0.5)))
+        .map(|(i, _, _)| i)
 }

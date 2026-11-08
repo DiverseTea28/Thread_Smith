@@ -1,0 +1,232 @@
+{
+  "1": {
+    "class_type": "Trellis2LoadImageWithTransparency",
+    "inputs": {
+      "image": "$IMAGE"
+    },
+    "_meta": {
+      "title": "Reading the image"
+    }
+  },
+  "2": {
+    "class_type": "Trellis2PreProcessImage",
+    "inputs": {
+      "image": [
+        "1",
+        2
+      ],
+      "padding": 10,
+      "remove_background": true,
+      "max_size": 1024
+    },
+    "_meta": {
+      "title": "Cutting out the background"
+    }
+  },
+  "3": {
+    "class_type": "Trellis2LoadModel",
+    "inputs": {
+      "modelname": "microsoft/TRELLIS.2-4B",
+      "backend": "$ATTENTION",
+      "device": "cuda",
+      "low_vram": true,
+      "keep_models_loaded": false,
+      "conv_backend": "flex_gemm",
+      "sparse_backend": "$ATTENTION",
+      "use_reconviagen": false,
+      "pixal3d_multiview": false
+    },
+    "_meta": {
+      "title": "Loading TRELLIS.2"
+    }
+  },
+  "4": {
+    "class_type": "Trellis2ImageCondGenerator",
+    "inputs": {
+      "pipeline": [
+        "3",
+        0
+      ],
+      "image": [
+        "2",
+        0
+      ],
+      "max_views": 1
+    },
+    "_meta": {
+      "title": "Studying the image"
+    }
+  },
+  "5": {
+    "class_type": "Trellis2SparseGenerator",
+    "inputs": {
+      "pipeline": [
+        "4",
+        2
+      ],
+      "image_cond": [
+        "4",
+        0
+      ],
+      "seed": "$SEED",
+      "sparse_structure_steps": "$STEPS",
+      "sparse_structure_guidance_strength": 7.5,
+      "sparse_structure_guidance_rescale": 0.01,
+      "sparse_structure_rescale_t": 5,
+      "sparse_structure_sampler": "heun",
+      "sparse_structure_resolution": 32,
+      "sparse_structure_guidance_interval_start": 0.1,
+      "sparse_structure_guidance_interval_end": 1,
+      "fill_holes": false,
+      "hole_iterations": 1,
+      "verbose": false,
+      "dino_lock": 1,
+      "dino_substeps": 8,
+      "hole_fill_algorithm": "flood_fill",
+      "dino_foundation_cap": 1,
+      "keep_only_shell": true
+    },
+    "_meta": {
+      "title": "Building the rough shape"
+    }
+  },
+  "6": {
+    "class_type": "Trellis2ShapeGenerator",
+    "inputs": {
+      "pipeline": [
+        "5",
+        2
+      ],
+      "image_cond": [
+        "4",
+        0
+      ],
+      "coords": [
+        "5",
+        0
+      ],
+      "resolution": 512,
+      "shape_steps": "$STEPS",
+      "shape_guidance_strength": 7.5,
+      "shape_guidance_rescale": 0.01,
+      "shape_rescale_t": 3,
+      "shape_sampler": "heun",
+      "shape_guidance_interval_start": 0.1,
+      "shape_guidance_interval_end": 1,
+      "verbose": false,
+      "dino_lock": 0,
+      "dino_substeps": 9,
+      "dino_foundation_cap": 1
+    },
+    "_meta": {
+      "title": "Shaping the details"
+    }
+  },
+  "8": {
+    "class_type": "Trellis2DecodeLatents",
+    "inputs": {
+      "pipeline": [
+        "6",
+        2
+      ],
+      "shape_slat": [
+        "6",
+        0
+      ],
+      "resolution": [
+        "6",
+        1
+      ],
+      "use_tiled_decoder": true
+    },
+    "_meta": {
+      "title": "Making the mesh"
+    }
+  },
+  "9": {
+    "class_type": "Trellis2SimplifyMesh",
+    "inputs": {
+      "mesh": [
+        "8",
+        0
+      ],
+      "target_face_num": "$FACES",
+      "method": "Cumesh"
+    },
+    "_meta": {
+      "title": "Reducing polygons"
+    }
+  },
+  "10": {
+    "class_type": "Trellis2MeshWithVoxelToTrimesh",
+    "inputs": {
+      "mesh": [
+        "9",
+        0
+      ],
+      "reorient_vertices": "90 degrees"
+    },
+    "_meta": {
+      "title": "Reducing polygons"
+    }
+  },
+  "11": {
+    "class_type": "Trellis2MeshTexturing",
+    "inputs": {
+      "pipeline": [
+        "8",
+        2
+      ],
+      "image": [
+        "2",
+        0
+      ],
+      "trimesh": [
+        "10",
+        0
+      ],
+      "seed": "$SEED",
+      "texture_steps": "$STEPS",
+      "texture_guidance_strength": 5,
+      "texture_guidance_rescale": 0.05,
+      "texture_rescale_t": 3,
+      "resolution": 1024,
+      "texture_size": "$TEXTURE_SIZE",
+      "texture_alpha_mode": "OPAQUE",
+      "double_side_material": true,
+      "texture_guidance_interval_start": 0,
+      "texture_guidance_interval_end": 0.99,
+      "max_views": 4,
+      "bake_on_vertices": false,
+      "use_custom_normals": false,
+      "mesh_cluster_threshold_cone_half_angle_rad": 60,
+      "sampler": "heun",
+      "inpainting": "telea",
+      "verbose": false,
+      "dino_lock": 0,
+      "dino_substeps": 4,
+      "dino_foundation_cap": 1
+    },
+    "_meta": {
+      "title": "Painting the texture"
+    }
+  },
+  "12": {
+    "class_type": "Trellis2ExportMesh",
+    "inputs": {
+      "trimesh": [
+        "11",
+        0
+      ],
+      "filename_prefix": "ThreadSmith/garment",
+      "file_format": "glb"
+    },
+    "_meta": {
+      "title": "Saving the 3D model"
+    }
+  },
+  "_threadsmith": {
+    "about": "TRELLIS.2 (ComfyUI-Trellis2 nodes): image to textured GLB. No hole filling, so sleeve and neck openings stay open. Fast: no cascade step.",
+    "output_node": "12"
+  }
+}

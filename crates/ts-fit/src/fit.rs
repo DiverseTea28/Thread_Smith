@@ -11,7 +11,8 @@ use glam::{Mat4, Vec3};
 use crate::bvh::TriBvh;
 use crate::graph::WeldGraph;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
 pub struct FitSettings {
     /// Smallest gap kept between garment and skin, in meters.
     pub gap: f32,

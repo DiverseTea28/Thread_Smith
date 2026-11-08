@@ -14,9 +14,11 @@ mod anim;
 mod fbx;
 mod glb_export;
 mod gltf_import;
+mod materials;
 
 pub use anim::load_animation;
 pub use glb_export::{write_glb, ExportMesh};
+pub use materials::{baked as baked_material, load_texture};
 
 /// File types the importer understands (lower case, no dot).
 pub const SUPPORTED_EXTENSIONS: &[&str] = &["fbx", "glb", "gltf", "obj"];

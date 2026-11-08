@@ -1,0 +1,176 @@
+{
+  "_about": "ThreadSmith garment presets. Each one adds hidden prompt text for its garment type, and tells ThreadSmith how to place and skin the result. Edit or add types here; ThreadSmith reads this file when it starts. {item} is the preset's 'item' text, {user} is what the user typed.",
+
+  "common": {
+    "text_prompt": "Ghost mannequin product photograph of {item}{user}. {openings}. Front view, centered, the whole item in frame, shown hollow as if worn by an invisible mannequin, no person, no mannequin, no hanger. Plain pure white background, soft even studio lighting, no shadows, sharp fabric detail.",
+    "edit_prompt": "Turn the {item} from image 1 into a ghost mannequin product photograph{user}. {openings}. Front view, centered, the whole item in frame, shown hollow as if worn by an invisible mannequin, no person, no mannequin, no hanger. Plain pure white background, soft even studio lighting. Keep its colors, materials, patterns, logos and details exactly the same.",
+    "solid_text_prompt": "Product photograph of {item}{user}. Front view, centered, the whole item in frame, no person. Plain pure white background, soft even studio lighting, no shadows, sharp detail.",
+    "solid_edit_prompt": "Turn the {item} from image 1 into a product photograph{user}. Front view, centered, the whole item in frame, no person. Plain pure white background, soft even studio lighting. Keep its colors, materials, patterns, logos and details exactly the same.",
+    "negative": "closed sleeves, sealed openings, person, face, hands, mannequin, hanger, multiple items, cropped, blurry, text, watermark"
+  },
+
+  "garments": [
+    {
+      "id": "shirts",
+      "label": "Shirts",
+      "icon": "shirts",
+      "library_category": "Top",
+      "item": "a shirt",
+      "openings": "The neck hole, both sleeve ends and the bottom hem are open, and the inside of the collar is visible",
+      "cut_openings": ["neck", "sleeves", "hem"],
+      "skin": "cloth",
+      "faces": 150000,
+      "place": { "anchor": "top", "anchor_bone": "neck_01", "offset_cm": -3, "width_bones": ["clavicle_l", "clavicle_r"], "width_at": 0.25, "width_scale": 2.1 }
+    },
+    {
+      "id": "jackets",
+      "label": "Jackets",
+      "icon": "jackets",
+      "library_category": "Top",
+      "item": "a jacket",
+      "openings": "The jacket hangs open at the front, the collar, both sleeve cuffs and the bottom hem are open, and the inside lining is visible",
+      "cut_openings": ["front", "neck", "sleeves", "hem"],
+      "skin": "cloth",
+      "faces": 180000,
+      "place": { "anchor": "top", "anchor_bone": "neck_01", "offset_cm": -1, "width_bones": ["clavicle_l", "clavicle_r"], "width_at": 0.25, "width_scale": 2.3 }
+    },
+    {
+      "id": "vests",
+      "label": "Vests",
+      "icon": "vests",
+      "library_category": "Top",
+      "item": "a sleeveless vest",
+      "openings": "The neck hole, both armholes and the bottom hem are open, and the inside is visible",
+      "cut_openings": ["neck", "armholes", "hem"],
+      "skin": "cloth",
+      "faces": 120000,
+      "place": { "anchor": "top", "anchor_bone": "neck_01", "offset_cm": -3, "width_bones": ["clavicle_l", "clavicle_r"], "width_at": 0.3, "width_scale": 1.9 }
+    },
+    {
+      "id": "dresses",
+      "label": "Dresses",
+      "icon": "dresses",
+      "library_category": "Full body",
+      "item": "a dress",
+      "openings": "The neckline, both armholes or sleeve ends and the bottom hem are open, and the inside is visible",
+      "cut_openings": ["neck", "sleeves", "hem"],
+      "skin": "cloth",
+      "faces": 180000,
+      "place": { "anchor": "top", "anchor_bone": "neck_01", "offset_cm": -4, "width_bones": ["clavicle_l", "clavicle_r"], "width_at": 0.15, "width_scale": 2.0 }
+    },
+    {
+      "id": "full_body",
+      "label": "Full Body",
+      "icon": "full_body",
+      "library_category": "Full body",
+      "item": "a one-piece jumpsuit",
+      "openings": "The neck hole, both sleeve ends and both leg ends are open, and the inside is visible",
+      "cut_openings": ["neck", "sleeves", "legs"],
+      "skin": "cloth",
+      "faces": 200000,
+      "place": { "anchor": "top", "anchor_bone": "neck_01", "offset_cm": -3, "width_bones": ["clavicle_l", "clavicle_r"], "width_at": 0.12, "width_scale": 2.1 }
+    },
+    {
+      "id": "pants",
+      "label": "Pants",
+      "icon": "pants",
+      "library_category": "Bottom",
+      "item": "a pair of full-length pants",
+      "openings": "The waistband and both leg ends are open, and the inside of the waistband is visible",
+      "cut_openings": ["waist", "legs"],
+      "skin": "cloth",
+      "faces": 150000,
+      "place": { "anchor": "top", "anchor_bone": "pelvis", "offset_cm": 8, "width_bones": ["thigh_l", "thigh_r"], "width_at": 0.05, "width_scale": 1.9 }
+    },
+    {
+      "id": "skirts",
+      "label": "Skirts",
+      "icon": "skirts",
+      "library_category": "Bottom",
+      "item": "a skirt",
+      "openings": "The waistband and the bottom hem are open, and the inside of the waistband is visible",
+      "cut_openings": ["waist", "hem"],
+      "skin": "cloth",
+      "faces": 120000,
+      "place": { "anchor": "top", "anchor_bone": "pelvis", "offset_cm": 8, "width_bones": ["thigh_l", "thigh_r"], "width_at": 0.05, "width_scale": 1.9 }
+    },
+    {
+      "id": "shoes",
+      "label": "Shoes",
+      "icon": "shoes",
+      "library_category": "Footwear",
+      "item": "a pair of shoes, left and right side by side, toes pointing toward the camera",
+      "openings": "The foot opening at the top of each shoe is open and the inside is visible",
+      "cut_openings": ["tops"],
+      "skin": "cloth",
+      "faces": 80000,
+      "place": { "anchor": "bottom", "anchor_bone": "floor", "offset_cm": 0, "width_bones": ["foot_l", "foot_r"], "width_at": 0.2, "width_scale": 1.6, "pair": ["foot_l", "foot_r"] }
+    },
+    {
+      "id": "gloves",
+      "label": "Gloves",
+      "icon": "gloves",
+      "library_category": "Gloves",
+      "item": "a pair of gloves, left and right side by side, fingers spread",
+      "openings": "The wrist cuff of each glove is open and the inside is visible",
+      "cut_openings": ["wrists"],
+      "skin": "cloth",
+      "faces": 60000,
+      "place": { "anchor": "center", "anchor_bone": "hands", "offset_cm": 0, "width_bones": [], "width_at": 0.5, "width_scale": 1.0, "width_cm": 28, "pair": ["hand_l", "hand_r"] }
+    },
+    {
+      "id": "head",
+      "label": "Head",
+      "icon": "head",
+      "library_category": "Headwear",
+      "item": "a hat",
+      "openings": "The underside where the head goes is open and the inside is visible",
+      "cut_openings": ["bottom"],
+      "skin": "rigid",
+      "rigid_bone": "head",
+      "faces": 60000,
+      "place": { "anchor": "bottom", "anchor_bone": "head", "offset_cm": 9, "width_bones": ["head"], "width_at": 0.2, "width_scale": 1.0, "width_cm": 22 }
+    },
+    {
+      "id": "belts",
+      "label": "Belts",
+      "icon": "belts",
+      "library_category": "Accessory",
+      "item": "a belt, buckled closed in a loop as if worn around a waist",
+      "openings": "The belt is a closed ring with an open middle",
+      "cut_openings": [],
+      "skin": "rigid",
+      "rigid_bone": "pelvis",
+      "faces": 40000,
+      "place": { "anchor": "center", "anchor_bone": "pelvis", "offset_cm": 6, "width_bones": ["thigh_l", "thigh_r"], "width_at": 0.5, "width_scale": 1.8 }
+    },
+    {
+      "id": "backpacks",
+      "label": "Backpacks",
+      "icon": "backpacks",
+      "library_category": "Accessory",
+      "solid": true,
+      "item": "a backpack, seen from the back side with the straps toward the camera",
+      "openings": "",
+      "cut_openings": [],
+      "skin": "rigid",
+      "rigid_bone": "spine_04",
+      "faces": 80000,
+      "place": { "anchor": "center", "anchor_bone": "spine_04", "offset_cm": -8, "behind_cm": 18, "width_bones": ["clavicle_l", "clavicle_r"], "width_at": 0.5, "width_scale": 1.6, "turn_deg": 180 }
+    },
+    {
+      "id": "accessory",
+      "label": "Accessory",
+      "icon": "accessory",
+      "library_category": "Accessory",
+      "solid": true,
+      "item": "an accessory",
+      "openings": "",
+      "cut_openings": [],
+      "skin": "rigid",
+      "rigid_bone": "head",
+      "faces": 40000,
+      "place": { "anchor": "center", "anchor_bone": "head", "offset_cm": 0, "width_bones": ["head"], "width_at": 0.5, "width_scale": 1.0, "width_cm": 15 }
+    }
+  ]
+}

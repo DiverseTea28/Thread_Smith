@@ -7,6 +7,7 @@ pub const MAX_INFLUENCES: usize = 8;
 
 /// Skin weights for a mesh.
 #[derive(Clone, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Skin {
     /// Per vertex: joint indices into the scene skeleton.
     pub joints: Vec<[u16; MAX_INFLUENCES]>,
@@ -61,6 +62,7 @@ impl Skin {
 
 /// A triangle mesh. All arrays are per vertex except `indices` (3 per triangle).
 #[derive(Clone, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Mesh {
     pub positions: Vec<Vec3>,
     pub normals: Vec<Vec3>,

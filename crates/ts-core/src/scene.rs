@@ -6,6 +6,7 @@ use crate::{Mesh, Pose, Skeleton};
 
 /// What a mesh part is for.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum PartRole {
     /// The character's body (what clothes are fitted to).
     #[default]
@@ -20,11 +21,15 @@ pub enum PartRole {
 }
 
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct MeshPart {
     pub name: String,
     pub mesh: Mesh,
     pub visible: bool,
     pub role: PartRole,
+    /// Colour and textures (from the file, or set in ThreadSmith).
+    #[cfg_attr(feature = "serde", serde(default))]
+    pub material: Option<crate::Material>,
 }
 
 impl MeshPart {
@@ -34,11 +39,13 @@ impl MeshPart {
             mesh,
             visible: true,
             role: PartRole::Body,
+            material: None,
         }
     }
 }
 
 #[derive(Clone, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Scene {
     pub name: String,
     pub parts: Vec<MeshPart>,

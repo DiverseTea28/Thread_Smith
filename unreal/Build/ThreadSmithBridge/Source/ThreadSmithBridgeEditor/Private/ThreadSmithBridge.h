@@ -51,8 +51,14 @@ public:
 	/** Import an outfit's GLB onto the right skeleton (reuses an earlier import). */
 	USkeletalMesh* ImportOutfit(const FThreadSmithOutfit& Outfit, bool bForceReimport, FString& OutError);
 
+	/**
+	 * Import the outfit's trimmed body (skin under the clothes removed), if it has one.
+	 * Null without an error when the outfit has none.
+	 */
+	USkeletalMesh* ImportTrimmedBody(const FThreadSmithOutfit& Outfit, FString& OutError);
+
 	/** Add the outfit to one placed actor only (used for characters that aren't Blueprints). */
-	bool ApplyOutfitToActor(USkeletalMesh* OutfitMesh, const FString& OutfitId, AActor* Actor, FString& OutError);
+	bool ApplyOutfitToActor(USkeletalMesh* OutfitMesh, const FString& OutfitId, AActor* Actor, FString& OutError, USkeletalMesh* TrimmedBody = nullptr);
 
 	/** Import (if needed) and put an outfit on the selected actor. Used by the Wardrobe. */
 	void ApplyOutfitToSelection(const FThreadSmithOutfit& Outfit);
@@ -61,7 +67,7 @@ public:
 	 * Add the outfit to a character Blueprint (like MetaTailor does), so every copy of
 	 * that character wears it. Replaces the same outfit if it's already there.
 	 */
-	bool AddOutfitToBlueprint(USkeletalMesh* OutfitMesh, const FString& OutfitId, UBlueprint* Blueprint, FString& OutError);
+	bool AddOutfitToBlueprint(USkeletalMesh* OutfitMesh, const FString& OutfitId, UBlueprint* Blueprint, FString& OutError, USkeletalMesh* TrimmedBody = nullptr);
 
 	/**
 	 * Import (if needed) and add an outfit to the character Blueprint being worked on

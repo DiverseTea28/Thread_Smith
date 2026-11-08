@@ -37,6 +37,16 @@ const GARMENT_COLORS: [[f32; 3]; 4] = [
 ];
 const REFERENCE_COLOR: [f32; 3] = [0.45, 0.75, 0.45];
 
+/// Per-part material settings for the shader (group 1, binding 2).
+#[repr(C)]
+#[derive(Clone, Copy, Pod, Zeroable)]
+struct PartLook {
+    /// hue turn (0..1), saturation, brightness, 1 if textured
+    adjust: [f32; 4],
+    /// roughness, metallic, unused, unused
+    surface: [f32; 4],
+}
+
 #[repr(C)]
 #[derive(Clone, Copy, Pod, Zeroable)]
 struct Globals {
@@ -44,6 +54,8 @@ struct Globals {
     camera_pos: [f32; 4],
     light_dir: [f32; 4],
     wire_color: [f32; 4],
+    shadow: [f32; 4],
+    outline: [f32; 4],
 }
 
 #[repr(C)]
@@ -52,6 +64,7 @@ pub struct MeshVertex {
     pos: [f32; 3],
     normal: [f32; 3],
     color: [f32; 3],
+    uv: [f32; 2],
 }
 
 #[repr(C)]
@@ -77,6 +90,10 @@ pub struct DrawSettings {
     pub grid: bool,
     /// Lines drawn on top of everything (skeleton).
     pub overlay_lines: Vec<LineVertex>,
+    /// Scene part to draw an outline around (the selected garment).
+    pub outline_part: Option<usize>,
+    /// Soft shadow on the floor: centre (floor height in y) and radius.
+    pub shadow: Option<(Vec3, f32)>,
 }
 
 struct GpuPart {
@@ -87,6 +104,11 @@ struct GpuPart {
     edge_count: u32,
     color: [f32; 3],
     visible: bool,
+    /// Texture + material settings binding.
+    material: wgpu::BindGroup,
+    look_buffer: wgpu::Buffer,
+    /// Colour from the part's role (used when it has no material colour).
+    role_color: [f32; 3],
 }
 
 struct Targets {
@@ -99,6 +121,14 @@ struct Targets {
 
 pub struct Viewport {
     mesh_pipeline: wgpu::RenderPipeline,
+    outline_pipeline: wgpu::RenderPipeline,
+    background_pipeline: wgpu::RenderPipeline,
+    shadow_pipeline: wgpu::RenderPipeline,
+    material_layout: wgpu::BindGroupLayout,
+    sampler: wgpu::Sampler,
+    white: wgpu::TextureView,
+    /// Uploaded textures by content hash, kept across scene uploads.
+    texture_cache: std::collections::HashMap<u64, wgpu::TextureView>,
     wire_pipeline: wgpu::RenderPipeline,
     line_pipeline: wgpu::RenderPipeline,
     overlay_pipeline: wgpu::RenderPipeline,
@@ -111,7 +141,7 @@ pub struct Viewport {
 }
 
 impl Viewport {
-    pub fn new(device: &wgpu::Device) -> Self {
+    pub fn new(device: &wgpu::Device, queue: &wgpu::Queue) -> Self {
         let shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
             label: Some("viewport shader"),
             source: wgpu::ShaderSource::Wgsl(include_str!("shader.wgsl").into()),
@@ -148,8 +178,44 @@ impl Viewport {
             bind_group_layouts: &[Some(&bind_layout)],
             immediate_size: 0,
         });
+        let material_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+            label: Some("material layout"),
+            entries: &[
+                wgpu::BindGroupLayoutEntry {
+                    binding: 0,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Texture {
+                        sample_type: wgpu::TextureSampleType::Float { filterable: true },
+                        view_dimension: wgpu::TextureViewDimension::D2,
+                        multisampled: false,
+                    },
+                    count: None,
+                },
+                wgpu::BindGroupLayoutEntry {
+                    binding: 1,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Sampler(wgpu::SamplerBindingType::Filtering),
+                    count: None,
+                },
+                wgpu::BindGroupLayoutEntry {
+                    binding: 2,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Buffer {
+                        ty: wgpu::BufferBindingType::Uniform,
+                        has_dynamic_offset: false,
+                        min_binding_size: None,
+                    },
+                    count: None,
+                },
+            ],
+        });
+        let mesh_layout_pl = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+            label: Some("mesh layout"),
+            bind_group_layouts: &[Some(&bind_layout), Some(&material_layout)],
+            immediate_size: 0,
+        });
 
-        let mesh_attrs = wgpu::vertex_attr_array![0 => Float32x3, 1 => Float32x3, 2 => Float32x3];
+        let mesh_attrs = wgpu::vertex_attr_array![0 => Float32x3, 1 => Float32x3, 2 => Float32x3, 3 => Float32x2];
         let mesh_layout = wgpu::VertexBufferLayout {
             array_stride: std::mem::size_of::<MeshVertex>() as u64,
             step_mode: wgpu::VertexStepMode::Vertex,
@@ -162,7 +228,9 @@ impl Viewport {
             attributes: &line_attrs,
         };
 
-        let make = |label: &str,
+        let make_with = |pl: &wgpu::PipelineLayout,
+                    cull: Option<wgpu::Face>,
+                    label: &str,
                     vs: &str,
                     fs: &str,
                     buffers: &[Option<wgpu::VertexBufferLayout>],
@@ -172,7 +240,7 @@ impl Viewport {
                     blend: bool| {
             device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
                 label: Some(label),
-                layout: Some(&layout),
+                layout: Some(pl),
                 vertex: wgpu::VertexState {
                     module: &shader,
                     entry_point: Some(vs),
@@ -181,7 +249,7 @@ impl Viewport {
                 },
                 primitive: wgpu::PrimitiveState {
                     topology,
-                    cull_mode: None,
+                    cull_mode: cull,
                     ..Default::default()
                 },
                 depth_stencil: Some(wgpu::DepthStencilState {
@@ -209,8 +277,37 @@ impl Viewport {
                 cache: None,
             })
         };
+        let make = |label: &str,
+                    vs: &str,
+                    fs: &str,
+                    buffers: &[Option<wgpu::VertexBufferLayout>],
+                    topology: wgpu::PrimitiveTopology,
+                    depth_write: bool,
+                    depth_compare: wgpu::CompareFunction,
+                    blend: bool| {
+            let pl = if buffers.first().and_then(|b| b.as_ref()).is_some_and(|b| b.attributes.len() == 4) {
+                &mesh_layout_pl
+            } else {
+                &layout
+            };
+            make_with(pl, None, label, vs, fs, buffers, topology, depth_write, depth_compare, blend)
+        };
         use wgpu::CompareFunction as C;
         use wgpu::PrimitiveTopology as T;
+        let outline_pipeline = make_with(
+            &mesh_layout_pl,
+            Some(wgpu::Face::Front),
+            "outline",
+            "vs_outline",
+            "fs_flat",
+            &[Some(mesh_layout.clone())],
+            T::TriangleList,
+            true,
+            C::Less,
+            false,
+        );
+        let background_pipeline = make("background", "vs_bg", "fs_bg", &[], T::TriangleList, false, C::Always, false);
+        let shadow_pipeline = make("shadow", "vs_shadow", "fs_shadow", &[], T::TriangleList, false, C::LessEqual, true);
         let mesh_pipeline = make(
             "mesh",
             "vs_mesh",
@@ -252,8 +349,26 @@ impl Viewport {
             true,
         );
 
+        let sampler = device.create_sampler(&wgpu::SamplerDescriptor {
+            label: Some("texture sampler"),
+            address_mode_u: wgpu::AddressMode::Repeat,
+            address_mode_v: wgpu::AddressMode::Repeat,
+            mag_filter: wgpu::FilterMode::Linear,
+            min_filter: wgpu::FilterMode::Linear,
+            mipmap_filter: wgpu::MipmapFilterMode::Linear,
+            anisotropy_clamp: 8,
+            ..Default::default()
+        });
+        let white = make_texture(device, queue, &[[255, 255, 255, 255]], 1, 1);
         Self {
             mesh_pipeline,
+            outline_pipeline,
+            background_pipeline,
+            shadow_pipeline,
+            material_layout,
+            sampler,
+            white,
+            texture_cache: Default::default(),
             wire_pipeline,
             line_pipeline,
             overlay_pipeline,
@@ -267,11 +382,17 @@ impl Viewport {
     }
 
     /// Upload a newly loaded scene (in its bind pose).
-    pub fn set_scene(&mut self, device: &wgpu::Device, scene: &Scene, joint_world: &[Mat4]) {
+    pub fn set_scene(
+        &mut self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        scene: &Scene,
+        joint_world: &[Mat4],
+    ) {
         self.parts.clear();
         let mut garment_count = 0;
         for part in scene.parts.iter() {
-            let color = match part.role {
+            let role_color = match part.role {
                 ts_core::PartRole::Body | ts_core::PartRole::Head => BODY_COLOR,
                 ts_core::PartRole::Reference => REFERENCE_COLOR,
                 ts_core::PartRole::Garment => {
@@ -279,6 +400,14 @@ impl Viewport {
                     GARMENT_COLORS[(garment_count - 1) % GARMENT_COLORS.len()]
                 }
             };
+            let (color, look) = part_look(part, role_color);
+            let view = self.part_texture(device, queue, part);
+            let look_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                label: Some("part look"),
+                contents: bytemuck::bytes_of(&look),
+                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+            });
+            let material = self.material_bind_group(device, &view, &look_buffer);
             let vertices = build_vertices(&part.mesh, joint_world, color);
             let edges = part.mesh.edges();
             self.parts.push(GpuPart {
@@ -290,7 +419,7 @@ impl Viewport {
                 index_buffer: device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
                     label: Some("part indices"),
                     contents: bytemuck::cast_slice(&part.mesh.indices),
-                    usage: wgpu::BufferUsages::INDEX,
+                    usage: wgpu::BufferUsages::INDEX | wgpu::BufferUsages::COPY_DST,
                 }),
                 index_count: part.mesh.indices.len() as u32,
                 edge_buffer: device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
@@ -301,8 +430,88 @@ impl Viewport {
                 edge_count: edges.len() as u32,
                 color,
                 visible: part.visible,
+                material,
+                look_buffer,
+                role_color,
             });
         }
+    }
+
+    /// The part's base colour texture (white when it has none).
+    fn part_texture(&mut self, device: &wgpu::Device, queue: &wgpu::Queue, part: &ts_core::MeshPart) -> wgpu::TextureView {
+        match part_texture_of(part) {
+            Some(t) => self.texture_view(device, queue, t),
+            None => self.white.clone(),
+        }
+    }
+
+    fn material_bind_group(&self, device: &wgpu::Device, view: &wgpu::TextureView, look: &wgpu::Buffer) -> wgpu::BindGroup {
+        device.create_bind_group(&wgpu::BindGroupDescriptor {
+            label: Some("part material"),
+            layout: &self.material_layout,
+            entries: &[
+                wgpu::BindGroupEntry { binding: 0, resource: wgpu::BindingResource::TextureView(view) },
+                wgpu::BindGroupEntry { binding: 1, resource: wgpu::BindingResource::Sampler(&self.sampler) },
+                wgpu::BindGroupEntry { binding: 2, resource: look.as_entire_binding() },
+            ],
+        })
+    }
+
+    /// The part's material changed (colour, sliders or texture): update it.
+    pub fn refresh_material(
+        &mut self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        scene: &Scene,
+        index: usize,
+        joint_world: &[Mat4],
+    ) {
+        let Some(part) = scene.parts.get(index) else { return };
+        let Some(role_color) = self.parts.get(index).map(|g| g.role_color) else { return };
+        let (color, look) = part_look(part, role_color);
+        let view = self.part_texture(device, queue, part);
+        let gpu = &self.parts[index];
+        queue.write_buffer(&gpu.look_buffer, 0, bytemuck::bytes_of(&look));
+        let material = self.material_bind_group(device, &view, &self.parts[index].look_buffer);
+        let gpu = &mut self.parts[index];
+        gpu.material = material;
+        gpu.color = color;
+        let vertices = build_vertices(&part.mesh, joint_world, color);
+        queue.write_buffer(&gpu.vertex_buffer, 0, bytemuck::cast_slice(&vertices));
+    }
+
+    /// The GPU texture for a texture (uploaded once, then reused).
+    fn texture_view(
+        &mut self,
+        device: &wgpu::Device,
+        queue: &wgpu::Queue,
+        texture: &ts_core::Texture,
+    ) -> wgpu::TextureView {
+        use std::hash::{Hash, Hasher};
+        let mut h = std::collections::hash_map::DefaultHasher::new();
+        texture.bytes.hash(&mut h);
+        let key = h.finish();
+        if let Some(b) = self.texture_cache.get(&key) {
+            return b.clone();
+        }
+        let binding = match image::load_from_memory(&texture.bytes) {
+            Ok(img) => {
+                let mut img = img.to_rgba8();
+                let max = device.limits().max_texture_dimension_2d.min(4096);
+                if img.width() > max || img.height() > max {
+                    img = image::imageops::resize(&img, img.width().min(max), img.height().min(max), image::imageops::FilterType::Triangle);
+                }
+                let (w, h) = img.dimensions();
+                let pixels: Vec<[u8; 4]> = img.pixels().map(|p| p.0).collect();
+                make_texture(device, queue, &pixels, w, h)
+            }
+            Err(e) => {
+                log::warn!("Couldn't read texture {}: {e}", texture.name);
+                self.white.clone()
+            }
+        };
+        self.texture_cache.insert(key, binding.clone());
+        binding
     }
 
     /// Re-skin all parts for a new pose and update visibility.
@@ -330,6 +539,26 @@ impl Viewport {
             queue.write_buffer(&gpu.vertex_buffer, 0, bytemuck::cast_slice(&vertices));
             gpu.visible = part.visible;
         }
+    }
+
+    /// Hide some triangles of a part (e.g. body skin under the clothes);
+    /// `None` shows them all again.
+    pub fn set_hidden_triangles(&mut self, queue: &wgpu::Queue, scene: &Scene, index: usize, hidden: Option<&[bool]>) {
+        let (Some(gpu), Some(part)) = (self.parts.get(index), scene.parts.get(index)) else { return };
+        let mut indices = part.mesh.indices.clone();
+        if indices.len() as u32 != gpu.index_count {
+            return;
+        }
+        if let Some(hidden) = hidden {
+            for (t, tri) in indices.chunks_exact_mut(3).enumerate() {
+                if hidden.get(t).copied().unwrap_or(false) {
+                    // A zero-area triangle draws nothing.
+                    tri[1] = tri[0];
+                    tri[2] = tri[0];
+                }
+            }
+        }
+        queue.write_buffer(&gpu.index_buffer, 0, bytemuck::cast_slice(&indices));
     }
 
     pub fn set_visibility(&mut self, scene: &Scene) {
@@ -446,6 +675,11 @@ impl Viewport {
             camera_pos: eye.extend(1.0).to_array(),
             light_dir: light.extend(0.0).to_array(),
             wire_color: [0.05, 0.75, 1.0, if settings.shaded { 0.55 } else { 0.9 }],
+            shadow: match settings.shadow {
+                Some((c, r)) => [c.x, c.y, c.z, r],
+                None => [0.0; 4],
+            },
+            outline: [1.0, 0.62, 0.12, 0.0016],
         };
         queue.write_buffer(&self.globals_buffer, 0, bytemuck::bytes_of(&globals));
 
@@ -512,9 +746,24 @@ impl Viewport {
             });
             pass.set_bind_group(0, &self.bind_group, &[]);
 
+            pass.set_pipeline(&self.background_pipeline);
+            pass.draw(0..3, 0..1);
+            if settings.shadow.is_some() && settings.shaded {
+                pass.set_pipeline(&self.shadow_pipeline);
+                pass.draw(0..6, 0..1);
+            }
+
             if settings.shaded {
                 pass.set_pipeline(&self.mesh_pipeline);
                 for p in self.parts.iter().filter(|p| p.visible) {
+                    pass.set_bind_group(1, &p.material, &[]);
+                    pass.set_vertex_buffer(0, p.vertex_buffer.slice(..));
+                    pass.set_index_buffer(p.index_buffer.slice(..), wgpu::IndexFormat::Uint32);
+                    pass.draw_indexed(0..p.index_count, 0, 0..1);
+                }
+                if let Some(p) = settings.outline_part.and_then(|i| self.parts.get(i)).filter(|p| p.visible) {
+                    pass.set_pipeline(&self.outline_pipeline);
+                    pass.set_bind_group(1, &p.material, &[]);
                     pass.set_vertex_buffer(0, p.vertex_buffer.slice(..));
                     pass.set_index_buffer(p.index_buffer.slice(..), wgpu::IndexFormat::Uint32);
                     pass.draw_indexed(0..p.index_count, 0, 0..1);
@@ -528,6 +777,7 @@ impl Viewport {
             if settings.wireframe {
                 pass.set_pipeline(&self.wire_pipeline);
                 for p in self.parts.iter().filter(|p| p.visible) {
+                    pass.set_bind_group(1, &p.material, &[]);
                     pass.set_vertex_buffer(0, p.vertex_buffer.slice(..));
                     pass.set_index_buffer(p.edge_buffer.slice(..), wgpu::IndexFormat::Uint32);
                     pass.draw_indexed(0..p.edge_count, 0, 0..1);
@@ -595,12 +845,15 @@ impl Targets {
 
 fn build_vertices(mesh: &ts_core::Mesh, joint_world: &[Mat4], color: [f32; 3]) -> Vec<MeshVertex> {
     let (pos, nrm) = mesh.skinned(joint_world);
+    let has_uv = mesh.uvs.len() == pos.len();
     pos.iter()
         .zip(nrm.iter().chain(std::iter::repeat(&Vec3::Y)))
-        .map(|(p, n)| MeshVertex {
+        .enumerate()
+        .map(|(i, (p, n))| MeshVertex {
             pos: p.to_array(),
             normal: n.to_array(),
             color,
+            uv: if has_uv { mesh.uvs[i].to_array() } else { [0.0, 0.0] },
         })
         .collect()
 }
@@ -676,4 +929,76 @@ fn grid_lines(half_size: f32, step: f32) -> Vec<LineVertex> {
         );
     }
     v
+}
+
+/// Upload an RGBA image with a full mipmap chain.
+fn make_texture(
+    device: &wgpu::Device,
+    queue: &wgpu::Queue,
+    pixels: &[[u8; 4]],
+    width: u32,
+    height: u32,
+) -> wgpu::TextureView {
+    // Mip levels, each half the size of the one before.
+    let mut levels: Vec<(u32, u32, Vec<u8>)> = vec![(width, height, pixels.iter().flatten().copied().collect())];
+    while levels.last().is_some_and(|l| l.0 > 1 || l.1 > 1) {
+        let (pw, ph, prev) = levels.last().unwrap();
+        let img = image::RgbaImage::from_raw(*pw, *ph, prev.clone()).unwrap();
+        let (nw, nh) = ((*pw / 2).max(1), (*ph / 2).max(1));
+        let next = image::imageops::resize(&img, nw, nh, image::imageops::FilterType::Triangle);
+        levels.push((nw, nh, next.into_raw()));
+    }
+    let texture = device.create_texture(&wgpu::TextureDescriptor {
+        label: Some("part texture"),
+        size: wgpu::Extent3d { width, height, depth_or_array_layers: 1 },
+        mip_level_count: levels.len() as u32,
+        sample_count: 1,
+        dimension: wgpu::TextureDimension::D2,
+        format: wgpu::TextureFormat::Rgba8UnormSrgb,
+        usage: wgpu::TextureUsages::TEXTURE_BINDING | wgpu::TextureUsages::COPY_DST,
+        view_formats: &[],
+    });
+    for (mip, (w, h, data)) in levels.iter().enumerate() {
+        queue.write_texture(
+            wgpu::TexelCopyTextureInfo {
+                texture: &texture,
+                mip_level: mip as u32,
+                origin: wgpu::Origin3d::ZERO,
+                aspect: wgpu::TextureAspect::All,
+            },
+            data,
+            wgpu::TexelCopyBufferLayout { offset: 0, bytes_per_row: Some(4 * w), rows_per_image: Some(*h) },
+            wgpu::Extent3d { width: *w, height: *h, depth_or_array_layers: 1 },
+        );
+    }
+    texture.create_view(&Default::default())
+}
+
+/// The base colour texture the viewport uses (needs UVs).
+fn part_texture_of(part: &ts_core::MeshPart) -> Option<&ts_core::Texture> {
+    part.material
+        .as_ref()
+        .and_then(|m| m.base_color_texture.as_ref())
+        .filter(|_| part.mesh.uvs.len() == part.mesh.positions.len())
+}
+
+/// Vertex colour and shader settings for a part.
+fn part_look(part: &ts_core::MeshPart, role_color: [f32; 3]) -> ([f32; 3], PartLook) {
+    let texture = part_texture_of(part);
+    let color = match (&part.material, texture) {
+        (Some(m), Some(_)) => [m.base_color[0], m.base_color[1], m.base_color[2]],
+        // A plain colour from the file, unless it's just "white".
+        (Some(m), None) if m.base_color[..3].iter().any(|c| *c < 0.98) || m.has_color_change() => {
+            [m.base_color[0], m.base_color[1], m.base_color[2]]
+        }
+        _ => role_color,
+    };
+    let look = match &part.material {
+        Some(m) => PartLook {
+            adjust: [m.hue / 360.0, m.saturation, m.brightness, if texture.is_some() { 1.0 } else { 0.0 }],
+            surface: [m.roughness, m.metallic, 0.0, 0.0],
+        },
+        None => PartLook { adjust: [0.0, 1.0, 1.0, 0.0], surface: [0.8, 0.0, 0.0, 0.0] },
+    };
+    (color, look)
 }

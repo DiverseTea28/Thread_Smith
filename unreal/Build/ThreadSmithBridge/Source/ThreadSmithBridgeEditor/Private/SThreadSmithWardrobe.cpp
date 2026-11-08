@@ -13,6 +13,7 @@
 #include "Misc/FileHelper.h"
 #include "Modules/ModuleManager.h"
 #include "Styling/AppStyle.h"
+#include "Styling/SlateStyleRegistry.h"
 #include "Widgets/Images/SImage.h"
 #include "Widgets/Input/SButton.h"
 #include "Widgets/Input/SComboBox.h"
@@ -28,6 +29,22 @@
 
 namespace
 {
+	/** Button contents: one of the ThreadSmith icons (Export / Import / Wardrobe), then text. */
+	TSharedRef<SWidget> IconLabel(const TCHAR* IconKey, const FText& Label)
+	{
+		const ISlateStyle* Style = FSlateStyleRegistry::FindSlateStyle(TEXT("ThreadSmithStyle"));
+		const FSlateBrush* Brush = Style ? Style->GetOptionalBrush(FName(FString(IconKey) + TEXT(".Button")), nullptr, nullptr) : nullptr;
+		return SNew(SHorizontalBox)
+			+ SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0, 0, Brush ? 6 : 0, 0)
+			[
+				SNew(SImage).Image(Brush).Visibility(Brush ? EVisibility::Visible : EVisibility::Collapsed)
+			]
+			+ SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+			[
+				SNew(STextBlock).Text(Label)
+			];
+	}
+
 	const TCHAR* AllCategories = TEXT("All types");
 	// Same list as ThreadSmith (ts-library CATEGORIES).
 	const TCHAR* Categories[] = { TEXT("Top"), TEXT("Bottom"), TEXT("Full body"), TEXT("Footwear"), TEXT("Headwear"), TEXT("Gloves"), TEXT("Accessory"), TEXT("Outfit") };
@@ -55,9 +72,11 @@ void SThreadSmithWardrobe::Construct(const FArguments&)
 			+ SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 4, 0)
 			[
 				SNew(SButton)
-				.Text(LOCTEXT("SendBody", "Send selected character to ThreadSmith"))
 				.ToolTipText(LOCTEXT("SendBodyTip", "Exports the selected character's body and opens it in ThreadSmith to make clothes for it."))
 				.OnClicked(this, &SThreadSmithWardrobe::OnSendBody)
+				[
+					IconLabel(TEXT("ThreadSmith.Export"), LOCTEXT("SendBody", "Send selected character to ThreadSmith"))
+				]
 			]
 			+ SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 4, 0)
 			[
@@ -136,7 +155,10 @@ void SThreadSmithWardrobe::Construct(const FArguments&)
 			+ SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 4, 0)
 			[
 				SNew(SButton)
-				.Text(LOCTEXT("AddBP", "Add to character"))
+				.Content()
+				[
+					IconLabel(TEXT("ThreadSmith.Wardrobe"), LOCTEXT("AddBP", "Add to character"))
+				]
 				.ToolTipText(LOCTEXT("AddBPTip", "Adds the outfit to the character's Blueprint as a component (like MetaTailor), so every copy of that character wears it. Uses the Blueprint you have open, or the selected character's Blueprint. To take it off, delete the component in the Blueprint. Double-clicking a tile does the same."))
 				.IsEnabled_Lambda([this] { return GetSelected().IsValid(); })
 				.OnClicked(this, &SThreadSmithWardrobe::OnAddToBlueprint)
@@ -144,7 +166,10 @@ void SThreadSmithWardrobe::Construct(const FArguments&)
 			+ SHorizontalBox::Slot().AutoWidth()
 			[
 				SNew(SButton)
-				.Text(LOCTEXT("Import", "Import only"))
+				.Content()
+				[
+					IconLabel(TEXT("ThreadSmith.Import"), LOCTEXT("Import", "Import only"))
+				]
 				.ToolTipText(LOCTEXT("ImportTip", "Imports (or re-imports) the outfit into the project without putting it on anyone."))
 				.IsEnabled_Lambda([this] { return GetSelected().IsValid(); })
 				.OnClicked(this, &SThreadSmithWardrobe::OnImport)

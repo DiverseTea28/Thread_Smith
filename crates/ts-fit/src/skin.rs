@@ -20,7 +20,8 @@ use ts_core::{Mesh, Skin, MAX_INFLUENCES};
 use crate::bvh::TriBvh;
 use crate::graph::WeldGraph;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
+#[serde(default)]
 pub struct SkinSettings {
     /// Garment vertices further than this from the body (meters) are filled in
     /// instead of copied.

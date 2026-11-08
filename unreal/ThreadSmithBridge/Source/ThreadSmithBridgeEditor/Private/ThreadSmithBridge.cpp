@@ -41,6 +41,7 @@
 #include "InterchangeGenericMeshPipeline.h"
 #include "InterchangeManager.h"
 #include "Misc/EngineVersion.h"
+#include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "ObjectTools.h"
 #include "ScopedTransaction.h"
@@ -100,6 +101,101 @@ namespace
 	const UThreadSmithBridgeSettings* Settings()
 	{
 		return GetDefault<UThreadSmithBridgeSettings>();
+	}
+
+	/** Saved/ThreadSmith/trimmed_bodies.json: trimmed body asset path -> the original body path. */
+	FString TrimmedMapFile()
+	{
+		return FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir() / TEXT("ThreadSmith/trimmed_bodies.json"));
+	}
+
+	TSharedPtr<FJsonObject> LoadTrimmedMap()
+	{
+		FString Text;
+		TSharedPtr<FJsonObject> Map;
+		if (!FFileHelper::LoadFileToString(Text, *TrimmedMapFile())
+			|| !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text), Map) || !Map.IsValid())
+		{
+			Map = MakeShared<FJsonObject>();
+		}
+		return Map;
+	}
+
+	void RememberOriginalBody(USkeletalMesh* Trimmed, USkeletalMesh* Original)
+	{
+		if (!Trimmed || !Original || Trimmed == Original)
+		{
+			return;
+		}
+		TSharedPtr<FJsonObject> Map = LoadTrimmedMap();
+		// If the "original" is itself a trimmed body, point at its original instead.
+		FString OriginalPath = Original->GetPathName();
+		Map->TryGetStringField(OriginalPath, OriginalPath);
+		Map->SetStringField(Trimmed->GetPathName(), OriginalPath);
+		FFileHelper::SaveStringToFile(ToJson(Map.ToSharedRef()), *TrimmedMapFile());
+	}
+
+	/** The full body for a body that ThreadSmith trimmed (or the mesh itself). */
+	USkeletalMesh* UntrimmedBody(USkeletalMesh* Mesh)
+	{
+		FString OriginalPath;
+		if (Mesh && LoadTrimmedMap()->TryGetStringField(Mesh->GetPathName(), OriginalPath))
+		{
+			if (USkeletalMesh* Original = LoadObject<USkeletalMesh>(nullptr, *OriginalPath, nullptr, LOAD_NoWarn | LOAD_Quiet))
+			{
+				return Original;
+			}
+		}
+		return Mesh;
+	}
+
+	/** Import a GLB as a skeletal mesh on an existing skeleton (Interchange, tested in UE 5.8.3). */
+	USkeletalMesh* ImportGlbOntoSkeleton(const FString& Glb, const FString& AssetName, const FString& Folder, USkeleton* Skeleton, FString& OutError)
+	{
+		// Copy the GLB to a file with the asset's name, so the asset gets that name.
+		const FString TempDir = FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir() / TEXT("ThreadSmith/Import"));
+		IFileManager::Get().MakeDirectory(*TempDir, true);
+		const FString TempFile = TempDir / (AssetName + TEXT(".glb"));
+		if (IFileManager::Get().Copy(*TempFile, *Glb, /*Replace*/ true, /*EvenIfReadOnly*/ true) != COPY_OK)
+		{
+			OutError = FString::Printf(TEXT("couldn't read %s"), *Glb);
+			return nullptr;
+		}
+
+		UInterchangeGenericAssetsPipeline* Pipeline = NewObject<UInterchangeGenericAssetsPipeline>(GetTransientPackage());
+		Pipeline->CommonSkeletalMeshesAndAnimationsProperties->Skeleton = Skeleton;
+		Pipeline->CommonSkeletalMeshesAndAnimationsProperties->bImportOnlyAnimations = false;
+		Pipeline->MeshPipeline->bImportSkeletalMeshes = true;
+		Pipeline->MeshPipeline->bImportStaticMeshes = false;
+		Pipeline->AnimationPipeline->bImportAnimations = false;
+
+		UInterchangePipelineStackOverride* Stack = NewObject<UInterchangePipelineStackOverride>(GetTransientPackage());
+		Stack->OverridePipelines.Add(FSoftObjectPath(Pipeline));
+
+		UAssetImportTask* Task = NewObject<UAssetImportTask>();
+		Task->Filename = TempFile;
+		Task->DestinationPath = Folder;
+		Task->bAutomated = true;
+		Task->bReplaceExisting = true;
+		Task->bSave = true;
+		Task->Options = Stack;
+
+		FAssetToolsModule::GetModule().Get().ImportAssetTasks({ Task });
+
+		for (const FString& Path : Task->ImportedObjectPaths)
+		{
+			if (USkeletalMesh* Mesh = Cast<USkeletalMesh>(StaticLoadObject(UObject::StaticClass(), nullptr, *Path)))
+			{
+				if (Mesh->GetSkeleton() != Skeleton)
+				{
+					UE_LOG(LogThreadSmith, Warning, TEXT("%s was imported onto %s instead of %s"), *Path,
+						Mesh->GetSkeleton() ? *Mesh->GetSkeleton()->GetPathName() : TEXT("nothing"), *Skeleton->GetPathName());
+				}
+				return Mesh;
+			}
+		}
+		OutError = TEXT("the importer didn't create a skeletal mesh");
+		return nullptr;
 	}
 }
 
@@ -203,13 +299,23 @@ bool FThreadSmithBridge::HandleOutfit(const FHttpServerRequest& Request, const F
 
 	FString ApplyNote;
 	FString AppliedTo;
+	USkeletalMesh* TrimmedBody = nullptr;
+	if (bApply && !Outfit->TrimmedBodyFile.IsEmpty())
+	{
+		FString TrimError;
+		TrimmedBody = ImportTrimmedBody(*Outfit, TrimError);
+		if (!TrimmedBody)
+		{
+			UE_LOG(LogThreadSmith, Warning, TEXT("Couldn't import the trimmed body: %s"), *TrimError);
+		}
+	}
 	if (bApply)
 	{
 		// Like MetaTailor: the outfit goes into the character's Blueprint as a
 		// component, so every copy wears it and it can be deleted there.
 		if (UBlueprint* BP = BlueprintForCharacter(Outfit->Character))
 		{
-			if (AddOutfitToBlueprint(Mesh, Outfit->Id, BP, Error))
+			if (AddOutfitToBlueprint(Mesh, Outfit->Id, BP, Error, TrimmedBody))
 			{
 				AppliedTo = BP->GetName();
 			}
@@ -221,7 +327,7 @@ bool FThreadSmithBridge::HandleOutfit(const FHttpServerRequest& Request, const F
 		else if (AActor* Target = FindTargetActor(Outfit->Character))
 		{
 			// Not a Blueprint character: put it on the placed actor instead.
-			if (ApplyOutfitToActor(Mesh, Outfit->Id, Target, Error))
+			if (ApplyOutfitToActor(Mesh, Outfit->Id, Target, Error, TrimmedBody))
 			{
 				AppliedTo = Target->GetActorLabel();
 			}
@@ -413,6 +519,8 @@ void FThreadSmithBridge::SendBodyToThreadSmith(USkeletalMesh* BodyMesh, AActor* 
 	{
 		return;
 	}
+	// A body ThreadSmith trimmed under clothes: send the full one, so ThreadSmith gets the whole body.
+	BodyMesh = UntrimmedBody(BodyMesh);
 	const FString Character = Actor ? Actor->GetActorLabel() : (Blueprint ? Blueprint->GetName() : BodyMesh->GetName());
 	const FString Dir = FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir() / TEXT("ThreadSmith/Bodies"));
 	IFileManager::Get().MakeDirectory(*Dir, true);
@@ -549,51 +657,25 @@ USkeletalMesh* FThreadSmithBridge::ImportOutfit(const FThreadSmithOutfit& Outfit
 		return nullptr;
 	}
 
-	// Copy the GLB to a file named after the outfit, so the asset gets that name.
-	const FString TempDir = FPaths::ConvertRelativePathToFull(FPaths::ProjectSavedDir() / TEXT("ThreadSmith/Import"));
-	IFileManager::Get().MakeDirectory(*TempDir, true);
-	const FString TempFile = TempDir / (SafeName + TEXT(".glb"));
-	if (IFileManager::Get().Copy(*TempFile, *Outfit.MeshPath(), /*Replace*/ true, /*EvenIfReadOnly*/ true) != COPY_OK)
+	return ImportGlbOntoSkeleton(Outfit.MeshPath(), SafeName, Folder, Skeleton, OutError);
+}
+
+USkeletalMesh* FThreadSmithBridge::ImportTrimmedBody(const FThreadSmithOutfit& Outfit, FString& OutError)
+{
+	if (Outfit.TrimmedBodyFile.IsEmpty())
 	{
-		OutError = FString::Printf(TEXT("couldn't read %s"), *Outfit.MeshPath());
 		return nullptr;
 	}
-
-	// Interchange import onto the existing skeleton (tested in UE 5.8.3).
-	UInterchangeGenericAssetsPipeline* Pipeline = NewObject<UInterchangeGenericAssetsPipeline>(GetTransientPackage());
-	Pipeline->CommonSkeletalMeshesAndAnimationsProperties->Skeleton = Skeleton;
-	Pipeline->CommonSkeletalMeshesAndAnimationsProperties->bImportOnlyAnimations = false;
-	Pipeline->MeshPipeline->bImportSkeletalMeshes = true;
-	Pipeline->MeshPipeline->bImportStaticMeshes = false;
-	Pipeline->AnimationPipeline->bImportAnimations = false;
-
-	UInterchangePipelineStackOverride* Stack = NewObject<UInterchangePipelineStackOverride>(GetTransientPackage());
-	Stack->OverridePipelines.Add(FSoftObjectPath(Pipeline));
-
-	UAssetImportTask* Task = NewObject<UAssetImportTask>();
-	Task->Filename = TempFile;
-	Task->DestinationPath = Folder;
-	Task->bAutomated = true;
-	Task->bReplaceExisting = true;
-	Task->bSave = true;
-	Task->Options = Stack;
-
-	FAssetToolsModule::GetModule().Get().ImportAssetTasks({ Task });
-
-	for (const FString& Path : Task->ImportedObjectPaths)
+	const FString SafeName = ObjectTools::SanitizeObjectName(Outfit.Name.Replace(TEXT(" "), TEXT("_")));
+	const FString Folder = Settings()->OutfitContentFolder / (SafeName + TEXT("_") + Outfit.Id.Left(6));
+	USkeletalMesh* BodyHint = Outfit.UnrealBody.IsEmpty() ? nullptr : LoadObject<USkeletalMesh>(nullptr, *Outfit.UnrealBody, nullptr, LOAD_NoWarn | LOAD_Quiet);
+	USkeleton* Skeleton = ResolveSkeleton(Outfit.UnrealSkeleton, BodyHint);
+	if (!Skeleton)
 	{
-		if (USkeletalMesh* Mesh = Cast<USkeletalMesh>(StaticLoadObject(UObject::StaticClass(), nullptr, *Path)))
-		{
-			if (Mesh->GetSkeleton() != Skeleton)
-			{
-				UE_LOG(LogThreadSmith, Warning, TEXT("%s was imported onto %s instead of %s"), *Path,
-					Mesh->GetSkeleton() ? *Mesh->GetSkeleton()->GetPathName() : TEXT("nothing"), *Skeleton->GetPathName());
-			}
-			return Mesh;
-		}
+		OutError = TEXT("couldn't find the body skeleton in this project");
+		return nullptr;
 	}
-	OutError = TEXT("the importer didn't create a skeletal mesh");
-	return nullptr;
+	return ImportGlbOntoSkeleton(Outfit.TrimmedBodyPath(), SafeName + TEXT("_TrimmedBody"), Folder, Skeleton, OutError);
 }
 
 AActor* FThreadSmithBridge::FindTargetActor(const FString& Character) const
@@ -617,7 +699,7 @@ AActor* FThreadSmithBridge::FindTargetActor(const FString& Character) const
 	return nullptr;
 }
 
-bool FThreadSmithBridge::ApplyOutfitToActor(USkeletalMesh* OutfitMesh, const FString& OutfitId, AActor* Actor, FString& OutError)
+bool FThreadSmithBridge::ApplyOutfitToActor(USkeletalMesh* OutfitMesh, const FString& OutfitId, AActor* Actor, FString& OutError, USkeletalMesh* TrimmedBody)
 {
 	USkeletalMeshComponent* Body = FindBodyComponent(Actor);
 	if (!Body)
@@ -652,6 +734,13 @@ bool FThreadSmithBridge::ApplyOutfitToActor(USkeletalMesh* OutfitMesh, const FSt
 	Actor->AddInstanceComponent(Comp);
 	Comp->RegisterComponent();
 	Comp->FollowBody();
+	if (TrimmedBody)
+	{
+		// Skin under the clothes removed, so it can't poke through.
+		RememberOriginalBody(TrimmedBody, Body->GetSkeletalMeshAsset());
+		Body->Modify();
+		Body->SetSkeletalMeshAsset(TrimmedBody);
+	}
 	return true;
 }
 
@@ -665,7 +754,9 @@ void FThreadSmithBridge::ApplyOutfitToSelection(const FThreadSmithOutfit& Outfit
 	}
 	FString Error;
 	USkeletalMesh* Mesh = ImportOutfit(Outfit, /*bForceReimport*/ false, Error);
-	if (!Mesh || !ApplyOutfitToActor(Mesh, Outfit.Id, Target, Error))
+	FString TrimError;
+	USkeletalMesh* TrimmedBody = Mesh ? ImportTrimmedBody(Outfit, TrimError) : nullptr;
+	if (!Mesh || !ApplyOutfitToActor(Mesh, Outfit.Id, Target, Error, TrimmedBody))
 	{
 		Notify(FText::Format(LOCTEXT("ApplyFailed", "ThreadSmith: couldn't apply {0}: {1}"), FText::FromString(Outfit.Name), FText::FromString(Error)), false);
 		return;
@@ -798,7 +889,7 @@ UBlueprint* FThreadSmithBridge::FindTargetBlueprint() const
 	return nullptr;
 }
 
-bool FThreadSmithBridge::AddOutfitToBlueprint(USkeletalMesh* OutfitMesh, const FString& OutfitId, UBlueprint* Blueprint, FString& OutError)
+bool FThreadSmithBridge::AddOutfitToBlueprint(USkeletalMesh* OutfitMesh, const FString& OutfitId, UBlueprint* Blueprint, FString& OutError, USkeletalMesh* TrimmedBody)
 {
 	if (!Blueprint || !Blueprint->SimpleConstructionScript)
 	{
@@ -880,6 +971,25 @@ bool FThreadSmithBridge::AddOutfitToBlueprint(USkeletalMesh* OutfitMesh, const F
 		NewNode->SetParent(Body.NativeComponent);
 	}
 
+	// The body with the skin under the clothes removed (if ThreadSmith made one).
+	if (TrimmedBody)
+	{
+		if (Body.Node)
+		{
+			if (USkeletalMeshComponent* BodyTemplate = Cast<USkeletalMeshComponent>(Body.Node->ComponentTemplate))
+			{
+				RememberOriginalBody(TrimmedBody, BodyTemplate->GetSkeletalMeshAsset());
+				BodyTemplate->Modify();
+				BodyTemplate->SetSkeletalMeshAsset(TrimmedBody);
+			}
+		}
+		else
+		{
+			UE_LOG(LogThreadSmith, Warning, TEXT("%s's body comes from C++, so the trimmed body (%s) wasn't swapped in. Set it on the mesh component by hand."),
+				*Blueprint->GetName(), *TrimmedBody->GetPathName());
+		}
+	}
+
 	FBlueprintEditorUtils::MarkBlueprintAsStructurallyModified(Blueprint);
 	FKismetEditorUtilities::CompileBlueprint(Blueprint);
 	// Save it, so the outfit is still there next time (the imported mesh is saved too).
@@ -903,7 +1013,9 @@ void FThreadSmithBridge::AddOutfitToTargetBlueprint(const FThreadSmithOutfit& Ou
 	}
 	FString Error;
 	USkeletalMesh* Mesh = ImportOutfit(Outfit, /*bForceReimport*/ false, Error);
-	if (!Mesh || !AddOutfitToBlueprint(Mesh, Outfit.Id, BP, Error))
+	FString TrimError;
+	USkeletalMesh* TrimmedBody = Mesh ? ImportTrimmedBody(Outfit, TrimError) : nullptr;
+	if (!Mesh || !AddOutfitToBlueprint(Mesh, Outfit.Id, BP, Error, TrimmedBody))
 	{
 		Notify(FText::Format(LOCTEXT("AddBPFailed", "ThreadSmith: couldn't add {0} to {1}: {2}"), FText::FromString(Outfit.Name),
 			FText::FromString(BP->GetName()), FText::FromString(Error)), false);

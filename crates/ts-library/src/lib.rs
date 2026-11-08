@@ -23,6 +23,7 @@ pub const FORMAT_VERSION: u32 = 1;
 pub const INFO_FILE: &str = "outfit.json";
 pub const MESH_FILE: &str = "outfit.glb";
 pub const THUMBNAIL_FILE: &str = "thumbnail.png";
+pub const TRIMMED_BODY_FILE: &str = "body_trimmed.glb";
 
 /// Garment types, shown as filters in the app and the Unreal wardrobe.
 pub const CATEGORIES: &[&str] = &[
@@ -72,6 +73,9 @@ pub struct OutfitInfo {
     pub thumbnail_file: String,
     #[serde(default)]
     pub tags: Vec<String>,
+    /// The body with the skin under the clothes removed (optional).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub trimmed_body_file: Option<String>,
 }
 
 /// An outfit found in the library.
@@ -174,6 +178,7 @@ impl Library {
             mesh_file: MESH_FILE.into(),
             thumbnail_file: THUMBNAIL_FILE.into(),
             tags: Vec::new(),
+            trimmed_body_file: None,
         };
         let outfit = Outfit { dir, info };
         ts_io::write_glb(&outfit.mesh_path(), skeleton, meshes)?;
@@ -189,6 +194,14 @@ impl Library {
         }
         write_info(&outfit.dir, &outfit.info)?;
         Ok(outfit)
+    }
+
+    /// Add the body with the skin under the clothes removed to a saved outfit.
+    /// Unreal swaps it in for the character's body so skin can't poke through.
+    pub fn save_trimmed_body(&self, outfit: &mut Outfit, skeleton: &Skeleton, body: &ExportMesh) -> Result<()> {
+        ts_io::write_glb(&outfit.dir.join(TRIMMED_BODY_FILE), skeleton, std::slice::from_ref(body))?;
+        outfit.info.trimmed_body_file = Some(TRIMMED_BODY_FILE.into());
+        write_info(&outfit.dir, &outfit.info)
     }
 
     /// Delete an outfit folder.
@@ -310,6 +323,7 @@ mod tests {
                     name: "Shirt",
                     mesh: &mesh,
                     color: [1.0, 0.0, 0.0],
+                    material: None,
                 }],
                 Some(&thumb),
             )

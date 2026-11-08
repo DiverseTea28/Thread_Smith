@@ -1,13 +1,13 @@
-STARTED 2026-11-05 16:52:08.72
+STARTED 2026-11-07 21:43:12.21
 Running AutomationTool...
 Using bundled DotNet SDK version: 10.0 win-x64
 Starting AutomationTool...
 Parsing command line: BuildPlugin -Plugin=C:\Users\tyco0\Documents\ThreadSmith\unreal\ThreadSmithBridge\ThreadSmithBridge.uplugin -Package=C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge -TargetPlatforms=Win64 -Rocket
 Initializing script modules...
-Total script module initialization time: 0.29 s.
+Total script module initialization time: 0.24 s.
 Using C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe
 Executing commands...
-Copying 19 file(s) using max 64 thread(s)
+Copying 25 file(s) using max 64 thread(s)
 Reading plugin from C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Plugins\ThreadSmithBridge\ThreadSmithBridge.uplugin...
 Building plugin for host platforms: Win64
 Running: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\ThirdParty\DotNet\10.0\win-x64\dotnet.exe "C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" UnrealEditor Win64 Development -Project="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\HostProject.uproject" -plugin="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Plugins\ThreadSmithBridge\ThreadSmithBridge.uplugin" -noubtmakefiles -manifest="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Saved\Manifest-UnrealEditor-Win64-Development.xml" -nohotreload -log="C:\Users\tyco0\AppData\Roaming\Unreal Engine\AutomationTool\Logs\C+Program+Files+Epic+Games+UE_5.8\UBA-UnrealEditor-Win64-Development.txt"
@@ -24,24 +24,24 @@ Building UnrealEditor...
 Using ISPC compiler (C:\Program Files\Epic Games\UE_5.8\Engine\Source\ThirdParty\Intel\ISPC\bin\Windows\ispc.exe)
   Intel(r) Implicit SPMD Program Compiler (Intel(r) ISPC), 1.24.0 (build commit  @ 20250404, LLVM 18.1.2)
 Using Visual Studio 14.44.35229 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-[Adaptive Build] Excluded from ThreadSmithBridgeEditor unity file: SThreadSmithWardrobe.cpp, ThreadSmithBridge.cpp, ThreadSmithBridgeEditorModule.cpp, ThreadSmithBridgeSettings.cpp, ThreadSmithLibrary.cpp
 [Adaptive Build] Excluded from ThreadSmithRuntime unity file: ThreadSmithOutfitComponent.cpp, ThreadSmithRuntimeModule.cpp
+[Adaptive Build] Excluded from ThreadSmithBridgeEditor unity file: SThreadSmithWardrobe.cpp, ThreadSmithBridge.cpp, ThreadSmithBridgeEditorModule.cpp, ThreadSmithBridgeSettings.cpp, ThreadSmithLibrary.cpp
 =================================
 Using Unreal Build Accelerator local executor to run 17 action(s)
   CPU 16 physical cores, 32 logical cores
-  Memory 63.07 GB physical, 38.35 GB/69.07 GB committed
+  Memory 63.07 GB physical, 25.06 GB/69.07 GB committed
   UBA Storage capacity 40 GB
 [1/17] Compile Resource [x64] Default.rc2
 [2/17] Compile Resource [x64] Default.rc2
 [3/17] Compile [x64] SharedPCH.UnrealEd.Cpp20.cpp
 [4/17] Compile [x64] ThreadSmithRuntimeModule.cpp
-[5/17] Compile [x64] Module.ThreadSmithRuntime.cpp
-[6/17] Compile [x64] Module.ThreadSmithBridgeEditor.cpp
-[7/17] Compile [x64] ThreadSmithOutfitComponent.cpp
-[8/17] Link [x64] UnrealEditor-ThreadSmithRuntime.lib
-[9/17] Link [x64] UnrealEditor-ThreadSmithRuntime.dll
-[10/17] Compile [x64] ThreadSmithBridgeSettings.cpp
-[11/17] Compile [x64] ThreadSmithLibrary.cpp
+[5/17] Compile [x64] Module.ThreadSmithBridgeEditor.cpp
+[6/17] Compile [x64] ThreadSmithBridgeSettings.cpp
+[7/17] Compile [x64] Module.ThreadSmithRuntime.cpp
+[8/17] Compile [x64] ThreadSmithOutfitComponent.cpp
+[9/17] Link [x64] UnrealEditor-ThreadSmithRuntime.lib
+[10/17] Compile [x64] ThreadSmithLibrary.cpp
+[11/17] Link [x64] UnrealEditor-ThreadSmithRuntime.dll
 [12/17] Compile [x64] ThreadSmithBridgeEditorModule.cpp
 [13/17] Compile [x64] SThreadSmithWardrobe.cpp
 [14/17] Compile [x64] ThreadSmithBridge.cpp
@@ -49,13 +49,13 @@ Using Unreal Build Accelerator local executor to run 17 action(s)
 [16/17] Link [x64] UnrealEditor-ThreadSmithBridgeEditor.dll
 [17/17] WriteMetadata UnrealEditor.target [NoUba]
 
-Total time in Unreal Build Accelerator local executor: 35.86 seconds
+Total time in Unreal Build Accelerator local executor: 28.40 seconds
 Output binary: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealEditor.exe
 
 Result: Succeeded
-Total execution time: 43.21 seconds
-Trace written to file C:\Users\tyco0\AppData\Local\UnrealBuildTool\Trace.uba with size 11.4kb
-Took 43.65s to run dotnet.exe, ExitCode=0
+Total execution time: 34.69 seconds
+Trace written to file C:\Users\tyco0\AppData\Local\UnrealBuildTool\Trace.uba with size 11.0kb
+Took 35.20s to run dotnet.exe, ExitCode=0
 Building plugin for target platforms: Win64
 Running: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\ThirdParty\DotNet\10.0\win-x64\dotnet.exe "C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" UnrealGame Win64 Development -Project="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\HostProject.uproject" -plugin="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Plugins\ThreadSmithBridge\ThreadSmithBridge.uplugin" -noubtmakefiles -manifest="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Saved\Manifest-UnrealGame-Win64-Development.xml" -nohotreload -log="C:\Users\tyco0\AppData\Roaming\Unreal Engine\AutomationTool\Logs\C+Program+Files+Epic+Games+UE_5.8\UBA-UnrealGame-Win64-Development.txt"
 Log file: C:\Users\tyco0\AppData\Roaming\Unreal Engine\AutomationTool\Logs\C+Program+Files+Epic+Games+UE_5.8\UBA-UnrealGame-Win64-Development.txt
@@ -74,19 +74,19 @@ Using Visual Studio 14.44.35229 toolchain (C:\Program Files\Microsoft Visual Stu
 =================================
 Using Unreal Build Accelerator local executor to run 3 action(s)
   CPU 16 physical cores, 32 logical cores
-  Memory 63.07 GB physical, 37.71 GB/69.07 GB committed
+  Memory 63.07 GB physical, 24.49 GB/69.07 GB committed
   UBA Storage capacity 40 GB
 [1/3] Compile [x64] ThreadSmithRuntimeModule.cpp
-[2/3] Compile [x64] Module.ThreadSmithRuntime.cpp
-[3/3] Compile [x64] ThreadSmithOutfitComponent.cpp
+[2/3] Compile [x64] ThreadSmithOutfitComponent.cpp
+[3/3] Compile [x64] Module.ThreadSmithRuntime.cpp
 
-Total time in Unreal Build Accelerator local executor: 8.70 seconds
+Total time in Unreal Build Accelerator local executor: 6.94 seconds
 Output binary: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealGame.exe
 
 Result: Succeeded
-Total execution time: 11.48 seconds
-Trace written to file C:\Users\tyco0\AppData\Local\UnrealBuildTool\Trace.uba with size 5.7kb
-Took 11.68s to run dotnet.exe, ExitCode=0
+Total execution time: 9.27 seconds
+Trace written to file C:\Users\tyco0\AppData\Local\UnrealBuildTool\Trace.uba with size 5.5kb
+Took 9.43s to run dotnet.exe, ExitCode=0
 Running: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\ThirdParty\DotNet\10.0\win-x64\dotnet.exe "C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" UnrealGame Win64 Shipping -Project="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\HostProject.uproject" -plugin="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Plugins\ThreadSmithBridge\ThreadSmithBridge.uplugin" -noubtmakefiles -manifest="C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Saved\Manifest-UnrealGame-Win64-Shipping.xml" -nohotreload -log="C:\Users\tyco0\AppData\Roaming\Unreal Engine\AutomationTool\Logs\C+Program+Files+Epic+Games+UE_5.8\UBA-UnrealGame-Win64-Shipping.txt"
 Log file: C:\Users\tyco0\AppData\Roaming\Unreal Engine\AutomationTool\Logs\C+Program+Files+Epic+Games+UE_5.8\UBA-UnrealGame-Win64-Shipping.txt
 Determining max actions to execute in parallel (16 physical cores, 32 logical cores)
@@ -103,21 +103,21 @@ Using Visual Studio 14.44.35229 toolchain (C:\Program Files\Microsoft Visual Stu
 =================================
 Using Unreal Build Accelerator local executor to run 3 action(s)
   CPU 16 physical cores, 32 logical cores
-  Memory 63.07 GB physical, 37.27 GB/69.07 GB committed
+  Memory 63.07 GB physical, 24.02 GB/69.07 GB committed
   UBA Storage capacity 40 GB
 [1/3] Compile [x64] ThreadSmithRuntimeModule.cpp
 [2/3] Compile [x64] Module.ThreadSmithRuntime.cpp
 [3/3] Compile [x64] ThreadSmithOutfitComponent.cpp
 
-Total time in Unreal Build Accelerator local executor: 7.01 seconds
+Total time in Unreal Build Accelerator local executor: 5.78 seconds
 Output binary: C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\Win64\UnrealGame-Win64-Shipping.exe
 
 Result: Succeeded
-Total execution time: 8.69 seconds
+Total execution time: 7.20 seconds
 Trace written to file C:\Users\tyco0\AppData\Local\UnrealBuildTool\Trace.uba with size 5.4kb
-Took 8.86s to run dotnet.exe, ExitCode=0
+Took 7.35s to run dotnet.exe, ExitCode=0
 Reading filter rules from C:\Users\tyco0\Documents\ThreadSmith\unreal\Build\ThreadSmithBridge\HostProject\Plugins\ThreadSmithBridge\Config\FilterPlugin.ini
 Loading FilterPluginWin64.ini
 BUILD SUCCESSFUL
-AutomationTool executed for 0h 1m 5s
+AutomationTool executed for 0h 0m 52s
 AutomationTool exiting with ExitCode=0 (Success)

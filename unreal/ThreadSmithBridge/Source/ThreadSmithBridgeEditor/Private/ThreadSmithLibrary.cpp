@@ -32,6 +32,11 @@ TSharedPtr<FThreadSmithOutfit> ThreadSmithLibrary::Read(const FString& OutfitDir
 	O->MeshFile = Json->GetStringField(TEXT("mesh_file"));
 	O->ThumbnailFile = Json->GetStringField(TEXT("thumbnail_file"));
 	O->Modified = (int64)Json->GetNumberField(TEXT("modified"));
+	Json->TryGetStringField(TEXT("trimmed_body_file"), O->TrimmedBodyFile);
+	if (!O->TrimmedBodyFile.IsEmpty() && !FPaths::FileExists(O->TrimmedBodyPath()))
+	{
+		O->TrimmedBodyFile.Empty();
+	}
 
 	const TSharedPtr<FJsonObject>* Body = nullptr;
 	if (Json->TryGetObjectField(TEXT("body"), Body) && Body)

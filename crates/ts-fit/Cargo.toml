@@ -9,6 +9,8 @@ license.workspace = true
 ts-core.workspace = true
 glam.workspace = true
 log.workspace = true
+serde = { version = "1", features = ["derive"] }
+meshopt = "0.7.0"
 
 [dev-dependencies]
 ts-io.workspace = true

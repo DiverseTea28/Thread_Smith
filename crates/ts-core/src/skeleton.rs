@@ -4,6 +4,7 @@ use glam::{Mat4, Quat, Vec3};
 
 /// Translation / rotation / scale. Used for a bone's local transform.
 #[derive(Clone, Copy, Debug, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Trs {
     pub translation: Vec3,
     pub rotation: Quat,
@@ -37,6 +38,7 @@ impl Trs {
 
 /// One bone.
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Joint {
     pub name: String,
     /// Index of the parent joint. Parents always come before children.
@@ -48,6 +50,7 @@ pub struct Joint {
 /// A bone hierarchy. Joints are stored parents-first, so one pass from
 /// start to end is enough to work out world transforms.
 #[derive(Clone, Debug, Default)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct Skeleton {
     pub joints: Vec<Joint>,
 }

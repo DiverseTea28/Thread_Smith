@@ -8,7 +8,7 @@ use glam::{Mat3, Mat4, Vec2, Vec3};
 use ts_core::{Joint, Mesh, MeshPart, Scene, Skeleton, Skin, Trs, MAX_INFLUENCES};
 
 pub fn load(path: &Path) -> Result<Scene> {
-    let (doc, buffers, _images) = gltf::import(path)
+    let (doc, buffers, images) = gltf::import(path)
         .with_context(|| format!("Could not read glTF file {}", path.display()))?;
 
     // Parent of every node, and world matrix of every node (default pose).
@@ -192,7 +192,9 @@ pub fn load(path: &Path) -> Result<Scene> {
             } else {
                 base
             };
-            parts.push(MeshPart::new(name, mesh));
+            let mut part = MeshPart::new(name, mesh);
+            part.material = Some(crate::materials::gltf_material(prim.material(), &buffers, &images, path));
+            parts.push(part);
         }
     }
 

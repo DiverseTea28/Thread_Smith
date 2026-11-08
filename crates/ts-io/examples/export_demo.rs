@@ -57,6 +57,7 @@ fn main() -> anyhow::Result<()> {
             name: "TShirt",
             mesh: &g,
             color: [0.8, 0.45, 0.32],
+            material: None,
         }],
     )?;
     println!(

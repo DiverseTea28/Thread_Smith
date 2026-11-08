@@ -231,7 +231,17 @@ pub fn load(path: &Path) -> Result<Scene> {
         } else {
             node.element.name.to_string()
         };
-        parts.push(MeshPart::new(name, mesh));
+        let mut part = MeshPart::new(name, mesh);
+        // The material used by the most faces.
+        let main = fmesh
+            .material_parts
+            .iter()
+            .filter(|p| p.num_triangles > 0)
+            .max_by_key(|p| p.num_triangles)
+            .and_then(|p| fmesh.materials.get(p.index as usize))
+            .or_else(|| fmesh.materials.iter().next());
+        part.material = main.map(|m| crate::materials::fbx_material(m, path));
+        parts.push(part);
     }
 
     Ok(Scene {

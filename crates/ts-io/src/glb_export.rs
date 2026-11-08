@@ -9,7 +9,7 @@ use std::path::Path;
 use anyhow::{bail, Context, Result};
 use glam::{Mat4, Vec3};
 use serde_json::{json, Value};
-use ts_core::{Mesh, Skeleton, MAX_INFLUENCES};
+use ts_core::{Material, Mesh, Skeleton, Texture, MAX_INFLUENCES};
 
 // glTF constants.
 const ARRAY_BUFFER: u32 = 34962;
@@ -22,8 +22,10 @@ const UNSIGNED_INT: u32 = 5125;
 pub struct ExportMesh<'a> {
     pub name: &'a str,
     pub mesh: &'a Mesh,
-    /// Base colour (linear RGB), used for a simple placeholder material.
+    /// Base colour (linear RGB), used when there is no material.
     pub color: [f32; 3],
+    /// The part's material (colour and textures), written into the file.
+    pub material: Option<&'a Material>,
 }
 
 /// Collects binary data and the JSON entries that point into it.
@@ -150,8 +152,17 @@ pub fn write_glb(path: &Path, skeleton: &Skeleton, meshes: &[ExportMesh]) -> Res
     // ---- Meshes ---------------------------------------------------------------------
     let mut gl_meshes = Vec::new();
     let mut materials = Vec::new();
+    let mut images: Vec<Value> = Vec::new();
+    let mut textures: Vec<Value> = Vec::new();
+    let mut add_texture = |b: &mut Builder, t: &Texture| -> usize {
+        let view = b.push_view(&t.bytes, None);
+        images.push(json!({ "name": t.name, "bufferView": view, "mimeType": t.mime }));
+        textures.push(json!({ "sampler": 0, "source": images.len() - 1 }));
+        textures.len() - 1
+    };
     let mut scene_nodes: Vec<usize> = roots.clone();
     for (mi, em) in meshes.iter().enumerate() {
+        let baked = em.material.map(crate::materials::baked);
         let mesh = em.mesh;
         let skin = mesh.skin.as_ref().unwrap();
         // The skin's inverse binds must match the skeleton's (true for meshes
@@ -190,14 +201,37 @@ pub fn write_glb(path: &Path, skeleton: &Skeleton, meshes: &[ExportMesh]) -> Res
         let iv = b.push_view(&bytes_u32(&mesh.indices), Some(ELEMENT_ARRAY_BUFFER));
         let indices = b.accessor(iv, UNSIGNED_INT, mesh.indices.len(), "SCALAR", None);
 
-        materials.push(json!({
-            "name": format!("M_{}", em.name),
-            "pbrMetallicRoughness": {
-                "baseColorFactor": [em.color[0], em.color[1], em.color[2], 1.0],
-                "metallicFactor": 0.0,
-                "roughnessFactor": 0.85
+        let mut material = match &baked {
+            Some(m) => json!({
+                "name": format!("M_{}", em.name),
+                "pbrMetallicRoughness": {
+                    "baseColorFactor": m.base_color,
+                    "metallicFactor": m.metallic,
+                    "roughnessFactor": m.roughness
+                },
+                "doubleSided": true
+            }),
+            None => json!({
+                "name": format!("M_{}", em.name),
+                "pbrMetallicRoughness": {
+                    "baseColorFactor": [em.color[0], em.color[1], em.color[2], 1.0],
+                    "metallicFactor": 0.0,
+                    "roughnessFactor": 0.85
+                },
+                "doubleSided": true
+            }),
+        };
+        if let Some(m) = &baked {
+            if let Some(t) = &m.base_color_texture {
+                let ti = add_texture(&mut b, t);
+                material["pbrMetallicRoughness"]["baseColorTexture"] = json!({ "index": ti });
             }
-        }));
+            if let Some(t) = &m.normal_texture {
+                let ti = add_texture(&mut b, t);
+                material["normalTexture"] = json!({ "index": ti });
+            }
+        }
+        materials.push(material);
         gl_meshes.push(json!({
             "name": em.name,
             "primitives": [{ "attributes": attributes, "indices": indices, "material": mi }]
@@ -213,7 +247,7 @@ pub fn write_glb(path: &Path, skeleton: &Skeleton, meshes: &[ExportMesh]) -> Res
     while b.bin.len() % 4 != 0 {
         b.bin.push(0);
     }
-    let doc = json!({
+    let mut doc = json!({
         "asset": { "version": "2.0", "generator": concat!("ThreadSmith ", env!("CARGO_PKG_VERSION")) },
         "scene": 0,
         "scenes": [{ "name": "ThreadSmith", "nodes": scene_nodes }],
@@ -225,6 +259,12 @@ pub fn write_glb(path: &Path, skeleton: &Skeleton, meshes: &[ExportMesh]) -> Res
         "bufferViews": b.views,
         "buffers": [{ "byteLength": b.bin.len() }],
     });
+    if !images.is_empty() {
+        doc["images"] = json!(images);
+        doc["textures"] = json!(textures);
+        // Linear filtering with mipmaps, repeat wrapping.
+        doc["samplers"] = json!([{ "magFilter": 9729, "minFilter": 9987, "wrapS": 10497, "wrapT": 10497 }]);
+    }
 
     // ---- GLB container: header, JSON chunk, BIN chunk -------------------------
     let mut json_bytes = serde_json::to_vec(&doc)?;

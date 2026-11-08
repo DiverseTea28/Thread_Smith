@@ -112,9 +112,17 @@ Library/
   },
   "mesh_file": "outfit.glb",
   "thumbnail_file": "thumbnail.png",
-  "tags": []
+  "tags": [],
+  "trimmed_body_file": "body_trimmed.glb"
 }
 ```
+
+`trimmed_body_file` is optional. It's the body with the skin under the clothes
+removed ("Hide body under clothes" on the Export tab), skinned to the same
+skeleton. When the plugin puts the outfit on a character it imports this as
+`<Name>_TrimmedBody` next to the outfit and swaps it in for the character's
+body mesh. It remembers the original in `Saved/ThreadSmith/trimmed_bodies.json`,
+so "Send body to ThreadSmith" still sends the full body.
 
 Categories: `Top`, `Bottom`, `Full body`, `Footwear`, `Headwear`, `Gloves`,
 `Accessory`, `Outfit`. Readers should ignore unknown fields and skip folders

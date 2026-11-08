@@ -1,0 +1,275 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "$IMAGE_MODEL",
+      "weight_dtype": "default"
+    },
+    "_meta": {
+      "title": "Loading the image model"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "$TEXT_ENCODER",
+      "type": "flux2",
+      "device": "default"
+    },
+    "_meta": {
+      "title": "Loading the text encoder"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "$IMAGE_VAE"
+    },
+    "_meta": {
+      "title": "Loading the image decoder"
+    }
+  },
+  "4": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "text": "$PROMPT"
+    },
+    "_meta": {
+      "title": "Reading the prompt"
+    }
+  },
+  "5": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": {
+      "conditioning": [
+        "4",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Reading the prompt"
+    }
+  },
+  "9": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "_meta": {
+      "title": "Drawing the image"
+    }
+  },
+  "10": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": "$SEED"
+    },
+    "_meta": {
+      "title": "Drawing the image"
+    }
+  },
+  "20": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "$REF_IMAGE"
+    },
+    "_meta": {
+      "title": "Reading your image"
+    }
+  },
+  "21": {
+    "class_type": "ImageScaleToTotalPixels",
+    "inputs": {
+      "image": [
+        "20",
+        0
+      ],
+      "upscale_method": "nearest-exact",
+      "megapixels": 1.0,
+      "resolution_steps": 1
+    },
+    "_meta": {
+      "title": "Reading your image"
+    }
+  },
+  "22": {
+    "class_type": "GetImageSize",
+    "inputs": {
+      "image": [
+        "21",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Reading your image"
+    }
+  },
+  "23": {
+    "class_type": "VAEEncode",
+    "inputs": {
+      "pixels": [
+        "21",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Reading your image"
+    }
+  },
+  "24": {
+    "class_type": "ReferenceLatent",
+    "inputs": {
+      "conditioning": [
+        "4",
+        0
+      ],
+      "latent": [
+        "23",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Reading your image"
+    }
+  },
+  "25": {
+    "class_type": "ReferenceLatent",
+    "inputs": {
+      "conditioning": [
+        "5",
+        0
+      ],
+      "latent": [
+        "23",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Reading your image"
+    }
+  },
+  "6": {
+    "class_type": "CFGGuider",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "24",
+        0
+      ],
+      "negative": [
+        "25",
+        0
+      ],
+      "cfg": 1
+    },
+    "_meta": {
+      "title": "Drawing the image"
+    }
+  },
+  "7": {
+    "class_type": "EmptyFlux2LatentImage",
+    "inputs": {
+      "width": [
+        "22",
+        0
+      ],
+      "height": [
+        "22",
+        1
+      ],
+      "batch_size": 1
+    },
+    "_meta": {
+      "title": "Drawing the image"
+    }
+  },
+  "8": {
+    "class_type": "Flux2Scheduler",
+    "inputs": {
+      "steps": "$STEPS",
+      "width": [
+        "22",
+        0
+      ],
+      "height": [
+        "22",
+        1
+      ]
+    },
+    "_meta": {
+      "title": "Drawing the image"
+    }
+  },
+  "11": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "10",
+        0
+      ],
+      "guider": [
+        "6",
+        0
+      ],
+      "sampler": [
+        "9",
+        0
+      ],
+      "sigmas": [
+        "8",
+        0
+      ],
+      "latent_image": [
+        "7",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Drawing the image"
+    }
+  },
+  "12": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "11",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Finishing the image"
+    }
+  },
+  "13": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "12",
+        0
+      ],
+      "filename_prefix": "ThreadSmith/image"
+    },
+    "_meta": {
+      "title": "Saving the image"
+    }
+  },
+  "_threadsmith": {
+    "about": "FLUX.2 [klein] 4B (distilled): edit a reference image. One image per run.",
+    "output_node": "13"
+  }
+}

@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/ts-core", "crates/ts-io", "crates/ts-fit", "crates/ts-library", "crates/ts-app"]
+members = ["crates/ts-core", "crates/ts-io", "crates/ts-fit", "crates/ts-library", "crates/ts-gen", "crates/ts-app"]
 
 [workspace.package]
 version = "0.1.0"
@@ -12,7 +12,8 @@ ts-core = { path = "crates/ts-core" }
 ts-io = { path = "crates/ts-io" }
 ts-fit = { path = "crates/ts-fit" }
 ts-library = { path = "crates/ts-library" }
-glam = { version = "0.34", features = ["bytemuck"] }
+ts-gen = { path = "crates/ts-gen" }
+glam = { version = "0.34", features = ["bytemuck", "serde"] }
 anyhow = "1"
 log = "0.4"
 
