@@ -94,6 +94,9 @@ pub struct DrawSettings {
     pub outline_part: Option<usize>,
     /// Soft shadow on the floor: centre (floor height in y) and radius.
     pub shadow: Option<(Vec3, f32)>,
+    /// A plain background colour instead of the usual gradient (for renders
+    /// that go to the AI).
+    pub plain_background: Option<[f64; 3]>,
 }
 
 struct GpuPart {
@@ -136,6 +139,8 @@ pub struct Viewport {
     bind_group: wgpu::BindGroup,
     grid: Vec<LineVertex>,
     parts: Vec<GpuPart>,
+    /// The live view of a model being made (drawn after the scene).
+    preview: Option<GpuPart>,
     targets: Option<Targets>,
     texture_id: Option<egui::TextureId>,
 }
@@ -376,6 +381,7 @@ impl Viewport {
             bind_group,
             grid: grid_lines(10.0, 0.5),
             parts: Vec::new(),
+            preview: None,
             targets: None,
             texture_id: None,
         }
@@ -435,6 +441,55 @@ impl Viewport {
                 role_color,
             });
         }
+    }
+
+    /// Show (or remove) the live view of a model being made.
+    pub fn set_preview(&mut self, device: &wgpu::Device, geometry: Option<&crate::live_view::PreviewGeometry>) {
+        self.preview = None;
+        let Some(g) = geometry.filter(|g| !g.indices.is_empty() && !g.positions.is_empty()) else {
+            return;
+        };
+        let vertices: Vec<MeshVertex> = g
+            .positions
+            .iter()
+            .zip(&g.normals)
+            .map(|(p, n)| MeshVertex { pos: p.to_array(), normal: n.to_array(), color: g.color, uv: [0.0, 0.0] })
+            .collect();
+        let mut edges = Vec::with_capacity(g.indices.len() * 2);
+        for t in g.indices.chunks_exact(3) {
+            edges.extend_from_slice(&[t[0], t[1], t[1], t[2], t[2], t[0]]);
+        }
+        let look = PartLook { adjust: [0.0, 1.0, 1.0, 0.0], surface: [0.75, 0.0, 0.0, 0.0] };
+        let look_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("preview look"),
+            contents: bytemuck::bytes_of(&look),
+            usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+        });
+        let material = self.material_bind_group(device, &self.white.clone(), &look_buffer);
+        self.preview = Some(GpuPart {
+            vertex_buffer: device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                label: Some("preview vertices"),
+                contents: bytemuck::cast_slice(&vertices),
+                usage: wgpu::BufferUsages::VERTEX,
+            }),
+            index_buffer: device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                label: Some("preview indices"),
+                contents: bytemuck::cast_slice(&g.indices),
+                usage: wgpu::BufferUsages::INDEX,
+            }),
+            index_count: g.indices.len() as u32,
+            edge_buffer: device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                label: Some("preview edges"),
+                contents: bytemuck::cast_slice(&edges),
+                usage: wgpu::BufferUsages::INDEX,
+            }),
+            edge_count: edges.len() as u32,
+            color: g.color,
+            visible: true,
+            material,
+            look_buffer,
+            role_color: g.color,
+        });
     }
 
     /// The part's base colour texture (white when it has none).
@@ -705,6 +760,10 @@ impl Viewport {
         };
         let overlay_buffer = line_buffer("overlay lines", &settings.overlay_lines);
 
+        let clear = match settings.plain_background {
+            Some([r, g, b]) => wgpu::Color { r, g, b, a: 1.0 },
+            None => BACKGROUND,
+        };
         let mut encoder = device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
             label: Some("viewport"),
         });
@@ -717,7 +776,7 @@ impl Viewport {
                         depth_slice: None,
                         resolve_target: Some(&targets.resolved),
                         ops: wgpu::Operations {
-                            load: wgpu::LoadOp::Clear(BACKGROUND),
+                            load: wgpu::LoadOp::Clear(clear),
                             store: wgpu::StoreOp::Discard,
                         },
                     }
@@ -727,7 +786,7 @@ impl Viewport {
                         depth_slice: None,
                         resolve_target: None,
                         ops: wgpu::Operations {
-                            load: wgpu::LoadOp::Clear(BACKGROUND),
+                            load: wgpu::LoadOp::Clear(clear),
                             store: wgpu::StoreOp::Store,
                         },
                     }
@@ -746,8 +805,10 @@ impl Viewport {
             });
             pass.set_bind_group(0, &self.bind_group, &[]);
 
-            pass.set_pipeline(&self.background_pipeline);
-            pass.draw(0..3, 0..1);
+            if settings.plain_background.is_none() {
+                pass.set_pipeline(&self.background_pipeline);
+                pass.draw(0..3, 0..1);
+            }
             if settings.shadow.is_some() && settings.shaded {
                 pass.set_pipeline(&self.shadow_pipeline);
                 pass.draw(0..6, 0..1);
@@ -755,7 +816,7 @@ impl Viewport {
 
             if settings.shaded {
                 pass.set_pipeline(&self.mesh_pipeline);
-                for p in self.parts.iter().filter(|p| p.visible) {
+                for p in self.parts.iter().chain(self.preview.as_ref()).filter(|p| p.visible) {
                     pass.set_bind_group(1, &p.material, &[]);
                     pass.set_vertex_buffer(0, p.vertex_buffer.slice(..));
                     pass.set_index_buffer(p.index_buffer.slice(..), wgpu::IndexFormat::Uint32);
@@ -776,7 +837,7 @@ impl Viewport {
             }
             if settings.wireframe {
                 pass.set_pipeline(&self.wire_pipeline);
-                for p in self.parts.iter().filter(|p| p.visible) {
+                for p in self.parts.iter().chain(self.preview.as_ref()).filter(|p| p.visible) {
                     pass.set_bind_group(1, &p.material, &[]);
                     pass.set_vertex_buffer(0, p.vertex_buffer.slice(..));
                     pass.set_index_buffer(p.edge_buffer.slice(..), wgpu::IndexFormat::Uint32);

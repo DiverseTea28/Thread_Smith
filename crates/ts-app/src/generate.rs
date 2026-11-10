@@ -1,8 +1,10 @@
-//! The "Generate clothing" window: pick a garment type, describe it (text,
-//! picture or both), pick one of the pictures, make it 3D.
+//! The Generate tab: pick a garment type, describe it (text, picture or
+//! both), pick one of the pictures, make it 3D.
 //!
-//! The AI work happens in a local ComfyUI driven by `ts_gen`; this file is only
-//! the window and its state.
+//! Pictures come from a local ComfyUI; 3D models from Pixal3D in the
+//! ThreadSmith Engine (with a live view in the viewport) or from TRELLIS.2 in
+//! ComfyUI. All of that lives in `ts_gen`; this file is only the panel and
+//! its state.
 
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
@@ -12,7 +14,9 @@ use std::time::{Duration, Instant};
 use egui::{vec2, Align2, Color32, FontId, RichText, Sense, StrokeKind, TextureHandle};
 use ts_gen::jobs::EngineReport;
 use ts_gen::models::ModelList;
-use ts_gen::{EngineSettings, Garment, GenEvent, GenJob, GenRequest, Launcher, ModelSet, Presets, Quality};
+use ts_gen::{
+    EngineHost, EngineSettings, Garment, GenEvent, GenJob, GenRequest, Launcher, LivePreview, MeshEngine, ModelSet, Presets, Quality,
+};
 
 /// Key for saving the engine settings between runs.
 pub const SETTINGS_KEY: &str = "threadsmith_generator";
@@ -43,6 +47,7 @@ pub struct GeneratePanel {
     models: Vec<ModelSet>,
     icons: HashMap<String, TextureHandle>,
     launcher: Arc<Mutex<Launcher>>,
+    engine: Arc<Mutex<EngineHost>>,
 
     selected: usize,
     prompt: String,
@@ -61,6 +66,9 @@ pub struct GeneratePanel {
     show_prompt: bool,
     /// When the running job started (for the timer).
     job_started: Option<Instant>,
+    /// The model forming (live view), and a counter that changes with it.
+    live: Option<LivePreview>,
+    live_version: u64,
 }
 
 impl GeneratePanel {
@@ -96,6 +104,7 @@ impl GeneratePanel {
             models,
             icons,
             launcher: Arc::new(Mutex::new(Launcher::default())),
+            engine: Arc::new(Mutex::new(EngineHost::default())),
             selected: shirts,
             prompt: String::new(),
             reference: None,
@@ -110,7 +119,30 @@ impl GeneratePanel {
             show_settings: false,
             show_prompt: false,
             job_started: None,
+            live: None,
+            live_version: 0,
         }
+    }
+
+    /// The live view (if a model is forming) and its version number, which
+    /// changes whenever the preview does.
+    pub fn live_preview(&self) -> (u64, Option<&LivePreview>) {
+        (self.live_version, self.live.as_ref())
+    }
+
+    fn set_live(&mut self, live: Option<LivePreview>) {
+        if live.is_none() && self.live.is_none() {
+            return;
+        }
+        self.live = live;
+        self.live_version += 1;
+    }
+
+    /// For testing: make a 3D model from `image` right away (used with the
+    /// THREADSMITH_AUTO_MESH setting, once a body is open).
+    pub fn dev_make_3d(&mut self, ctx: &egui::Context, image: PathBuf) {
+        let faces = self.garment().map(|g| g.faces).unwrap_or(150_000);
+        self.start(ctx, JobKind::Mesh, GenRequest::Mesh { image, quality: self.quality, faces, seed: 1 });
     }
 
     pub fn busy(&self) -> bool {
@@ -140,9 +172,13 @@ impl GeneratePanel {
             return;
         };
         let wake = ctx.clone();
+        if kind == JobKind::Mesh {
+            self.set_live(None);
+        }
         let job = GenJob::start(
             self.settings.clone(),
             self.launcher.clone(),
+            self.engine.clone(),
             ai_dir,
             self.models.clone(),
             request,
@@ -158,6 +194,7 @@ impl GeneratePanel {
     pub fn poll(&mut self, ctx: &egui::Context) -> Option<GenOutput> {
         let mut out = None;
         let mut finished = None;
+        let mut live = None;
         if let Some((kind, job)) = &self.job {
             let kind = *kind;
             while let Ok(ev) = job.rx.try_recv() {
@@ -171,6 +208,7 @@ impl GeneratePanel {
                             self.picked = Some(self.pictures.len() - 1);
                         }
                     }
+                    GenEvent::Preview(p) => live = Some(p),
                     GenEvent::Mesh(path) => {
                         if let Some(g) = self.garment().cloned() {
                             out = Some(GenOutput::Mesh { path, garment: g, prompt: self.prompt.clone() });
@@ -181,8 +219,18 @@ impl GeneratePanel {
                 }
             }
         }
+        if let Some(p) = live {
+            // Only the newest preview of this frame matters.
+            self.set_live(Some(p));
+        }
+        if out.is_some() {
+            self.set_live(None);
+        }
         if let Some((kind, result)) = finished {
             self.job = None;
+            if kind == JobKind::Mesh {
+                self.set_live(None);
+            }
             self.progress = None;
             let took = self.job_started.take().map(|t| t.elapsed()).unwrap_or_default();
             let took_text = format!(" (took {})", clock(took));
@@ -209,13 +257,18 @@ impl GeneratePanel {
         out
     }
 
-    /// Stop ComfyUI if ThreadSmith started it (when the app closes).
+    /// Stop ComfyUI (if ThreadSmith started it) and the engine (when the app closes).
     pub fn shutdown(&mut self) {
         if let Some((_, job)) = &self.job {
             job.cancel();
         }
         if let Ok(mut l) = self.launcher.lock() {
             l.stop();
+        }
+        // A running job holds the engine; it quits by itself once ThreadSmith
+        // is gone (its connection closes).
+        if let Ok(mut e) = self.engine.try_lock() {
+            e.stop();
         }
     }
 
@@ -237,7 +290,7 @@ impl GeneratePanel {
         ui.horizontal(|ui| {
             let (dot, text) = match (&self.report, busy) {
                 (_, true) => (Color32::from_rgb(230, 190, 90), "AI engine: working"),
-                (Some(r), _) if r.running && r.trellis_nodes && r.missing_models.is_empty() => {
+                (Some(r), _) if r.ready_for(self.settings.mesh_engine) && r.missing_models.is_empty() => {
                     (Color32::from_rgb(120, 210, 120), "AI engine: ready")
                 }
                 (Some(_), _) => (Color32::from_rgb(230, 150, 80), "AI engine: needs setup"),
@@ -386,6 +439,14 @@ impl GeneratePanel {
                 ui.selectable_value(&mut self.quality, q, q.label()).on_hover_text(q.hint());
             }
         });
+        ui.horizontal(|ui| {
+            ui.label(RichText::new(format!("3D model: {}", self.settings.mesh_engine.label())).small().weak())
+                .on_hover_text(self.settings.mesh_engine.hint());
+            if self.settings.mesh_engine == MeshEngine::Pixal3D {
+                ui.add_enabled(!busy, egui::Checkbox::new(&mut self.settings.live_view, "Live view"))
+                    .on_hover_text("Watch the model form next to the body while it's made. Costs a few seconds.");
+            }
+        });
         let source = self.picked.and_then(|i| self.pictures.get(i)).map(|p| p.path.clone());
         ui.horizontal(|ui| {
             let can = !busy && has_body && source.is_some();
@@ -441,6 +502,52 @@ impl GeneratePanel {
 
     fn settings_ui(&mut self, ui: &mut egui::Ui, busy: bool) {
         let ctx = ui.ctx().clone();
+        ui.label(RichText::new("3D model").strong());
+        ui.add_enabled_ui(!busy, |ui| {
+            egui::ComboBox::from_id_salt("mesh_engine")
+                .selected_text(self.settings.mesh_engine.label())
+                .show_ui(ui, |ui| {
+                    for e in MeshEngine::ALL {
+                        if ui.selectable_value(&mut self.settings.mesh_engine, e, e.label()).on_hover_text(e.hint()).changed() {
+                            self.report = None;
+                        }
+                    }
+                });
+        });
+        if self.settings.mesh_engine == MeshEngine::Pixal3D {
+            ui.horizontal(|ui| {
+                ui.checkbox(&mut self.settings.live_view, "Live view");
+                ui.label("Lens");
+                ui.add(egui::Slider::new(&mut self.settings.lens_degrees, 8.0..=60.0).suffix("°").step_by(1.0))
+                    .on_hover_text("How wide a lens Pixal3D assumes the picture was taken with. Product pictures: about 20°. Phone photos up close: 40-50°. If the model comes out stretched or squashed front to back, try another value.");
+            });
+            if let Some(r) = &self.report {
+                if let Some((gpu, vram)) = &r.gpu {
+                    ui.label(RichText::new(format!("Graphics card: {gpu} ({vram:.0} GB)")).small());
+                }
+                if r.engine_checked && !r.pixal3d_ready {
+                    for p in &r.engine_problems {
+                        ui.colored_label(Color32::from_rgb(230, 150, 80), p);
+                    }
+                }
+            }
+            ui.horizontal(|ui| {
+                if ui
+                    .button("Install Pixal3D…")
+                    .on_hover_text("Opens the installer (ai\\setup\\Install Pixal3D.bat) in a console window. It adds the Pixal3D nodes and packages to ComfyUI and downloads the model.")
+                    .clicked()
+                {
+                    match self.ai_dir.as_ref().map(|d| d.join("setup").join("Install Pixal3D.bat")) {
+                        Some(bat) if bat.is_file() => run_installer(&bat, self.settings.comfy_root.as_deref()),
+                        _ => self.message = Some((true, "ai\\setup\\Install Pixal3D.bat is missing.".into())),
+                    }
+                }
+                if ui.button("Engine log").on_hover_text("What the ThreadSmith Engine has been doing (and any errors).").clicked() {
+                    open_file(&EngineHost::log_path());
+                }
+            });
+        }
+        ui.add_space(4.0);
         ui.label(RichText::new("AI engine (ComfyUI)").strong());
         ui.horizontal(|ui| {
             ui.label("Folder");
@@ -485,7 +592,11 @@ impl GeneratePanel {
                 });
         });
         ui.checkbox(&mut self.show_prompt, "Show the hidden prompt");
-        if ui.add_enabled(!busy, egui::Button::new("Check engine")).on_hover_text("Starts ComfyUI if needed and checks the TRELLIS.2 nodes and models.").clicked() {
+        if ui
+            .add_enabled(!busy, egui::Button::new("Check engine"))
+            .on_hover_text("Starts ComfyUI (and the ThreadSmith Engine for Pixal3D) if needed and checks what's installed.")
+            .clicked()
+        {
             self.start(&ctx, JobKind::Check, GenRequest::Check);
         }
 
@@ -493,12 +604,16 @@ impl GeneratePanel {
         ui.label(RichText::new("Models").strong());
         let models_dir = self.settings.models_dir();
         let mut download = None;
-        for set in &self.models {
+        for set in self.models.iter().filter(|s| s.needed_for(self.settings.mesh_engine)) {
             let ready = models_dir.as_ref().is_some_and(|d| set.is_ready(d));
             ui.horizontal(|ui| {
                 status_dot(ui, if ready { Color32::from_rgb(120, 210, 120) } else { Color32::from_rgb(230, 150, 80) });
                 ui.label(&set.name).on_hover_text(format!("License: {}", set.license));
                 if !ready {
+                    if let Some(page) = set.hf_repo.as_ref().filter(|r| r.gated).and_then(|r| r.page.clone()) {
+                        ui.hyperlink_to("Accept terms", page)
+                            .on_hover_text("This model needs a free Hugging Face account. Sign in, click \"Agree\", then run Install Pixal3D… once to sign in on this PC.");
+                    }
                     let size = set.size_gb.map(|g| format!(" (~{g:.0} GB)")).unwrap_or_default();
                     if ui.add_enabled(!busy && models_dir.is_some(), egui::Button::new(format!("Download{size}"))).clicked() {
                         download = Some(set.clone());
@@ -510,7 +625,7 @@ impl GeneratePanel {
             self.start(&ctx, JobKind::Download, GenRequest::Download { sets: vec![set] });
         }
         if let Some(r) = &self.report {
-            if !r.trellis_nodes {
+            if self.settings.mesh_engine == MeshEngine::Trellis2Comfy && !r.trellis_nodes {
                 ui.colored_label(
                     Color32::from_rgb(230, 150, 80),
                     "TRELLIS.2 nodes are missing. In ComfyUI-Easy-Install run Add-Ons\\Trellis2 (requires Torch 2.8.0+cu128).bat.",
@@ -532,6 +647,26 @@ fn load_texture(ctx: &egui::Context, path: &Path, max: u32) -> Option<TextureHan
     let size = [rgba.width() as usize, rgba.height() as usize];
     let color = egui::ColorImage::from_rgba_unmultiplied(size, rgba.as_raw());
     Some(ctx.load_texture(path.display().to_string(), color, egui::TextureOptions::LINEAR))
+}
+
+/// Run a setup .bat in its own console window, so the user can watch it.
+fn run_installer(bat: &Path, comfy_root: Option<&Path>) {
+    #[cfg(windows)]
+    {
+        let mut cmd = std::process::Command::new("cmd");
+        cmd.arg("/c").arg("start").arg("ThreadSmith setup").arg(bat);
+        if let Some(root) = comfy_root {
+            cmd.arg(root);
+        }
+        if let Some(dir) = bat.parent() {
+            cmd.current_dir(dir);
+        }
+        let _ = cmd.spawn();
+    }
+    #[cfg(not(windows))]
+    {
+        let _ = (bat, comfy_root);
+    }
 }
 
 fn open_file(path: &Path) {

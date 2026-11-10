@@ -189,3 +189,1396 @@ Get 138492 clusters after fast clustering
 Gathering results from xatlas:   0%|          | 0/138492 [00:00<?, ?it/s]Gathering results from xatlas:   6%|▌         | 8219/138492 [00:00<00:01, 82075.02it/s]Gathering results from xatlas:  12%|█�        | 16947/138492 [00:00<00:01, 85125.39it/s]Gathering results from xatlas:  19%|█▊        | 25767/138492 [00:00<00:01, 86482.15it/s]Gathering results from xatlas:  25%|██▌       | 34780/138492 [00:00<00:01, 87752.95it/s]Gathering results from xatlas:  31%|███�      | 43556/138492 [00:00<00:01, 86067.80it/s]Gathering results from xatlas:  38%|███▊      | 52168/138492 [00:00<00:01, 83659.73it/s]Gathering results from xatlas:  44%|████▎     | 60547/138492 [00:00<00:00, 83003.26it/s]Gathering results from xatlas:  50%|████▉     | 68856/138492 [00:01<00:02, 32903.35it/s]Gathering results from xatlas:  56%|█████▋    | 78183/138492 [00:01<00:01, 41905.41it/s]Gathering results from xatlas:  63%|██████▎   | 87058/138492 [00:01<00:01, 50122.76it/s]Gathering results from xatlas:  69%|██████▉   | 95216/138492 [00:01<00:00, 56427.55it/s]Gathering results from xatlas:  75%|███████▌  | 104398/138492 [00:01<00:00, 64279.74it/s]Gathering results from xatlas:  82%|████████� | 113543/138492 [00:01<00:00, 70789.02it/s]Gathering results from xatlas:  88%|████████▊ | 122032/138492 [00:01<00:00, 71509.22it/s]Gathering results from xatlas:  94%|█████████�| 130589/138492 [00:02<00:00, 75164.08it/s]Gathering results from xatlas: 100%|██████████| 138492/138492 [00:02<00:00, 65325.03it/s]
 Finalizing mesh ...
 [32m[INFO][0m [32mPrompt executed in 415.02 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model storage policy: fast_disk=True paths=['C:\\ComfyUI-Easy-Install\\ComfyUI-Easy-Install\\ComfyUI\\models\\vae\\flux2-vae.safetensors']
+[32m[INFO][0m Using pytorch attention in VAE
+[32m[INFO][0m Using pytorch attention in VAE
+[32m[INFO][0m VAE load device: cuda:0, offload device: cpu, dtype: torch.bfloat16
+[32m[INFO][0m Requested to load AutoencoderKL
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model storage policy: fast_disk=True paths=['C:\\ComfyUI-Easy-Install\\ComfyUI-Easy-Install\\ComfyUI\\models\\text_encoders\\qwen_3_4b.safetensors']
+[32m[INFO][0m CLIP/text encoder model load device: cuda:0, offload device: cpu, current: cpu, dtype: torch.float16
+[32m[INFO][0m Requested to load Flux2TEModel_
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m model weight dtype torch.bfloat16, manual cast: None
+[32m[INFO][0m model_type FLUX
+[32m[INFO][0m Model storage policy: fast_disk=True paths=['C:\\ComfyUI-Easy-Install\\ComfyUI-Easy-Install\\ComfyUI\\models\\diffusion_models\\flux-2-klein-4b.safetensors']
+[32m[INFO][0m Requested to load Flux2
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.34s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:07,  2.34s/it]                                    50%|█████     | 2/4 [00:00<00:00,  3.76it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.12it/s]100%|██████████| 4/4 [00:02<00:00,  1.29s/it]100%|██████████| 4/4 [00:02<00:00,  1.47it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.60 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.67s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.67s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.33it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.12s/it]100%|██████████| 4/4 [00:05<00:00,  1.46s/it]100%|██████████| 4/4 [00:05<00:00,  1.27s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 9.20 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.89s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.89s/it]                                    50%|█████     | 2/4 [00:00<00:00,  9.53it/s] 75%|███████▌  | 3/4 [00:01<00:01,  1.79s/it]100%|██████████| 4/4 [00:04<00:00,  2.10s/it]100%|██████████| 4/4 [00:04<00:00,  1.02s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.47 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  1.89it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:01,  1.89it/s]                                    50%|█████     | 2/4 [00:03<00:03,  1.79s/it] 75%|███████▌  | 3/4 [00:05<00:01,  1.47s/it]100%|██████████| 4/4 [00:07<00:00,  2.11s/it]100%|██████████| 4/4 [00:07<00:00,  1.79s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.50 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.92s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.92s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.35it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.46s/it]100%|██████████| 4/4 [00:04<00:00,  2.11s/it]100%|██████████| 4/4 [00:04<00:00,  1.11s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.61 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.89s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.89s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.35it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.80s/it]100%|██████████| 4/4 [00:04<00:00,  1.46s/it]100%|██████████| 4/4 [00:04<00:00,  1.03s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.57 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  2.65it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:01,  2.65it/s]                                    50%|█████     | 2/4 [00:01<00:01,  1.12it/s] 75%|███████▌  | 3/4 [00:03<00:01,  1.29s/it]100%|██████████| 4/4 [00:03<00:00,  1.11it/s]100%|██████████| 4/4 [00:03<00:00,  1.01it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.73 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  1.87it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:01,  1.87it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.47s/it] 75%|███████▌  | 3/4 [00:05<00:02,  2.11s/it]100%|██████████| 4/4 [00:06<00:00,  1.47s/it]100%|██████████| 4/4 [00:06<00:00,  1.63s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.65 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.33it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:02,  1.33it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.45s/it] 75%|███████▌  | 3/4 [00:05<00:02,  2.12s/it]100%|██████████| 4/4 [00:06<00:00,  1.46s/it]100%|██████████| 4/4 [00:06<00:00,  1.62s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.67 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.14it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:02,  1.14it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.47s/it] 75%|███████▌  | 3/4 [00:05<00:02,  2.11s/it]100%|██████████| 4/4 [00:06<00:00,  1.47s/it]100%|██████████| 4/4 [00:06<00:00,  1.63s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.80 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.30s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:03,  1.30s/it]                                    50%|█████     | 2/4 [00:03<00:03,  1.79s/it] 75%|███████▌  | 3/4 [00:05<00:01,  1.46s/it]100%|██████████| 4/4 [00:06<00:00,  1.79s/it]100%|██████████| 4/4 [00:06<00:00,  1.71s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 9.19 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.67s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:04<00:05,  1.67s/it]                                    50%|█████     | 2/4 [00:04<00:04,  2.39s/it] 75%|███████▌  | 3/4 [00:06<00:01,  1.47s/it]100%|██████████| 4/4 [00:08<00:00,  2.10s/it]100%|██████████| 4/4 [00:08<00:00,  2.09s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.26 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.25it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.25it/s]                                    50%|█████     | 2/4 [00:00<00:00,  2.14it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.09s/it]100%|██████████| 4/4 [00:03<00:00,  1.31s/it]100%|██████████| 4/4 [00:03<00:00,  1.20it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.77 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.89s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.89s/it]                                    50%|█████     | 2/4 [00:00<00:00,  9.18it/s] 75%|███████▌  | 3/4 [00:02<00:02,  2.11s/it]100%|██████████| 4/4 [00:03<00:00,  1.46s/it]100%|██████████| 4/4 [00:03<00:00,  1.05it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.76 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.42s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:04,  1.42s/it]                                    50%|█████     | 2/4 [00:03<00:03,  1.87s/it] 75%|███████▌  | 3/4 [00:05<00:01,  1.46s/it]100%|██████████| 4/4 [00:06<00:00,  1.79s/it]100%|██████████| 4/4 [00:06<00:00,  1.75s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 9.42 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.23s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.23s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.09s/it] 75%|███████▌  | 3/4 [00:03<00:01,  1.46s/it]100%|██████████| 4/4 [00:05<00:00,  1.78s/it]100%|██████████| 4/4 [00:05<00:00,  1.36s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.53 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.89s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.89s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.01it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.39s/it]100%|██████████| 4/4 [00:04<00:00,  2.12s/it]100%|██████████| 4/4 [00:04<00:00,  1.13s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.60 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.89s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.89s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.34it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.47s/it]100%|██████████| 4/4 [00:04<00:00,  2.11s/it]100%|██████████| 4/4 [00:04<00:00,  1.11s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.62 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.22s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:03,  1.22s/it]                                    50%|█████     | 2/4 [00:00<00:00,  3.71it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.91s/it]100%|██████████| 4/4 [00:02<00:00,  1.58it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.18s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:03,  1.18s/it]                                    50%|█████     | 2/4 [00:03<00:03,  1.79s/it] 75%|███████▌  | 3/4 [00:05<00:01,  1.47s/it]100%|██████████| 4/4 [00:07<00:00,  2.10s/it]100%|██████████| 4/4 [00:07<00:00,  1.79s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 9.33 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.79s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.79s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.15it/s] 75%|███████▌  | 3/4 [00:04<00:02,  2.38s/it]100%|██████████| 4/4 [00:05<00:00,  1.47s/it]100%|██████████| 4/4 [00:05<00:00,  1.40s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 9.42 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.23s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.23s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.10s/it] 75%|███████▌  | 3/4 [00:03<00:01,  1.46s/it]100%|██████████| 4/4 [00:05<00:00,  2.11s/it]100%|██████████| 4/4 [00:05<00:00,  1.44s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.47 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.88s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.88s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.98it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.45s/it]100%|██████████| 4/4 [00:04<00:00,  2.12s/it]100%|██████████| 4/4 [00:04<00:00,  1.14s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.64 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.24s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.24s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.08s/it] 75%|███████▌  | 3/4 [00:03<00:01,  1.79s/it]100%|██████████| 4/4 [00:05<00:00,  1.46s/it]100%|██████████| 4/4 [00:05<00:00,  1.36s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.56 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  2.65it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:01,  2.65it/s]                                    50%|█████     | 2/4 [00:01<00:01,  1.11it/s] 75%|███████▌  | 3/4 [00:03<00:01,  1.29s/it]100%|██████████| 4/4 [00:03<00:00,  1.11it/s]100%|██████████| 4/4 [00:03<00:00,  1.00it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.66 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  1.89it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:01,  1.89it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.46s/it] 75%|███████▌  | 3/4 [00:05<00:02,  2.12s/it]100%|██████████| 4/4 [00:06<00:00,  1.46s/it]100%|██████████| 4/4 [00:06<00:00,  1.63s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.63 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  1.73it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:01,  1.73it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.50s/it] 75%|███████▌  | 3/4 [00:05<00:02,  2.11s/it]100%|██████████| 4/4 [00:06<00:00,  1.47s/it]100%|██████████| 4/4 [00:06<00:00,  1.64s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.51 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.34it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:04<00:02,  1.34it/s]                                    50%|█████     | 2/4 [00:04<00:04,  2.14s/it] 75%|███████▌  | 3/4 [00:05<00:01,  1.54s/it]100%|██████████| 4/4 [00:07<00:00,  1.85s/it]100%|██████████| 4/4 [00:07<00:00,  1.92s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 9.12 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.24s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.24s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.09s/it] 75%|███████▌  | 3/4 [00:03<00:01,  1.47s/it]100%|██████████| 4/4 [00:05<00:00,  2.11s/it]100%|██████████| 4/4 [00:05<00:00,  1.44s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.49 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.90s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.90s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.35it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.47s/it]100%|██████████| 4/4 [00:04<00:00,  2.12s/it]100%|██████████| 4/4 [00:04<00:00,  1.11s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.63 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.41s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:04,  1.41s/it]                                    50%|█████     | 2/4 [00:00<00:00,  3.27it/s] 75%|███████▌  | 3/4 [00:01<00:01,  1.03s/it]100%|██████████| 4/4 [00:03<00:00,  1.51s/it]100%|██████████| 4/4 [00:03<00:00,  1.27it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 6.69 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:04<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:04<00:12,  4.25s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:12,  4.25s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.03it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.12s/it]100%|██████████| 4/4 [00:05<00:00,  2.07s/it]100%|██████████| 4/4 [00:05<00:00,  1.29s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.28 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:12<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:12<00:36, 12.17s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:36, 12.17s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.20it/s] 75%|███████▌  | 3/4 [00:04<00:02,  2.42s/it]100%|██████████| 4/4 [00:07<00:00,  3.51s/it]100%|██████████| 4/4 [00:07<00:00,  1.90s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 23.12 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.11it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.11it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.34s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:11<00:00,  2.61s/it]100%|██████████| 4/4 [00:11<00:00,  2.86s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 11.13 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:06,  2.25s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:06,  2.25s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.11s/it] 75%|███████▌  | 3/4 [00:05<00:03,  3.09s/it]100%|██████████| 4/4 [00:07<00:00,  2.15s/it]100%|██████████| 4/4 [00:07<00:00,  1.87s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.61 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.77s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.77s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.64it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.62s/it]100%|██████████| 4/4 [00:05<00:00,  2.15s/it]100%|██████████| 4/4 [00:05<00:00,  1.50s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.06 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  7.04it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  7.04it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.08s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.49it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.49it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.99it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.99it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  3.08s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.85 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.74s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.74s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.39it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.52s/it]100%|██████████| 4/4 [00:06<00:00,  2.14s/it]100%|██████████| 4/4 [00:06<00:00,  1.52s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 11.98 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.75it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.75it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.08s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.85 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.68it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.68it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  7.08it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  7.08it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.26s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.26s/it]                                    75%|███████▌  | 3/4 [00:02<00:00,  1.69it/s]100%|██████████| 4/4 [00:03<00:00,  1.31s/it]100%|██████████| 4/4 [00:03<00:00,  1.09it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 6.10 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.38s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.38s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.04it/s] 75%|███████▌  | 3/4 [00:04<00:02,  2.24s/it]100%|██████████| 4/4 [00:05<00:00,  1.50s/it]100%|██████████| 4/4 [00:05<00:00,  1.42s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 9.48 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.73s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.73s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.39it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.51s/it]100%|██████████| 4/4 [00:06<00:00,  2.14s/it]100%|██████████| 4/4 [00:06<00:00,  1.52s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.10 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.38s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:07<00:04,  1.38s/it]                                    50%|█████     | 2/4 [00:07<00:07,  3.99s/it] 75%|███████▌  | 3/4 [00:10<00:02,  2.67s/it]100%|██████████| 4/4 [00:13<00:00,  2.61s/it]100%|██████████| 4/4 [00:13<00:00,  3.31s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 14.02 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.18s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:12<00:03,  1.18s/it]                                    50%|█████     | 2/4 [00:12<00:12,  6.32s/it] 75%|███████▌  | 3/4 [00:15<00:02,  2.62s/it]100%|██████████| 4/4 [00:17<00:00,  2.61s/it]100%|██████████| 4/4 [00:17<00:00,  4.47s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 16.06 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.49it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.49it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.53it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.53it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.53it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.53it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.74s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.74s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.39it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.52s/it]100%|██████████| 4/4 [00:06<00:00,  2.14s/it]100%|██████████| 4/4 [00:06<00:00,  1.52s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.01 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.60it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.60it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.49it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.49it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.82it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.82it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.27s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.27s/it]                                    75%|███████▌  | 3/4 [00:02<00:00,  1.70it/s]100%|██████████| 4/4 [00:03<00:00,  1.32s/it]100%|██████████| 4/4 [00:03<00:00,  1.09it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 6.06 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  4.54it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:00,  4.54it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.10s/it] 75%|███████▌  | 3/4 [00:03<00:01,  1.10s/it]100%|██████████| 4/4 [00:04<00:00,  1.12s/it]100%|██████████| 4/4 [00:04<00:00,  1.11s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.97 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.69it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.69it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.21it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.70it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.70it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.21it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.93s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.93s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.33it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.81s/it]100%|██████████| 4/4 [00:04<00:00,  1.48s/it]100%|██████████| 4/4 [00:04<00:00,  1.04s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.97 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.81s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:05,  1.81s/it]                                    50%|█████     | 2/4 [00:03<00:03,  1.63s/it] 75%|███████▌  | 3/4 [00:06<00:02,  2.78s/it]100%|██████████| 4/4 [00:08<00:00,  2.65s/it]100%|██████████| 4/4 [00:08<00:00,  2.17s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.44 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.55it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.55it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.08s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.90 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.51it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.51it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.82 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.51it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.51it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.73s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.73s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.63it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.62s/it]100%|██████████| 4/4 [00:06<00:00,  2.61s/it]100%|██████████| 4/4 [00:06<00:00,  1.62s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.02 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.56s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:07,  2.56s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.02it/s] 75%|███████▌  | 3/4 [00:05<00:03,  3.09s/it]100%|██████████| 4/4 [00:07<00:00,  2.15s/it]100%|██████████| 4/4 [00:07<00:00,  1.80s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.66 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.77it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.77it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.08s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.87it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.87it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.82 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  7.04it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  7.04it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.73s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.73s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.39it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.52s/it]100%|██████████| 4/4 [00:06<00:00,  2.61s/it]100%|██████████| 4/4 [00:06<00:00,  1.64s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.01 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.71it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.71it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.55it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.55it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.54it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.54it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.23s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.23s/it]                                    75%|███████▌  | 3/4 [00:02<00:00,  1.70it/s]100%|██████████| 4/4 [00:03<00:00,  1.31s/it]100%|██████████| 4/4 [00:03<00:00,  1.09it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 6.02 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.92s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:05,  1.92s/it]                                    50%|█████     | 2/4 [00:00<00:00,  2.32it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.82s/it]100%|██████████| 4/4 [00:04<00:00,  1.48s/it]100%|██████████| 4/4 [00:04<00:00,  1.04s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.96 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.63s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.63s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.12s/it] 75%|███████▌  | 3/4 [00:05<00:03,  3.08s/it]100%|██████████| 4/4 [00:07<00:00,  2.14s/it]100%|██████████| 4/4 [00:07<00:00,  1.87s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.98 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.98s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:05,  1.98s/it]                                    50%|█████     | 2/4 [00:03<00:03,  1.65s/it] 75%|███████▌  | 3/4 [00:05<00:02,  2.68s/it]100%|██████████| 4/4 [00:08<00:00,  2.62s/it]100%|██████████| 4/4 [00:08<00:00,  2.15s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.31 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.74s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.74s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.40it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.52s/it]100%|██████████| 4/4 [00:06<00:00,  2.14s/it]100%|██████████| 4/4 [00:06<00:00,  1.52s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 11.98 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.43it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.43it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.06s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.62it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.62it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:08<00:03,  3.08s/it]100%|██████████| 4/4 [00:10<00:00,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.55it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.55it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.82 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.75s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.75s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.40it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.52s/it]100%|██████████| 4/4 [00:06<00:00,  2.15s/it]100%|██████████| 4/4 [00:06<00:00,  1.52s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 11.98 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.66it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.66it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.80it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.80it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.75it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.75it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.22s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:03,  1.22s/it]                                    75%|███████▌  | 3/4 [00:02<00:00,  1.70it/s]100%|██████████| 4/4 [00:03<00:00,  1.31s/it]100%|██████████| 4/4 [00:03<00:00,  1.09it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 6.04 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.71it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.71it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.11s/it]100%|██████████| 4/4 [00:03<00:00,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.21it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.69it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.69it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.09s/it]100%|██████████| 4/4 [00:03<00:00,  1.12s/it]100%|██████████| 4/4 [00:03<00:00,  1.21it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.79 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.71it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.71it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.12s/it]100%|██████████| 4/4 [00:03<00:00,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.20it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.80 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:06<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:18,  6.13s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:09<00:18,  6.13s/it]                                    50%|█████     | 2/4 [00:09<00:09,  4.78s/it] 75%|███████▌  | 3/4 [00:11<00:01,  1.48s/it]100%|██████████| 4/4 [00:13<00:00,  2.12s/it]100%|██████████| 4/4 [00:13<00:00,  3.29s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 17.50 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.44s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:07,  2.44s/it]                                    50%|█████     | 2/4 [00:03<00:03,  1.65s/it] 75%|███████▌  | 3/4 [00:05<00:02,  2.68s/it]100%|██████████| 4/4 [00:08<00:00,  2.61s/it]100%|██████████| 4/4 [00:08<00:00,  2.15s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 13.02 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:06<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:20,  6.80s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:09<00:20,  6.80s/it]                                    50%|█████     | 2/4 [00:09<00:09,  4.66s/it] 75%|███████▌  | 3/4 [00:11<00:02,  2.61s/it]100%|██████████| 4/4 [00:14<00:00,  2.60s/it]100%|██████████| 4/4 [00:14<00:00,  3.63s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 20.06 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.23s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:12<00:03,  1.23s/it]                                    50%|█████     | 2/4 [00:12<00:12,  6.37s/it] 75%|███████▌  | 3/4 [00:15<00:02,  2.62s/it]100%|██████████| 4/4 [00:17<00:00,  2.61s/it]100%|██████████| 4/4 [00:17<00:00,  4.49s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 16.22 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.73it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.73it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.94it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.94it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.53it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.53it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.47s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:04,  1.47s/it]                                    50%|█████     | 2/4 [00:06<00:06,  3.20s/it] 75%|███████▌  | 3/4 [00:09<00:02,  2.61s/it]100%|██████████| 4/4 [00:11<00:00,  2.14s/it]100%|██████████| 4/4 [00:11<00:00,  2.79s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 13.31 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.55it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.55it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.83 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.71it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.71it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.82 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.53it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.53it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.06s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.21it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:02,  1.21it/s]                                    50%|█████     | 2/4 [00:01<00:01,  1.47it/s] 75%|███████▌  | 3/4 [00:02<00:00,  1.10it/s]100%|██████████| 4/4 [00:03<00:00,  1.30s/it]100%|██████████| 4/4 [00:03<00:00,  1.12it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.97 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.17it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:02,  1.17it/s]                                    50%|█████     | 2/4 [00:01<00:01,  1.49it/s] 75%|███████▌  | 3/4 [00:02<00:00,  1.11it/s]100%|██████████| 4/4 [00:03<00:00,  1.31s/it]100%|██████████| 4/4 [00:03<00:00,  1.12it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.88 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.23s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:03,  1.23s/it]                                    50%|█████     | 2/4 [00:00<00:00,  3.66it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.10it/s]100%|██████████| 4/4 [00:02<00:00,  1.10s/it]100%|██████████| 4/4 [00:02<00:00,  1.56it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.90 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.24s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:03,  1.24s/it]                                    50%|█████     | 2/4 [00:00<00:00,  3.64it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.10it/s]100%|██████████| 4/4 [00:02<00:00,  1.10s/it]100%|██████████| 4/4 [00:02<00:00,  1.56it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.20it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.20it/s]                                    50%|█████     | 2/4 [00:00<00:00,  2.14it/s] 75%|███████▌  | 3/4 [00:02<00:01,  1.32s/it]100%|██████████| 4/4 [00:03<00:00,  1.10it/s]100%|██████████| 4/4 [00:03<00:00,  1.27it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.77 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  2.59it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:01,  2.59it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.11s/it] 75%|███████▌  | 3/4 [00:03<00:00,  1.11it/s]100%|██████████| 4/4 [00:04<00:00,  1.31s/it]100%|██████████| 4/4 [00:04<00:00,  1.11s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.76 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.23s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:03,  1.23s/it]                                    50%|█████     | 2/4 [00:00<00:00,  3.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.11it/s]100%|██████████| 4/4 [00:02<00:00,  1.10s/it]100%|██████████| 4/4 [00:02<00:00,  1.56it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 5.87 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  1.63it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:01,  1.63it/s]                                    50%|█████     | 2/4 [00:03<00:03,  1.88s/it] 75%|███████▌  | 3/4 [00:05<00:01,  1.48s/it]100%|██████████| 4/4 [00:07<00:00,  2.13s/it]100%|██████████| 4/4 [00:07<00:00,  1.84s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.99 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.60s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.60s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.21s/it] 75%|███████▌  | 3/4 [00:05<00:03,  3.09s/it]100%|██████████| 4/4 [00:08<00:00,  2.61s/it]100%|██████████| 4/4 [00:08<00:00,  2.03s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 13.14 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.82it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.82it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:11<00:00,  3.08s/it]100%|██████████| 4/4 [00:11<00:00,  2.84s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:03<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:09,  3.29s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:19<00:09,  3.29s/it]                                    50%|█████     | 2/4 [00:19<00:19,  9.89s/it] 75%|███████▌  | 3/4 [00:22<00:02,  2.61s/it]100%|██████████| 4/4 [00:24<00:00,  2.61s/it]100%|██████████| 4/4 [00:24<00:00,  6.25s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 21.91 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.51it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.51it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:03<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:09,  3.05s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:09,  3.05s/it]                                    50%|█████     | 2/4 [00:06<00:06,  3.49s/it] 75%|███████▌  | 3/4 [00:09<00:02,  2.15s/it]100%|██████████| 4/4 [00:11<00:00,  2.61s/it]100%|██████████| 4/4 [00:11<00:00,  2.94s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 15.38 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.71it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.71it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.53it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.53it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:07,  2.66s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:07,  2.66s/it]                                    50%|█████     | 2/4 [00:05<00:05,  2.69s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.53s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 14.05 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.52it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.52it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.87 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.47it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.47it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  2.62it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:01,  2.62it/s]                                    50%|█████     | 2/4 [00:02<00:02,  1.20s/it] 75%|███████▌  | 3/4 [00:03<00:00,  1.01it/s]100%|██████████| 4/4 [00:04<00:00,  1.40s/it]100%|██████████| 4/4 [00:04<00:00,  1.20s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 6.42 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.51s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:21<00:04,  1.51s/it]                                    50%|█████     | 2/4 [00:21<00:21, 10.60s/it] 75%|███████▌  | 3/4 [00:23<00:02,  2.14s/it]100%|██████████| 4/4 [00:26<00:00,  2.82s/it]100%|██████████| 4/4 [00:26<00:00,  6.54s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 20.29 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.76s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.76s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.39it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.52s/it]100%|██████████| 4/4 [00:06<00:00,  2.61s/it]100%|██████████| 4/4 [00:06<00:00,  1.64s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.16 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  3.67it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  3.67it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.98 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.66it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.66it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.87 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.77s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:05,  1.77s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.12s/it] 75%|███████▌  | 3/4 [00:05<00:03,  3.09s/it]100%|██████████| 4/4 [00:07<00:00,  2.62s/it]100%|██████████| 4/4 [00:07<00:00,  1.99s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.03 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.44it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.44it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.76s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:05,  1.76s/it]                                    50%|█████     | 2/4 [00:05<00:05,  2.99s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.68s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 13.37 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.51it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.51it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.66it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.66it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:03<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:10,  3.37s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:17<00:10,  3.37s/it]                                    50%|█████     | 2/4 [00:17<00:17,  8.87s/it] 75%|███████▌  | 3/4 [00:19<00:02,  2.14s/it]100%|██████████| 4/4 [00:22<00:00,  2.61s/it]100%|██████████| 4/4 [00:22<00:00,  5.62s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 20.93 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.29it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.29it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.85 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.88it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.88it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  2.14it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:14<00:01,  2.14it/s]                                    50%|█████     | 2/4 [00:14<00:14,  7.15s/it] 75%|███████▌  | 3/4 [00:16<00:02,  2.10s/it]100%|██████████| 4/4 [00:17<00:00,  1.46s/it]100%|██████████| 4/4 [00:17<00:00,  4.47s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 13.61 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.70it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.70it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.21it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.70it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.70it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.11s/it]100%|██████████| 4/4 [00:03<00:00,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.21it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.71s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:09<00:08,  2.71s/it]                                    50%|█████     | 2/4 [00:09<00:09,  4.99s/it] 75%|███████▌  | 3/4 [00:14<00:04,  4.80s/it]100%|██████████| 4/4 [00:16<00:00,  1.48s/it]100%|██████████| 4/4 [00:16<00:00,  4.06s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 17.42 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.29it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:02,  1.29it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.04s/it] 75%|███████▌  | 3/4 [00:09<00:03,  3.05s/it]100%|██████████| 4/4 [00:11<00:00,  2.16s/it]100%|██████████| 4/4 [00:11<00:00,  2.82s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.99 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.62it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.62it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  5.49it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  5.49it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.64s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.63s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.91 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.76s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:05,  1.76s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.12s/it] 75%|███████▌  | 3/4 [00:05<00:03,  3.09s/it]100%|██████████| 4/4 [00:07<00:00,  2.61s/it]100%|██████████| 4/4 [00:07<00:00,  1.99s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 11.98 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.57it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.57it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.47it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.47it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.46s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:04,  1.46s/it]                                    50%|█████     | 2/4 [00:05<00:05,  2.70s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.15s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.54s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.79 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.60it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.60it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.08s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.62s/it]100%|██████████| 4/4 [00:10<00:00,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.87 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.45it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.45it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.88 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.99s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:07<00:05,  1.99s/it]                                    50%|█████     | 2/4 [00:07<00:07,  3.78s/it] 75%|███████▌  | 3/4 [00:10<00:02,  2.63s/it]100%|██████████| 4/4 [00:12<00:00,  2.62s/it]100%|██████████| 4/4 [00:12<00:00,  3.20s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 14.51 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.58it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.58it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.88 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.60it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.60it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.87 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  2.15it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:14<00:01,  2.15it/s]                                    50%|█████     | 2/4 [00:14<00:14,  7.16s/it] 75%|███████▌  | 3/4 [00:16<00:02,  2.11s/it]100%|██████████| 4/4 [00:19<00:00,  2.87s/it]100%|██████████| 4/4 [00:19<00:00,  4.82s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 17.18 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.20s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.20s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.21it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.13s/it]100%|██████████| 4/4 [00:05<00:00,  1.48s/it]100%|██████████| 4/4 [00:05<00:00,  1.32s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 8.81 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:06,  2.22s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:06,  2.22s/it]                                    50%|█████     | 2/4 [00:02<00:02,  1.11s/it] 75%|███████▌  | 3/4 [00:05<00:03,  3.10s/it]100%|██████████| 4/4 [00:07<00:00,  2.15s/it]100%|██████████| 4/4 [00:07<00:00,  1.86s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.60 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.58it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.58it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.07s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  3.60it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  3.60it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.63s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.63s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 11.01 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:02<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:02<00:08,  2.73s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:08,  2.73s/it]                                    50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:03<00:02,  2.62s/it]100%|██████████| 4/4 [00:06<00:00,  2.15s/it]100%|██████████| 4/4 [00:06<00:00,  1.50s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.01 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.82it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.82it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.08s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.14s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.73s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.85 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.78it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.78it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:05,  1.84s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:05,  1.84s/it]                                    50%|█████     | 2/4 [00:06<00:06,  3.32s/it] 75%|███████▌  | 3/4 [00:09<00:03,  3.12s/it]100%|██████████| 4/4 [00:12<00:00,  2.62s/it]100%|██████████| 4/4 [00:12<00:00,  3.10s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 14.40 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.55it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.55it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.80it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.80it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.63s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]100%|██████████| 4/4 [00:10<00:00,  2.62s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:03<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:03<00:09,  3.09s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:09,  3.09s/it]                                    50%|█████     | 2/4 [00:05<00:05,  2.94s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.62s/it]100%|██████████| 4/4 [00:11<00:00,  2.62s/it]100%|██████████| 4/4 [00:11<00:00,  2.78s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 14.67 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.62it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.62it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.85 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.55it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.55it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.61s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.86 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:01,  2.11it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:14<00:01,  2.11it/s]                                    50%|█████     | 2/4 [00:14<00:14,  7.19s/it] 75%|███████▌  | 3/4 [00:16<00:02,  2.14s/it]100%|██████████| 4/4 [00:19<00:00,  2.87s/it]100%|██████████| 4/4 [00:19<00:00,  4.85s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 17.19 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:01<00:01,  1.71it/s,  Model Initialization complete!  ] 50%|█████     | 2/4 [00:02<00:01,  1.71it/s]                                    75%|███████▌  | 3/4 [00:02<00:01,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.10s/it]100%|██████████| 4/4 [00:03<00:00,  1.21it/s]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 4.85 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:04,  1.49s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:20<00:04,  1.49s/it]                                    50%|█████     | 2/4 [00:20<00:20, 10.18s/it] 75%|███████▌  | 3/4 [00:21<00:01,  1.47s/it]100%|██████████| 4/4 [00:23<00:00,  2.15s/it]100%|██████████| 4/4 [00:23<00:00,  6.00s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 18.26 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.07s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:03,  1.07s/it]                                    50%|█████     | 2/4 [00:06<00:06,  3.04s/it] 75%|███████▌  | 3/4 [00:09<00:03,  3.05s/it]100%|██████████| 4/4 [00:11<00:00,  2.58s/it]100%|██████████| 4/4 [00:11<00:00,  2.93s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 13.41 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.30it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:02,  1.30it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.69s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.65s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.04 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:01<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:01<00:03,  1.14s/it,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:25<00:03,  1.14s/it]                                    50%|█████     | 2/4 [00:25<00:25, 12.82s/it] 75%|███████▌  | 3/4 [00:28<00:02,  2.59s/it]100%|██████████| 4/4 [00:30<00:00,  2.59s/it]100%|██████████| 4/4 [00:30<00:00,  7.70s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 22.52 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.87it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.87it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.58s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.58s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.59s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.73 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.59it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  6.59it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.58s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.58s/it]100%|██████████| 4/4 [00:10<00:00,  2.58s/it]
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.76 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m Model Flux2TEModel_ prepared for dynamic VRAM loading. 7671MB Staged. 0 patches attached. Force pre-loaded 145 weights: 383 KB.
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:02,  1.28it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:02,  1.28it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.63s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.61s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 12.00 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  6.55it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:06<00:00,  6.55it/s]                                    50%|█████     | 2/4 [00:06<00:06,  3.05s/it] 75%|███████▌  | 3/4 [00:08<00:02,  2.13s/it]100%|██████████| 4/4 [00:10<00:00,  2.58s/it]100%|██████████| 4/4 [00:10<00:00,  2.70s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.75 seconds[0m
+[32m[INFO][0m got prompt
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model Flux2 prepared for dynamic VRAM loading. 7392MB Staged. 0 patches attached. Force pre-loaded 60 weights: 54 KB.
+  0%|          | 0/4 [00:00<?, ?it/s]  0%|          | 0/4 [00:00<?, ?it/s,   Model Initializing ...  ]  0%|          | 0/4 [00:00<?, ?it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:00<00:00,  4.32it/s,  Model Initialization complete!  ] 25%|██▌       | 1/4 [00:05<00:00,  4.32it/s]                                    50%|█████     | 2/4 [00:05<00:05,  2.60s/it] 75%|███████▌  | 3/4 [00:07<00:02,  2.58s/it]100%|██████████| 4/4 [00:10<00:00,  2.60s/it]100%|██████████| 4/4 [00:10<00:00,  2.59s/it]
+[32m[INFO][0m 0 models unloaded.
+[32m[INFO][0m Model AutoencoderKL prepared for dynamic VRAM loading. 160MB Staged. 0 patches attached. Force pre-loaded 110 weights: 187 KB.
+[32m[INFO][0m [32mPrompt executed in 10.84 seconds[0m

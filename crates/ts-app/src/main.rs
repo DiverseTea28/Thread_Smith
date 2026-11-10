@@ -7,6 +7,7 @@ mod bridge;
 mod camera;
 mod garment;
 mod generate;
+mod live_view;
 mod project;
 mod tools;
 mod ui_icons;

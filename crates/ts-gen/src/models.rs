@@ -28,6 +28,9 @@ pub struct ModelSet {
     /// A whole Hugging Face repo to copy into one folder.
     #[serde(default)]
     pub hf_repo: Option<HfRepo>,
+    /// Which 3D model needs this set ("pixal3d", "trellis2"); None = always.
+    #[serde(default, rename = "for")]
+    pub for_model: Option<String>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
@@ -44,6 +47,16 @@ pub struct HfRepo {
     pub path: String,
     /// A file that exists once the repo is fully there.
     pub check: String,
+    /// Skip repo files whose path contains any of these.
+    #[serde(default)]
+    pub skip: Vec<String>,
+    /// The repo needs a (free) Hugging Face account that has accepted its
+    /// terms. The token comes from HF_TOKEN or `huggingface-cli login`.
+    #[serde(default)]
+    pub gated: bool,
+    /// Web page to open so the user can accept the terms.
+    #[serde(default)]
+    pub page: Option<String>,
 }
 
 impl ModelList {
@@ -56,6 +69,16 @@ impl ModelList {
 }
 
 impl ModelSet {
+    /// Is this set needed when `engine` makes the 3D models?
+    pub fn needed_for(&self, engine: crate::MeshEngine) -> bool {
+        match self.for_model.as_deref() {
+            None => true,
+            Some("pixal3d") => engine == crate::MeshEngine::Pixal3D,
+            Some("trellis2") => engine == crate::MeshEngine::Trellis2Comfy,
+            Some(_) => true,
+        }
+    }
+
     /// Files of this set that aren't in `models_dir` yet.
     pub fn missing(&self, models_dir: &Path) -> Vec<String> {
         let mut missing: Vec<String> = self
@@ -94,9 +117,24 @@ impl ModelSet {
             .filter(|f| !models_dir.join(&f.path).is_file())
             .map(|f| (f.url.clone(), models_dir.join(&f.path)))
             .collect();
+        let mut token = None;
         if let Some(repo) = &self.hf_repo {
             if !models_dir.join(&repo.path).join(&repo.check).is_file() {
-                for file in hf_repo_files(&agent, &repo.repo)? {
+                if repo.gated {
+                    token = hf_token();
+                    if token.is_none() {
+                        bail!(
+                            "{} needs a free Hugging Face account. Open {}, sign in and click \"Agree\", then run ai\\setup\\Install Pixal3D.bat once to sign in on this PC (or set HF_TOKEN).",
+                            self.name,
+                            repo.page.clone().unwrap_or_else(|| format!("https://huggingface.co/{}", repo.repo))
+                        );
+                    }
+                }
+                let mut files = hf_repo_files(&agent, &repo.repo)?;
+                files.retain(|f| !repo.skip.iter().any(|s| f.contains(s.as_str())));
+                // The check file last, so a stopped download never looks finished.
+                files.sort_by_key(|f| *f == repo.check);
+                for file in files {
                     let dest = models_dir.join(&repo.path).join(&file);
                     if !dest.is_file() {
                         jobs.push((
@@ -108,10 +146,32 @@ impl ModelSet {
             }
         }
         for (url, dest) in jobs {
-            download_file(&agent, &url, &dest, cancel, progress)?;
+            let auth = token.as_deref().filter(|_| url.starts_with("https://huggingface.co/"));
+            download_file(&agent, &url, &dest, auth, cancel, progress)?;
         }
         Ok(())
     }
+}
+
+/// The Hugging Face token: HF_TOKEN, or the one `huggingface-cli login` saved.
+pub fn hf_token() -> Option<String> {
+    if let Ok(t) = std::env::var("HF_TOKEN") {
+        if !t.trim().is_empty() {
+            return Some(t.trim().to_string());
+        }
+    }
+    let mut places = Vec::new();
+    if let Ok(home) = std::env::var("HF_HOME") {
+        places.push(PathBuf::from(home).join("token"));
+    }
+    if let Some(home) = dirs::home_dir() {
+        places.push(home.join(".cache").join("huggingface").join("token"));
+    }
+    places
+        .into_iter()
+        .filter_map(|p| std::fs::read_to_string(p).ok())
+        .map(|t| t.trim().to_string())
+        .find(|t| !t.is_empty())
 }
 
 /// Every file in a public Hugging Face repo.
@@ -141,6 +201,7 @@ fn download_file(
     agent: &ureq::Agent,
     url: &str,
     dest: &Path,
+    token: Option<&str>,
     cancel: &AtomicBool,
     progress: &mut dyn FnMut(&str, u64, Option<u64>),
 ) -> anyhow::Result<()> {
@@ -148,12 +209,17 @@ fn download_file(
         .file_name()
         .map(|n| n.to_string_lossy().into_owned())
         .unwrap_or_default();
-    let mut resp = agent
-        .get(url)
-        .header("User-Agent", "ThreadSmith")
-        .call()
-        .with_context(|| format!("Couldn't start downloading {name}"))?;
+    let mut req = agent.get(url).header("User-Agent", "ThreadSmith");
+    if let Some(t) = token {
+        req = req.header("Authorization", &format!("Bearer {t}"));
+    }
+    let mut resp = req.call().with_context(|| format!("Couldn't start downloading {name}"))?;
     let status = resp.status().as_u16();
+    if status == 401 || status == 403 {
+        bail!(
+            "Hugging Face said no to {name} ({status}). Open the model's page, sign in and click \"Agree\" to its terms, then try again. ({url})"
+        );
+    }
     if status != 200 {
         bail!("Downloading {name} failed: the server answered {status} ({url})");
     }
@@ -212,9 +278,12 @@ mod tests {
     fn model_list_loads_and_checks() {
         let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../ai/models.json");
         let list = ModelList::load(&path).unwrap();
-        assert_eq!(list.sets.len(), 2);
+        assert_eq!(list.sets.len(), 4);
+        assert!(list.sets.iter().any(|s| s.hf_repo.as_ref().is_some_and(|r| r.gated)));
         let empty = std::env::temp_dir().join("threadsmith_no_models_here");
         assert!(!list.sets[0].is_ready(&empty));
-        assert_eq!(list.sets[1].missing(&empty).len(), 6);
+        let trellis = list.sets.iter().find(|s| s.id == "trellis2_4b").unwrap();
+        assert_eq!(trellis.missing(&empty).len(), 6);
+        assert!(!trellis.needed_for(crate::MeshEngine::Pixal3D));
     }
 }

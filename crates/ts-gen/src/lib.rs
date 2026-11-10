@@ -1,12 +1,12 @@
 //! AI garment generation for ThreadSmith.
 //!
-//! ThreadSmith doesn't run the AI models itself. It drives a local ComfyUI
-//! (running hidden in the background) through ComfyUI's HTTP API:
-//!
 //! 1. **Images:** FLUX.2 [klein] 4B turns the garment preset + the user's text
 //!    (and optional reference image) into a few "ghost mannequin" pictures.
-//! 2. **3D:** TRELLIS.2 (the ComfyUI-Trellis2 nodes) turns the picked picture
-//!    into a textured GLB, which ThreadSmith adds as a garment.
+//!    This runs in a local ComfyUI (hidden in the background) through its HTTP API.
+//! 2. **3D:** Pixal3D turns the picked picture into a textured GLB, run by the
+//!    ThreadSmith Engine (`ai/engine/threadsmith_engine.py`, see [`engine`]),
+//!    which sends live previews while the model forms. TRELLIS.2 through a
+//!    ComfyUI workflow is still available as the other choice.
 //!
 //! Data files live in the `ai/` folder next to the app:
 //! - `ai/presets/garment_presets.json`: hidden prompts and placement per garment type.
@@ -14,13 +14,15 @@
 //! - `ai/models.json`: model files and where to download them.
 
 pub mod comfy;
+pub mod engine;
 pub mod jobs;
 pub mod models;
 pub mod presets;
 
 use std::path::{Path, PathBuf};
 
-pub use comfy::{Comfy, EngineSettings, Launcher};
+pub use comfy::{Comfy, EngineSettings, Launcher, MeshEngine};
+pub use engine::{EngineHost, LivePreview};
 pub use jobs::{GenEvent, GenJob, GenRequest, Quality};
 pub use models::{ModelFile, ModelSet};
 pub use presets::{Garment, Place, Presets};

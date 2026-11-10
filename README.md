@@ -98,7 +98,7 @@ Only skinned garments follow the body, so Auto skin before testing.
 3. **Make pictures**: pick the one you like. **Make 3D**: it's added to the
    scene and placed on the body. Then Fit to body and Auto skin as usual.
 
-It uses a local ComfyUI with FLUX.2 [klein] (pictures) and TRELLIS.2 (3D).
+It uses FLUX.2 [klein] in a local ComfyUI for pictures and Pixal3D (run by the ThreadSmith Engine, with a live view next to the body) for 3D. TRELLIS.2 is the other 3D choice. Setup: `ai\setup\Install Pixal3D.bat` once. Details: [docs/ai-generation.md](docs/ai-generation.md).
 Setup and details: `docs/ai-generation.md`.
 
 ### Unreal bridge
@@ -170,7 +170,7 @@ Open that FBX in ThreadSmith.
 | `crates/ts-fit` | Garment fitting and auto skinning (closest-point search, fit, push-out, weight transfer) |
 | `crates/ts-library` | Outfit library folder (outfit.json + outfit.glb + thumbnail.png) |
 | `crates/ts-gen` | AI generation: garment presets, local ComfyUI client, model downloads |
-| `ai/` | Garment presets, icons, ComfyUI workflows and the model list |
+| `ai/` | Garment presets, icons, ComfyUI workflows, the model list, the ThreadSmith Engine (`ai/engine`) and setup scripts (`ai/setup`) |
 | `docs/bridge-protocol.md` | Messages between ThreadSmith and the Unreal plugin |
 | `crates/ts-app` | The app window, panels and the wgpu 3D viewport |
 

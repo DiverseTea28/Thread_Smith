@@ -35,6 +35,41 @@ pub struct EngineSettings {
     pub image_model: String,
     pub text_encoder: String,
     pub image_vae: String,
+    /// Which 3D model makes the garment.
+    pub mesh_engine: MeshEngine,
+    /// Show the model forming in the viewport while it's made.
+    pub live_view: bool,
+    /// Lens width (degrees) Pixal3D assumes for the picture. Product
+    /// pictures are close to a narrow, straight-on lens.
+    pub lens_degrees: f32,
+}
+
+/// Which 3D model turns the picture into a garment.
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq, Default)]
+pub enum MeshEngine {
+    /// Pixal3D, run by ThreadSmith's own engine (live previews).
+    #[default]
+    Pixal3D,
+    /// TRELLIS.2 through a ComfyUI workflow (no live previews).
+    Trellis2Comfy,
+}
+
+impl MeshEngine {
+    pub const ALL: [MeshEngine; 2] = [MeshEngine::Pixal3D, MeshEngine::Trellis2Comfy];
+
+    pub fn label(&self) -> &'static str {
+        match self {
+            MeshEngine::Pixal3D => "Pixal3D (ThreadSmith Engine)",
+            MeshEngine::Trellis2Comfy => "TRELLIS.2 (ComfyUI workflow)",
+        }
+    }
+
+    pub fn hint(&self) -> &'static str {
+        match self {
+            MeshEngine::Pixal3D => "Follows the picture closely. Shows the model forming live. MIT licence.",
+            MeshEngine::Trellis2Comfy => "Runs as a ComfyUI workflow. No live view. MIT licence.",
+        }
+    }
 }
 
 impl Default for EngineSettings {
@@ -47,6 +82,9 @@ impl Default for EngineSettings {
             image_model: "flux-2-klein-4b.safetensors".into(),
             text_encoder: "qwen_3_4b.safetensors".into(),
             image_vae: "flux2-vae.safetensors".into(),
+            mesh_engine: MeshEngine::Pixal3D,
+            live_view: true,
+            lens_degrees: 20.0,
         }
     }
 }
@@ -253,6 +291,15 @@ impl Comfy {
             (Some(n), _) => Ok(n.to_string()),
             _ => bail!("ComfyUI didn't accept the picture: {text}"),
         }
+    }
+
+    /// Ask ComfyUI to unload its models, so the graphics card has room for
+    /// the 3D engine. Does nothing if ComfyUI isn't running.
+    pub fn free_memory(&self) {
+        let _ = Self::quick_agent()
+            .post(&format!("{}/free", self.base))
+            .header("Content-Type", "application/json")
+            .send(r#"{"unload_models": true, "free_memory": true}"#);
     }
 
     /// Stop whatever is running.
@@ -594,7 +641,7 @@ impl Drop for Launcher {
     }
 }
 
-fn log_tail(path: &Path) -> String {
+pub(crate) fn log_tail(path: &Path) -> String {
     let mut text = String::new();
     if let Ok(mut f) = std::fs::File::open(path) {
         let _ = f.read_to_string(&mut text);

@@ -1,6 +1,6 @@
 //! The main window: menus, side panels and the 3D viewport.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::mpsc::{self, Receiver};
 
 use egui::{Color32, PointerButton, RichText, Sense};
@@ -207,6 +207,11 @@ pub struct ThreadSmithApp {
 
     /// The AI "Generate clothing" window.
     generate: GeneratePanel,
+    /// Live view version shown in the viewport, and where it's drawn.
+    live_seen: u64,
+    live_place: Option<crate::live_view::Placement>,
+    auto_mesh_done: bool,
+    body_renders_done: bool,
     icons: UiIcons,
     workspace: Workspace,
     /// The open project file (None until saved or opened).
@@ -307,6 +312,10 @@ impl ThreadSmithApp {
             anim_dirty: false,
             pending_head: None,
             generate,
+            live_seen: 0,
+            live_place: None,
+            auto_mesh_done: false,
+            body_renders_done: false,
             icons: UiIcons::load(&cc.egui_ctx),
             workspace: Workspace::Import,
             project_path: None,
@@ -333,7 +342,11 @@ impl ThreadSmithApp {
             app.error = Some("Could not start the GPU renderer (wgpu).".into());
         }
         if let Some(p) = open_path {
-            app.start_load(p, LoadKind::Body);
+            if p.extension().is_some_and(|e| e.eq_ignore_ascii_case("tsproj")) {
+                app.open_project(p);
+            } else {
+                app.start_load(p, LoadKind::Body);
+            }
         }
         // For screenshots and testing: start on a given tab.
         if let Ok(tab) = std::env::var("THREADSMITH_TAB") {
@@ -624,6 +637,7 @@ impl ThreadSmithApp {
                 overlay_lines: Vec::new(),
                 outline_part: None,
                 shadow: None,
+                plain_background: None,
             };
             {
                 let mut renderer = rs.renderer.write();
@@ -2416,6 +2430,141 @@ impl ThreadSmithApp {
         }
     }
 
+    // ---- Body renders (for dressing the body with AI) ---------------------------
+
+    /// Render the body alone from eight directions (front, back, left, right,
+    /// top, bottom, and front from above / below) with a narrow lens and a plain background, and save
+    /// `body_<side>.png` and `camera.json` (everything needed to know where
+    /// each pixel is in 3D) into `dir`.
+    fn render_body_views(&mut self, rs: &egui_wgpu::RenderState, joint_world: &[Mat4], dir: &Path) -> anyhow::Result<()> {
+        const SIZE: u32 = 1024;
+        const FOV_DEG: f32 = 20.0;
+        let scene = self.scene.as_mut().ok_or_else(|| anyhow::anyhow!("no body open"))?;
+        let viewport = self.viewport.as_mut().ok_or_else(|| anyhow::anyhow!("no renderer"))?;
+        std::fs::create_dir_all(dir)?;
+        let saved: Vec<bool> = scene.parts.iter().map(|p| p.visible).collect();
+        for p in scene.parts.iter_mut() {
+            p.visible = matches!(p.role, ts_core::PartRole::Body | ts_core::PartRole::Head);
+        }
+        viewport.set_visibility(scene);
+        let pts: Vec<Vec3> = scene
+            .parts
+            .iter()
+            .filter(|p| p.visible)
+            .flat_map(|p| p.mesh.skinned(joint_world).0)
+            .collect();
+        let b = ts_core::Bounds::from_points(pts).ok_or_else(|| anyhow::anyhow!("the body has no points"))?;
+        let fov = FOV_DEG.to_radians();
+        let settings = DrawSettings {
+            wireframe: false,
+            shaded: true,
+            grid: false,
+            overlay_lines: Vec::new(),
+            outline_part: None,
+            shadow: None,
+            plain_background: Some([0.93, 0.93, 0.93]),
+        };
+        let mut views = Vec::new();
+        use std::f32::consts::{FRAC_PI_2, PI};
+        // Straight up/down would make the "up" direction undefined, so top
+        // and bottom are a hair (0.06°) off vertical.
+        let vertical = FRAC_PI_2 - 0.001;
+        for (name, yaw, pitch) in [
+            ("front", 0.0f32, 0.0f32),
+            ("back", PI, 0.0),
+            // Named by the side of the body that's seen (the body faces +Z,
+            // so its left side is +X).
+            ("left", FRAC_PI_2, 0.0),
+            ("right", -FRAC_PI_2, 0.0),
+            ("top", 0.0, vertical),
+            ("bottom", 0.0, -vertical),
+            // Front, from high up and from low down. The picture AI can't draw a
+            // straight-down or straight-up view of a standing person, but it
+            // can draw these; they cover the shoulders/head top and the hems.
+            ("above", 0.0, 55f32.to_radians()),
+            ("below", 0.0, -35f32.to_radians()),
+        ] {
+            // Each view is framed on its own: fit the body's size as seen
+            // from that side in 90% of the picture.
+            let size = b.max - b.min;
+            let (across, depth) = match name {
+                "front" | "back" => (size.y.max(size.x), size.z),
+                "left" | "right" => (size.y.max(size.z), size.x),
+                "above" | "below" => (size.y.max(size.x), size.z.max(size.y * 0.5)),
+                _ => (size.x.max(size.z), size.y),
+            };
+            let distance = (across * 0.5 / 0.9) / (fov * 0.5).tan() + depth * 0.5;
+            let cam = OrbitCamera { target: b.center(), yaw, pitch, distance, fov_y: fov };
+            {
+                let mut renderer = rs.renderer.write();
+                viewport.render(&rs.device, &rs.queue, &mut renderer, [SIZE, SIZE], &cam, &settings);
+            }
+            let (w, h, rgba) = viewport
+                .read_pixels(&rs.device, &rs.queue)
+                .ok_or_else(|| anyhow::anyhow!("couldn't read the render back"))?;
+            let img = image::RgbaImage::from_raw(w, h, rgba).ok_or_else(|| anyhow::anyhow!("bad render size"))?;
+            let file = dir.join(format!("body_{name}.png"));
+            img.save(&file)?;
+            views.push(serde_json::json!({
+                "file": file.file_name().map(|f| f.to_string_lossy().into_owned()),
+                "view": name,
+                "yaw_degrees": yaw.to_degrees(),
+                "pitch_degrees": pitch.to_degrees(),
+                "eye": cam.eye().to_array(),
+                "distance": distance,
+                // Camera-to-world (Blender/NeRF style: camera looks down its -Z, +Y up), column-major.
+                "camera_to_world": cam.view().inverse().to_cols_array(),
+                "view_proj": cam.view_proj(w as f32 / h as f32).to_cols_array(),
+                "size": [w, h],
+            }));
+        }
+        for (p, v) in scene.parts.iter_mut().zip(saved) {
+            p.visible = v;
+        }
+        viewport.set_visibility(scene);
+        let info = serde_json::json!({
+            "about": "ThreadSmith body renders. Y up, meters. Camera looks at target from eye; vertical field of view fov_y_degrees; square pictures.",
+            "fov_y_degrees": FOV_DEG,
+            "target": b.center().to_array(),
+            "body_bounds": {"min": b.min.to_array(), "max": b.max.to_array()},
+            "views": views,
+        });
+        std::fs::write(dir.join("camera.json"), serde_json::to_string_pretty(&info)?)?;
+        Ok(())
+    }
+
+    // ---- Live view ------------------------------------------------------------
+
+    /// Show the newest preview of the model being made, next to the body.
+    fn update_live_view(&mut self, rs: &egui_wgpu::RenderState) {
+        let (version, preview) = self.generate.live_preview();
+        if version == self.live_seen {
+            return;
+        }
+        self.live_seen = version;
+        let Some(viewport) = &mut self.viewport else { return };
+        let Some(preview) = preview else {
+            viewport.set_preview(&rs.device, None);
+            self.live_place = None;
+            return;
+        };
+        let first = self.live_place.is_none();
+        let place = *self
+            .live_place
+            .get_or_insert_with(|| crate::live_view::Placement::beside_body(self.scene.as_ref(), &self.pose));
+        let geometry = crate::live_view::build(preview, place);
+        viewport.set_preview(&rs.device, Some(&geometry));
+        if first {
+            // Frame the body and the live view together.
+            let live = place.bounds();
+            let b = match self.scene.as_ref().and_then(|s| s.bounds(&self.pose)) {
+                Some(b) => ts_core::Bounds { min: b.min.min(live.min), max: b.max.max(live.max) },
+                None => live,
+            };
+            self.camera.frame(b);
+        }
+    }
+
     // ---- Viewport ------------------------------------------------------------
 
     fn viewport_ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
@@ -2489,6 +2638,21 @@ impl ThreadSmithApp {
         }
         if let Some(send) = self.pending_save.take() {
             self.save_outfit(rs, &joint_world, send);
+        }
+        self.update_live_view(rs);
+        // For tests: THREADSMITH_RENDER_BODY=folder saves front/back body
+        // renders (see render_body_views), then THREADSMITH_EXIT_AFTER=1 closes.
+        if self.loading.is_none() && self.project_job.is_none() && self.has_body() && !self.body_renders_done {
+            if let Some(dir) = std::env::var_os("THREADSMITH_RENDER_BODY") {
+                self.body_renders_done = true;
+                match self.render_body_views(rs, &joint_world, Path::new(&dir)) {
+                    Ok(()) => self.status = format!("Saved body renders to {}", Path::new(&dir).display()),
+                    Err(e) => self.error = Some(format!("Couldn't save body renders: {e:#}")),
+                }
+                if std::env::var_os("THREADSMITH_EXIT_AFTER").is_some() {
+                    ui.ctx().send_viewport_cmd(egui::ViewportCommand::Close);
+                }
+            }
         }
         let body_hide = self.body_preview_wanted();
         let gizmo_now = self.active_gizmo();
@@ -2573,6 +2737,7 @@ impl ThreadSmithApp {
             overlay_lines,
             outline_part,
             shadow,
+            plain_background: None,
         };
         let ppp = ui.ctx().pixels_per_point();
         let px = [
@@ -3280,6 +3445,14 @@ impl eframe::App for ThreadSmithApp {
         if self.loading.is_none() && self.scene.is_some() {
             if let Some(p) = self.dev_garment.take() {
                 self.start_load(p, LoadKind::Garment);
+            }
+        }
+        // For testing the live view: THREADSMITH_AUTO_MESH=picture.png makes
+        // a 3D model from it as soon as a body is open.
+        if self.loading.is_none() && self.has_body() && !self.generate.busy() {
+            if let Some(p) = std::env::var_os("THREADSMITH_AUTO_MESH").filter(|_| !self.auto_mesh_done) {
+                self.auto_mesh_done = true;
+                self.generate.dev_make_3d(&ctx, PathBuf::from(p));
             }
         }
         self.anim_update(&ctx);

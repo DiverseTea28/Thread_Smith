@@ -1,0 +1,30 @@
+denim_jacket   front   score  0.93  body kept 93%, outside 0%, head right way (+0.23), clothes 11.8%
+denim_jacket   back    score  0.97  body kept 97%, outside 0%, head right way (+0.14), clothes 14.2%
+denim_jacket   left    score  0.89  body kept 90%, outside 0%, clothes 7.4%
+denim_jacket   right   score  0.87  body kept 97%, outside 5%, clothes 8.6%
+denim_jacket   top     score -0.03  body kept 81%, outside 42%, clothes 9.7%
+denim_jacket   bottom  score -0.61  body kept 67%, outside 64%, clothes 7.9%
+red_hoodie     front   score  0.96  body kept 96%, outside 0%, head right way (+0.25), clothes 11.9%
+red_hoodie     back    score  0.97  body kept 97%, outside 0%, head right way (+0.06), clothes 13.5%
+red_hoodie     left    score  0.94  body kept 94%, outside 0%, clothes 7.2%
+red_hoodie     right   score  0.89  body kept 90%, outside 1%, clothes 8.2%
+red_hoodie     top     score  0.45  body kept 100%, outside 27%, clothes 10.9%
+red_hoodie     bottom  score -0.53  body kept 62%, outside 58%, clothes 7.2%
+cargo_pants    front   score  0.79  body kept 79%, outside 0%, head right way (+0.21), clothes 10.8%
+cargo_pants    back    score  0.88  body kept 89%, outside 1%, head right way (+0.28), clothes 12.3%
+cargo_pants    left    score  0.94  body kept 94%, outside 0%, clothes 5.9%
+cargo_pants    right   score  0.91  body kept 93%, outside 1%, clothes 8.0%
+cargo_pants    top     score -0.45  body kept 54%, outside 49%, clothes 6.2%
+cargo_pants    bottom  score -0.61  body kept 65%, outside 63%, clothes 8.2%
+sneakers       front   score  0.93  body kept 93%, outside 0%, head right way (+0.24), clothes 12.1%
+sneakers       back    score  0.98  body kept 98%, outside 0%, head right way (+0.21), clothes 13.2%
+sneakers       left    score  0.86  body kept 87%, outside 1%, clothes 6.7%
+sneakers       right   score  0.93  body kept 93%, outside 0%, clothes 7.3%
+sneakers       top     score -0.15  body kept 74%, outside 45%, clothes 9.8%
+sneakers       bottom  score -0.67  body kept 58%, outside 63%, clothes 6.3%
+beanie         front   score -0.13  body kept 87%, outside 0%, head WRONG way (-0.03), clothes 11.6%
+beanie         back    score  0.98  body kept 98%, outside 0%, head right way (+0.03), clothes 11.8%
+beanie         left    score  0.90  body kept 90%, outside 0%, clothes 5.0%
+beanie         right   score  0.97  body kept 97%, outside 0%, clothes 7.5%
+beanie         top     score  0.34  body kept 98%, outside 32%, clothes 8.8%
+beanie         bottom  score -0.52  body kept 62%, outside 57%, clothes 6.3%

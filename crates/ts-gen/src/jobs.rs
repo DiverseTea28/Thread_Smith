@@ -11,7 +11,8 @@ use anyhow::{anyhow, bail, Context};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-use crate::comfy::{fill_workflow, Comfy, EngineSettings, Launcher, Progress};
+use crate::comfy::{fill_workflow, Comfy, EngineSettings, Launcher, MeshEngine, Progress};
+use crate::engine::{EngineHost, LivePreview};
 use crate::models::ModelSet;
 
 /// How much time to spend on the 3D model.
@@ -46,6 +47,15 @@ impl Quality {
         match self {
             Quality::Fast => "garment_3d_fast.json",
             _ => "garment_3d.json",
+        }
+    }
+
+    /// Name used by the ThreadSmith Engine.
+    fn engine_name(&self) -> &'static str {
+        match self {
+            Quality::Fast => "fast",
+            Quality::Balanced => "balanced",
+            Quality::Best => "best",
         }
     }
 
@@ -88,6 +98,25 @@ pub struct EngineReport {
     pub trellis_nodes: bool,
     /// Model sets (by id) that are missing files.
     pub missing_models: Vec<String>,
+    /// The ThreadSmith Engine was checked (Pixal3D is the 3D model).
+    pub engine_checked: bool,
+    /// Pixal3D is installed and ready.
+    pub pixal3d_ready: bool,
+    /// What's missing for Pixal3D, in plain words.
+    pub engine_problems: Vec<String>,
+    /// Graphics card name and memory (GB), from the engine.
+    pub gpu: Option<(String, f32)>,
+}
+
+impl EngineReport {
+    /// Everything the chosen 3D model needs is there.
+    pub fn ready_for(&self, engine: MeshEngine) -> bool {
+        let mesh = match engine {
+            MeshEngine::Pixal3D => self.engine_checked && self.pixal3d_ready,
+            MeshEngine::Trellis2Comfy => self.trellis_nodes,
+        };
+        self.running && mesh
+    }
 }
 
 pub enum GenEvent {
@@ -97,6 +126,8 @@ pub enum GenEvent {
     Progress { label: String, fraction: f32 },
     Image(PathBuf),
     Mesh(PathBuf),
+    /// The model forming (live view).
+    Preview(LivePreview),
     Report(EngineReport),
     /// The job ended (Ok) or failed (Err with a message for the user).
     Finished(Result<(), String>),
@@ -113,9 +144,11 @@ impl GenJob {
     }
 
     /// Start a job. `wake` is called after every event (to redraw the window).
+    #[allow(clippy::too_many_arguments)]
     pub fn start(
         settings: EngineSettings,
         launcher: Arc<Mutex<Launcher>>,
+        engine: Arc<Mutex<EngineHost>>,
         ai_dir: PathBuf,
         models: Vec<ModelSet>,
         request: GenRequest,
@@ -129,7 +162,7 @@ impl GenJob {
                 let _ = tx.send(e);
                 wake();
             };
-            let result = run(&settings, &launcher, &ai_dir, &models, request, &c, &send)
+            let result = run(&settings, &launcher, &engine, &ai_dir, &models, request, &c, &send)
                 .map_err(|e| format!("{e:#}"));
             send(GenEvent::Finished(result));
         });
@@ -137,9 +170,11 @@ impl GenJob {
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn run(
     settings: &EngineSettings,
     launcher: &Mutex<Launcher>,
+    engine: &Mutex<EngineHost>,
     ai_dir: &Path,
     models: &[ModelSet],
     request: GenRequest,
@@ -168,6 +203,19 @@ fn run(
         return Ok(());
     }
 
+    if let GenRequest::Mesh { image, quality, faces, seed } = &request {
+        if settings.mesh_engine == MeshEngine::Pixal3D {
+            let mut host = engine.lock().unwrap();
+            return engine_mesh(settings, &mut host, ai_dir, image, *quality, *faces, *seed, cancel, send);
+        }
+    }
+    let mut engine_part = None;
+    if matches!(request, GenRequest::Check) && settings.mesh_engine == MeshEngine::Pixal3D {
+        send(GenEvent::Progress { label: "Starting the ThreadSmith Engine…".into(), fraction: 0.0 });
+        let mut host = engine.lock().unwrap();
+        engine_part = Some(engine_status(settings, &mut host, ai_dir, cancel));
+    }
+
     let comfy = Comfy::new(settings);
     if !comfy.is_up() {
         if !settings.auto_start {
@@ -186,15 +234,24 @@ fn run(
     match request {
         GenRequest::Check => {
             let models_dir = settings.models_dir();
-            let report = EngineReport {
+            let mut report = EngineReport {
                 running: true,
                 trellis_nodes: comfy.has_node("Trellis2LoadModel"),
                 missing_models: models
                     .iter()
-                    .filter(|s| models_dir.as_ref().is_some_and(|d| !s.is_ready(d)))
+                    .filter(|s| s.needed_for(settings.mesh_engine) && models_dir.as_ref().is_some_and(|d| !s.is_ready(d)))
                     .map(|s| s.id.clone())
                     .collect(),
+                ..Default::default()
             };
+            match engine_part {
+                Some(Ok(status)) => apply_engine_status(&mut report, &status),
+                Some(Err(e)) => {
+                    report.engine_checked = true;
+                    report.engine_problems = vec![format!("{e:#}")];
+                }
+                None => {}
+            }
             send(GenEvent::Report(report));
             Ok(())
         }
@@ -281,6 +338,122 @@ fn run(
             Ok(())
         }
         GenRequest::Download { .. } => unreachable!(),
+    }
+}
+
+/// Start the engine (if needed) and ask what it has.
+fn engine_status(
+    settings: &EngineSettings,
+    host: &mut EngineHost,
+    ai_dir: &Path,
+    cancel: &AtomicBool,
+) -> anyhow::Result<Value> {
+    host.start(settings, ai_dir, cancel)?;
+    host.send(&serde_json::json!({"type": "status"}))?;
+    loop {
+        let m = host.recv(cancel)?;
+        match m.kind() {
+            "status" => return Ok(m.header),
+            "error" => bail!("{}", m.header["message"].as_str().unwrap_or("The engine had a problem")),
+            _ => {}
+        }
+    }
+}
+
+fn apply_engine_status(report: &mut EngineReport, status: &Value) {
+    report.engine_checked = true;
+    report.pixal3d_ready = status["models"]["pixal3d"]["installed"].as_bool().unwrap_or(false);
+    report.engine_problems = status["problems"]
+        .as_array()
+        .map(|a| a.iter().filter_map(|p| p.as_str().map(String::from)).collect())
+        .unwrap_or_default();
+    if report.engine_problems.is_empty() && !report.pixal3d_ready {
+        if let Some(p) = status["problem"].as_str() {
+            report.engine_problems.push(p.to_string());
+        }
+    }
+    if let Some(gpu) = status["gpu"].as_str() {
+        report.gpu = Some((gpu.to_string(), status["vram_gb"].as_f64().unwrap_or(0.0) as f32));
+    }
+}
+
+/// Make a 3D model with Pixal3D in the ThreadSmith Engine, forwarding live
+/// previews.
+#[allow(clippy::too_many_arguments)]
+fn engine_mesh(
+    settings: &EngineSettings,
+    host: &mut EngineHost,
+    ai_dir: &Path,
+    image: &Path,
+    quality: Quality,
+    faces: u32,
+    seed: u64,
+    cancel: &AtomicBool,
+    send: &dyn Fn(GenEvent),
+) -> anyhow::Result<()> {
+    // FLUX (the picture model) may still be sitting in the graphics card's
+    // memory inside ComfyUI. Pixal3D needs that room.
+    let comfy = Comfy::new(settings);
+    if comfy.is_up() {
+        comfy.free_memory();
+    }
+    if !host.is_running() {
+        send(GenEvent::Progress { label: "Starting the ThreadSmith Engine…".into(), fraction: 0.0 });
+    }
+    host.start(settings, ai_dir, cancel)?;
+
+    let out_dir = image
+        .parent()
+        .map(Path::to_path_buf)
+        .filter(|d| d.starts_with(crate::generated_dir()))
+        .map(Ok)
+        .unwrap_or_else(crate::new_run_dir)?;
+    let (_, _, texture) = quality.numbers();
+    host.send(&serde_json::json!({
+        "type": "generate",
+        "image": image,
+        "out_dir": out_dir,
+        "quality": quality.engine_name(),
+        "faces": faces,
+        "texture_size": texture,
+        "seed": seed & 0x7fff_ffff,
+        "live": settings.live_view,
+        "fov_deg": settings.lens_degrees,
+    }))?;
+    loop {
+        let m = host.recv(cancel)?;
+        match m.kind() {
+            "progress" => {
+                let label = m.header["label"].as_str().unwrap_or("Working").to_string();
+                let step = m.header["step"].as_u64().unwrap_or(0);
+                let total = m.header["total"].as_u64().unwrap_or(0);
+                let label = if total > 0 { format!("{label} ({step} of {total})") } else { label };
+                let fraction = m.header["fraction"].as_f64().unwrap_or(0.0) as f32;
+                send(GenEvent::Progress { label, fraction });
+            }
+            "preview_voxels" | "preview_mesh" => {
+                if let Some(p) = LivePreview::from_message(&m) {
+                    send(GenEvent::Preview(p));
+                }
+            }
+            "log" => log::info!("Engine: {}", m.header["text"].as_str().unwrap_or("")),
+            "done" => {
+                let path = m.header["glb_path"].as_str().ok_or_else(|| anyhow!("The engine finished but didn't say where the model is"))?;
+                send(GenEvent::Mesh(PathBuf::from(path)));
+                return Ok(());
+            }
+            "error" => {
+                let message = m.header["message"].as_str().unwrap_or("The engine had a problem").to_string();
+                if let Some(d) = m.header["detail"].as_str() {
+                    log::warn!("Engine error detail:\n{d}");
+                }
+                if m.header["cancelled"].as_bool() == Some(true) {
+                    bail!("Stopped.");
+                }
+                bail!("{message}\n(More detail in {})", EngineHost::log_path().display());
+            }
+            _ => {}
+        }
     }
 }
 

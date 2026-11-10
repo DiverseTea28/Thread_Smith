@@ -1,2 +1,4 @@
-STARTED 2026-11-07 21:44:37.84
-    Finished `release` profile [optimized] target(s) in 0.54s
+STARTED 2026-11-09 16:43:52.05
+   Compiling ts-gen v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-gen)
+   Compiling ts-app v0.1.0 (C:\Users\tyco0\Documents\ThreadSmith\crates\ts-app)
+    Finished `release` profile [optimized] target(s) in 18.27s

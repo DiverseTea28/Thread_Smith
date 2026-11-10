@@ -7,12 +7,15 @@
 //! cargo run --release -p ts-gen --example generate -- mesh C:\path\to\picture.png balanced
 //! ```
 //! Uses ComfyUI at 127.0.0.1:8188 (or the port in THREADSMITH_COMFY_PORT) and
-//! starts it if it isn't running.
+//! starts it if it isn't running. 3D models are made with Pixal3D in the
+//! ThreadSmith Engine (set THREADSMITH_TRELLIS=1 for the TRELLIS.2 workflow).
+//! THREADSMITH_ENGINE_FAKE=1 makes the engine pretend (no graphics card needed);
+//! THREADSMITH_ENGINE_PYTHON picks the Python that runs it.
 
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
-use ts_gen::{EngineSettings, GenEvent, GenJob, GenRequest, Launcher, Presets, Quality};
+use ts_gen::{EngineHost, EngineSettings, GenEvent, GenJob, GenRequest, Launcher, LivePreview, MeshEngine, Presets, Quality};
 
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -25,6 +28,9 @@ fn main() {
     }
     if std::env::var("THREADSMITH_NO_START").is_ok() {
         settings.auto_start = false;
+    }
+    if std::env::var("THREADSMITH_TRELLIS").is_ok() {
+        settings.mesh_engine = MeshEngine::Trellis2Comfy;
     }
     let request = match args.first().map(String::as_str) {
         Some("check") => GenRequest::Check,
@@ -51,7 +57,8 @@ fn main() {
         }
     };
     let launcher = Arc::new(Mutex::new(Launcher::default()));
-    let job = GenJob::start(settings, launcher.clone(), ai_dir, models, request, || {});
+    let engine = Arc::new(Mutex::new(EngineHost::default()));
+    let job = GenJob::start(settings, launcher.clone(), engine.clone(), ai_dir, models, request, || {});
     let mut ok = true;
     for ev in job.rx.iter() {
         match ev {
@@ -59,6 +66,10 @@ fn main() {
             GenEvent::Progress { label, fraction } => println!("[{:>3.0}%] {label}", fraction * 100.0),
             GenEvent::Image(p) => println!("Picture: {}", p.display()),
             GenEvent::Mesh(p) => println!("3D model: {}", p.display()),
+            GenEvent::Preview(LivePreview::Voxels { centres, .. }) => println!("  live view: {} cubes", centres.len()),
+            GenEvent::Preview(LivePreview::Mesh { vertices, indices }) => {
+                println!("  live view: mesh, {} points, {} triangles", vertices.len(), indices.len() / 3)
+            }
             GenEvent::Report(r) => println!("{r:?}"),
             GenEvent::Finished(r) => {
                 if let Err(e) = r {
@@ -71,5 +82,6 @@ fn main() {
     }
     // Leave ComfyUI running if we didn't start it; stop it if we did.
     launcher.lock().unwrap().stop();
+    engine.lock().unwrap().stop();
     std::process::exit(if ok { 0 } else { 1 });
 }

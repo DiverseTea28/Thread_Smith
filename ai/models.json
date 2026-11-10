@@ -1,5 +1,5 @@
 {
-  "_about": "Model files ThreadSmith's generator needs, and where they go inside ComfyUI's models folder. ThreadSmith checks these and offers to download what's missing.",
+  "_about": "Model files ThreadSmith's generator needs, and where they go inside ComfyUI's models folder. ThreadSmith checks these and offers to download what's missing. \"for\" says which 3D model a set belongs to (pixal3d or trellis2); sets without it are always needed.",
   "sets": [
     {
       "id": "flux2_klein_4b",
@@ -7,23 +7,82 @@
       "license": "Apache 2.0",
       "size_gb": 16.1,
       "files": [
-        { "path": "diffusion_models/flux-2-klein-4b.safetensors", "url": "https://huggingface.co/Comfy-Org/flux2-klein/resolve/main/split_files/diffusion_models/flux-2-klein-4b.safetensors" },
-        { "path": "text_encoders/qwen_3_4b.safetensors", "url": "https://huggingface.co/Comfy-Org/flux2-klein/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors" },
-        { "path": "vae/flux2-vae.safetensors", "url": "https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/vae/flux2-vae.safetensors" }
+        {
+          "path": "diffusion_models/flux-2-klein-4b.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/flux2-klein/resolve/main/split_files/diffusion_models/flux-2-klein-4b.safetensors"
+        },
+        {
+          "path": "text_encoders/qwen_3_4b.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/flux2-klein/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors"
+        },
+        {
+          "path": "vae/flux2-vae.safetensors",
+          "url": "https://huggingface.co/Comfy-Org/flux2-dev/resolve/main/split_files/vae/flux2-vae.safetensors"
+        }
       ]
+    },
+    {
+      "id": "pixal3d",
+      "name": "Pixal3D (3D model)",
+      "license": "MIT",
+      "size_gb": 12.0,
+      "for": "pixal3d",
+      "hf_repo": {
+        "repo": "TencentARC/Pixal3D",
+        "path": "Pixal3D/TencentARC_Pixal3D",
+        "check": "pipeline.json",
+        "skip": [
+          "_mv",
+          "assets/"
+        ],
+        "gated": true,
+        "page": "https://huggingface.co/TencentARC/Pixal3D"
+      }
+    },
+    {
+      "id": "pixal3d_dinov3",
+      "name": "DINOv3 picture reader (for Pixal3D)",
+      "license": "DINOv3 License",
+      "size_gb": 1.2,
+      "for": "pixal3d",
+      "hf_repo": {
+        "repo": "camenduru/dinov3-vitl16-pretrain-lvd1689m",
+        "path": "Pixal3D/camenduru_dinov3-vitl16-pretrain-lvd1689m",
+        "check": "preprocessor_config.json"
+      }
     },
     {
       "id": "trellis2_4b",
       "name": "TRELLIS.2 4B (3D model)",
       "license": "MIT",
-      "hf_repo": { "repo": "microsoft/TRELLIS.2-4B", "path": "microsoft/TRELLIS.2-4B", "check": "pipeline.json" },
+      "hf_repo": {
+        "repo": "microsoft/TRELLIS.2-4B",
+        "path": "microsoft/TRELLIS.2-4B",
+        "check": "pipeline.json"
+      },
       "files": [
-        { "path": "microsoft/TRELLIS-image-large/ckpts/ss_dec_conv3d_16l8_fp16.json", "url": "https://huggingface.co/microsoft/TRELLIS-image-large/resolve/main/ckpts/ss_dec_conv3d_16l8_fp16.json" },
-        { "path": "microsoft/TRELLIS-image-large/ckpts/ss_dec_conv3d_16l8_fp16.safetensors", "url": "https://huggingface.co/microsoft/TRELLIS-image-large/resolve/main/ckpts/ss_dec_conv3d_16l8_fp16.safetensors" },
-        { "path": "facebook/dinov3-vitl16-pretrain-lvd1689m/model.safetensors", "url": "https://huggingface.co/visualbruno/dinov3-vitl16-pretrain-lvd1689m/resolve/main/model.safetensors" },
-        { "path": "facebook/dinov3-vitl16-pretrain-lvd1689m/config.json", "url": "https://huggingface.co/visualbruno/dinov3-vitl16-pretrain-lvd1689m/resolve/main/config.json" },
-        { "path": "facebook/dinov3-vitl16-pretrain-lvd1689m/preprocessor_config.json", "url": "https://huggingface.co/visualbruno/dinov3-vitl16-pretrain-lvd1689m/resolve/main/preprocessor_config.json" }
-      ]
+        {
+          "path": "microsoft/TRELLIS-image-large/ckpts/ss_dec_conv3d_16l8_fp16.json",
+          "url": "https://huggingface.co/microsoft/TRELLIS-image-large/resolve/main/ckpts/ss_dec_conv3d_16l8_fp16.json"
+        },
+        {
+          "path": "microsoft/TRELLIS-image-large/ckpts/ss_dec_conv3d_16l8_fp16.safetensors",
+          "url": "https://huggingface.co/microsoft/TRELLIS-image-large/resolve/main/ckpts/ss_dec_conv3d_16l8_fp16.safetensors"
+        },
+        {
+          "path": "facebook/dinov3-vitl16-pretrain-lvd1689m/model.safetensors",
+          "url": "https://huggingface.co/visualbruno/dinov3-vitl16-pretrain-lvd1689m/resolve/main/model.safetensors"
+        },
+        {
+          "path": "facebook/dinov3-vitl16-pretrain-lvd1689m/config.json",
+          "url": "https://huggingface.co/visualbruno/dinov3-vitl16-pretrain-lvd1689m/resolve/main/config.json"
+        },
+        {
+          "path": "facebook/dinov3-vitl16-pretrain-lvd1689m/preprocessor_config.json",
+          "url": "https://huggingface.co/visualbruno/dinov3-vitl16-pretrain-lvd1689m/resolve/main/preprocessor_config.json"
+        }
+      ],
+      "for": "trellis2"
     }
   ]
 }
