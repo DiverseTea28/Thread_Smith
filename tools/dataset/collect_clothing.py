@@ -101,6 +101,13 @@ EXCLUDE = [
     "bottle", "wine", "cake", "food", "pizza", "lamp", "logo", "icon", "sign", "poster", "texture", "material",
     "keyboard", "phone", "chess", "watchtower", "lighthouse", "test", "wip", "sculpt", "base mesh",
     "nsfw", "lingerie", "underwear", "bra", "bikini", "swimsuit",
+    # Look like garment words but aren't clothing (found in the first run).
+    "roblox", "coat of arms", "coat of arm", "3d coat", "3dcoat", "3d-coat", "coat hook", "coat stand", "coat rail",
+    "coat hanger", "coat racks", "puffer fish", "pufferfish", "fish", "puffer t", "chevy", "chevrolet",
+    "tee box", "tee stone", "van", "mushroom", "mushrooms", "spongebob", "sponge bob",
+    "conveyor", "asteroid", "drinking glass", "wine glass", "shot glass", "watch tower", "boot camp",
+    "photogrammetry of a statue", "jacket and jeans", "jacket and skirt", "top and", "and shorts",
+    "and pants", "hoodie and", "with vest", "uniform set",
 ]
 
 # Words that are fine with a garment word ("shoe rack" is excluded, "shoe" is fine).
@@ -142,6 +149,10 @@ def classify(name: str, tags: list[str]) -> tuple[str | None, str]:
     clear tag matches with a fashion category; and no exclude word."""
     n = words(name)
     t = words(" ".join(tags))
+    if "roblox" in (name + " " + " ".join(tags)).lower():
+        return None, "Roblox"
+    if LOW_POLY.search(name or ""):
+        return None, "low poly in the name"
     for w in EXCLUDE:
         if has_word(n, w):
             return None, f"name says '{w}'"
@@ -178,6 +189,15 @@ def ai_problem(description: str, tags: list[str]) -> str:
         start = max(0, m.start() - 40)
         return "description mentions AI: …" + text[start:m.end() + 40].replace("\n", " ") + "…"
     return ""
+
+
+# "low poly", "lowpoly", "low-poly", "low_poly", and the common typo "low ploy".
+LOW_POLY = re.compile(r"(?<![a-z])low[\s_-]*(?:poly|ploy)(?!ester)", re.I)
+
+
+def is_retry_reason(reason: str) -> bool:
+    """Reasons that mean "couldn't check right now", not "left out"."""
+    return reason.startswith("Sketchfab check failed")
 
 
 def slug(text: str, n: int = 40) -> str:
@@ -291,13 +311,25 @@ class Collector:
         self.lock = threading.Lock()
         self.done = self._load_jsonl("done.jsonl")          # uid -> record (kept)
         self.excluded = self._load_jsonl("excluded.jsonl")  # uid -> {reason...}
+        # A failed check (429 "too many requests", timeouts...) isn't a real reason to leave a
+        # model out, so those are tried again on every run.
+        self.excluded = {u: r for u, r in self.excluded.items() if not is_retry_reason(r.get("reason", ""))}
+        self.retry_later = 0
+        self.rate_lock = threading.Lock()
+        self.next_check = 0.0
+        self.cooldowns = 0
         self.token = None
-        tok = out / "sketchfab_token.txt"
-        if tok.is_file():
-            self.token = tok.read_text(encoding="utf-8").strip() or None
+        # Windows often hides ".txt", so "sketchfab_token.txt.txt" is accepted too.
+        for tok in (out / "sketchfab_token.txt", out / "sketchfab_token.txt.txt", out / "sketchfab_token"):
+            if tok.is_file():
+                self.token = tok.read_text(encoding="utf-8-sig").strip() or None
+                if self.token:
+                    break
         self.bytes_total = sum(r.get("bytes", 0) for r in self.done.values())
         self.counts: dict[str, int] = {}
         for r in self.done.values():
+            if r.get("review") == "rejected":
+                continue
             self.counts[r["type"]] = self.counts.get(r["type"], 0) + 1
 
     # ---- state ----
@@ -373,14 +405,51 @@ class Collector:
             shutil.rmtree(meta_dir, ignore_errors=True)
         return cands
 
+    # ---- Sketchfab pace ----
+    def pace(self) -> None:
+        """Every Sketchfab request (checks and searches, all workers) waits its turn here."""
+        gap = 60.0 / max(self.args.checks_per_min, 1)
+        with self.rate_lock:
+            wait = self.next_check - time.time()
+            self.next_check = max(self.next_check, time.time()) + gap
+        if wait > 0:
+            time.sleep(wait)
+
+    def cool_down(self) -> None:
+        """Sketchfab said "too many requests": stop asking for a while instead of asking again."""
+        pause = self.args.cooldown_min * 60
+        with self.rate_lock:
+            if self.next_check > time.time() + pause / 2:
+                return  # another worker already started a pause
+            self.next_check = time.time() + pause
+            self.cooldowns += 1
+        self.log(f"Sketchfab says too many requests: pausing {self.args.cooldown_min:g} min, then carrying on")
+
+    def sketchfab_get(self, url: str, timeout: int = 30) -> bytes:
+        """GET from the Sketchfab API at the shared pace, with the token if there is one.
+        On 429 it pauses everything and tries again (up to 4 pauses)."""
+        headers = {"Authorization": f"Token {self.token}"} if self.token else {}
+        for _ in range(4):
+            self.pace()
+            try:
+                return http_get(url, headers=headers, timeout=timeout, tries=2)
+            except urllib.error.HTTPError as e:
+                if e.code != 429:
+                    raise
+                self.cool_down()
+        self.pace()
+        return http_get(url, headers=headers, timeout=timeout, tries=1)
+
     # ---- step 2: live check on Sketchfab ----
     def live_check(self, uid: str) -> tuple[dict | None, str]:
         """Current Sketchfab page data, or (None, reason)."""
         try:
-            data = json.loads(http_get(f"{SKETCHFAB_API}/models/{uid}", timeout=30))
+            data = json.loads(self.sketchfab_get(f"{SKETCHFAB_API}/models/{uid}"))
         except urllib.error.HTTPError as e:
             if e.code == 404:
                 return None, "no longer on Sketchfab (can't check its licence today)"
+            if e.code == 401:
+                return None, "Sketchfab check failed (401: the token in sketchfab_token.txt was refused)"
             return None, f"Sketchfab check failed ({e.code})"
         except Exception as exc:  # noqa: BLE001
             return None, f"Sketchfab check failed ({type(exc).__name__})"
@@ -405,7 +474,7 @@ class Collector:
             return
         if self.args.max_gb and self.bytes_total > self.args.max_gb * 1e9:
             return
-        if c.get("faces") and (c["faces"] > self.args.max_faces or c["faces"] < 50):
+        if c.get("faces") and (c["faces"] > self.args.max_faces or c["faces"] < self.args.min_faces):
             self.exclude(uid, c["name"], c["source"], f"{c['faces']} faces", c["url"])
             return
         # Objaverse's metadata says nothing against AI either.
@@ -415,7 +484,15 @@ class Collector:
             return
         live, why = self.live_check(uid)
         if live is None:
+            if is_retry_reason(why):
+                with self.lock:
+                    self.retry_later += 1
+                return  # not saved as left out: tried again next run
             self.exclude(uid, c["name"], c["source"], why, c["url"])
+            return
+        faces = live.get("faceCount") or 0
+        if faces and faces < self.args.min_faces:
+            self.exclude(uid, c["name"], c["source"], f"{faces} faces", c["url"])
             return
         # Re-classify with today's name and tags.
         live_tags = [t.get("name", "") for t in live.get("tags", []) if isinstance(t, dict)]
@@ -433,8 +510,7 @@ class Collector:
                 url = f"{HF_BASE}/glbs/{c['shard']}/{uid}.glb"
                 size = download_file(url, glb, int(self.args.max_mb * 1e6))
             else:
-                info = json.loads(http_get(f"{SKETCHFAB_API}/models/{uid}/download",
-                                           headers={"Authorization": f"Token {self.token}"}, timeout=60))
+                info = json.loads(self.sketchfab_get(f"{SKETCHFAB_API}/models/{uid}/download", timeout=60))
                 g = info.get("glb")
                 if not g or not g.get("url"):
                     self.exclude(uid, name, c["source"], "no GLB download offered", c["url"])
@@ -507,7 +583,7 @@ class Collector:
                     pages = 0
                     while url and pages < self.args.sketchfab_pages:
                         try:
-                            data = json.loads(http_get(url, headers={"Authorization": f"Token {self.token}"}))
+                            data = json.loads(self.sketchfab_get(url, timeout=60))
                         except Exception as exc:  # noqa: BLE001
                             self.log(f"Sketchfab search '{w}' stopped: {exc}")
                             break
@@ -527,7 +603,6 @@ class Collector:
                             }
                         url = data.get("next")
                         pages += 1
-                        time.sleep(1.0)
                 self.log(f"Sketchfab search: '{w}' done, {len(cands)} candidates so far")
         out = list(cands.values())
         cache.write_text(json.dumps(out), encoding="utf-8")
@@ -535,7 +610,12 @@ class Collector:
 
     # ---- credits ----
     def write_reports(self) -> None:
-        kept = sorted(self.done.values(), key=lambda r: (r["type"], r["name"].lower()))
+        # Worker threads add to these while we write, so copy them under the lock first.
+        with self.lock:
+            done_now = list(self.done.values())
+            excluded_now = list(self.excluded.values())
+        kept = sorted((r for r in done_now if r.get("review") != "rejected"),
+                      key=lambda r: (r["type"], r["name"].lower()))
         with open(self.out / "credits.csv", "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
             w.writerow(["type", "file", "title", "author", "author_url", "licence", "licence_url", "model_url", "flag"])
@@ -562,14 +642,21 @@ class Collector:
         with open(self.out / "excluded.csv", "w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
             w.writerow(["name", "reason", "source", "url"])
-            for r in self.excluded.values():
+            for r in excluded_now:
                 w.writerow([r.get("name", ""), r.get("reason", ""), r.get("source", ""), r.get("url", "")])
 
     def summary(self) -> str:
-        parts = [f"{t}: {n}" for t, n in sorted(self.counts.items())]
-        checks = sum(1 for r in self.done.values() if r.get("flag"))
-        return (f"Kept {len(self.done)} models ({self.bytes_total / 1e9:.1f} GB; {checks} in _check). "
-                f"Left out {len(self.excluded)}. " + ", ".join(parts))
+        with self.lock:
+            counts = dict(self.counts)
+            done_now = list(self.done.values())
+            n_excluded = len(self.excluded)
+            bytes_total = self.bytes_total
+        parts = [f"{t}: {n}" for t, n in sorted(counts.items())]
+        checks = sum(1 for r in done_now if r.get("flag"))
+        done_now = [r for r in done_now if r.get("review") != "rejected"]
+        retry = f" {self.retry_later} couldn't be checked yet (tried again next run)." if self.retry_later else ""
+        return (f"Kept {len(done_now)} models ({bytes_total / 1e9:.1f} GB; {checks} in _check). "
+                f"Left out {n_excluded}.{retry} " + ", ".join(parts))
 
     # ---- run ----
     def run(self) -> None:
@@ -621,11 +708,16 @@ def main() -> int:
     p = argparse.ArgumentParser(description="Collect legally usable clothing models for ThreadSmith training")
     p.add_argument("out", help="The Training data folder")
     p.add_argument("--workers", type=int, default=3, help="Models checked/downloaded at once (default 3)")
+    p.add_argument("--checks-per-min", type=float, default=15,
+                   help="Sketchfab requests per minute, shared by all workers (default 15)")
+    p.add_argument("--cooldown-min", type=float, default=15,
+                   help="Minutes to pause when Sketchfab says too many requests (default 15)")
     p.add_argument("--max-mb", type=float, default=150, help="Skip files bigger than this (default 150 MB)")
     p.add_argument("--max-faces", type=int, default=1_500_000, help="Skip models with more faces")
+    p.add_argument("--min-faces", type=int, default=1000, help="Skip models with fewer faces (default 1000)")
     p.add_argument("--max-gb", type=float, default=200, help="Stop when this much is downloaded (default 200 GB)")
     p.add_argument("--max-per-type", type=int, default=0, help="Stop each type at this many (0 = no limit)")
-    p.add_argument("--sketchfab-pages", type=int, default=20, help="Search pages per word (24 models each)")
+    p.add_argument("--sketchfab-pages", type=int, default=5, help="Search pages per word (24 models each)")
     p.add_argument("--plan-only", action="store_true", help="Only count what would be checked")
     p.add_argument("--keep-metadata", action="store_true", help="Keep the 580 MB of Objaverse metadata")
     args = p.parse_args()
